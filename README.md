@@ -43,7 +43,8 @@ The lore says that all abilities have a 50 percent better chance to be successfu
 #### Recipe:
 (only three of the above are needed)
 (rocks=1), (flint=1), (nitre=1), (goldnugget=1), (marble=1), (moonrocknugget=1), (bluegem=1), (redgem=1), (yellowgem=1), (orangegem=1), (purplegem=1)
-Around a *molehill*
+
+Around a **molehill**
 
 #### Description:
 This ritual can spawn one or more moles out of ores.
@@ -53,7 +54,8 @@ If your DIG-level is maxed, you have a 100 perent chance of being successfull an
 ### Touchstones
 #### Recipe:
 nightmarefuel=1, marble=2
-Around a *skeleton from a died player*
+
+Around a **skeleton from a died player**
 
 #### Description:
 With this ritual you can make a random touchstone reusable again.
@@ -66,7 +68,8 @@ DsMMO only checks touchstones that have been existed when the game (/server) was
 ### Sapling
 #### Recipe:
 bluegem=1, redgem=1, log=2
-Around a *twig*
+
+Around a **twig**
 
 #### Description:
 This ritual turns your ingredients into a sapling plant.
@@ -77,7 +80,8 @@ If your BUILD-level is maxed, your chance of success is 120 percent.
 ### Grass
 #### Recipe:
 bluegem=1, redgem=1, spoiled_food=2
-Around a *cut grass*
+
+Around a **cut grass**
 
 #### Description:
 This ritual turns your ingredients into a grass tufft.
@@ -88,7 +92,8 @@ If your BUILD-level is maxed, your chance of success is 120 percent.
 ### Berry Bush
 #### Recipe:
 bluegem=1, redgem=1, spoiled_food=2
-Around a *berry*
+
+Around a **berry**
 
 #### Description:
 This ritual turns your ingredients into a berry bush.
@@ -99,7 +104,8 @@ Depending on your PICK-level, your chance of success is 120 percent if that skil
 ### Juicy Berry Bush
 #### Recipe:
 bluegem=1, redgem=1, spoiled_food=2
-Around a *juicy berry*
+
+Around a **juicy berry**
 
 #### Description:
 This ritual turns your ingredients into a juicy berry bush.
