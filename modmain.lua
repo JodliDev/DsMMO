@@ -42,14 +42,9 @@ local _touchstones_index = {} --will be filled in AddGamePostInit
 local _player_backup = {}
 AddPlayerPostInit(function(player)
 	print("AddPlayerPostInit")
-	player:AddComponent("DsMMO")
-	player.components.DsMMO:add_indexVars(_touchstones_index, _player_backup)
+	--player:AddComponent("DsMMO")
+	--player.components.DsMMO:add_indexVars(_touchstones_index, _player_backup)
 	
-	
-	for k,v in pairs(_player_backup) do
-		print(k)
-	end
-	print(player.userid)
 	
 	
 	--GLOBAL.AddUserCommand("test", {
@@ -72,8 +67,8 @@ AddPlayerPostInit(function(player)
 end)
 AddComponentPostInit("playerspawner", function(OnPlayerSpawn, inst)
 	inst:ListenForEvent("ms_playerjoined", function(self, player)
-		print("ms_playerjoined")
-		print(player.userid)
+		player:AddComponent("DsMMO")
+		player.components.DsMMO:add_indexVars(_touchstones_index, _player_backup)
 		
 		local backup = _player_backup[player.userid]
 		if backup then

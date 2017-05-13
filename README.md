@@ -118,9 +118,35 @@ Depending on your PICK-level, your chance of success is 120 percent if that skil
 
 ### A new life
 #### Recipe:
-goose_feather=2, bearger_fur=2, fireflies=
+goose_feather=2, bearger_fur=2, dragon_scales=1, fireflies=2
 
 Around a **deerclops_eyeball**
+
+#### Description:
+This ritual gives you the chance to choose another player. You will keep your recorded map and your DsMMO-levels.
+But you will loose half your exp.
+It can only be performed when your EAT-level is higher than 5.
+Depending on your PICK-level, your chance of success is 120 percent if that skill is maxed.
+
+
+### Arctic fishing
+#### Recipe:
+cane=2, walrushat=2, fireflies=2
+
+Around a **walrus_camp**
+
+#### Description:
+This ritual gives you the chance to choose another player. You will keep your recorded map and your DsMMO-levels.
+But you will loose half your exp.
+It can only be performed when your EAT-level is higher than 5.
+Depending on your PICK-level, your chance of success is 120 percent if that skill is maxed.
+
+
+### Whalers feast
+#### Recipe:
+cane=2, walrushat=2, fireflies=2
+
+Around a **walrus_tusk**
 
 #### Description:
 This ritual gives you the chance to choose another player. You will keep your recorded map and your DsMMO-levels.

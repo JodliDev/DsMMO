@@ -34,14 +34,13 @@ local CHANCE_ATTACKED_BEE = 0.5
 local CHANCE_PICK_FIREFLY = 0.5
 
 local RECIPE_DISTANCE = 5
---bait moles
---change charakter
 
---TODO move this stuff to global
+
+--TODO move this stuff to modmain?
 local DSMMO_ACTIONS = {
-	["BUILD"] = 100,
 	["CHOP"] = 60,
 	["MINE"] = 50,
+	["BUILD"] = 100,
 	["DIG"] = 40,
 	["REPAIR"] = 25,
 	["ATTACKED"] = 15,
@@ -61,12 +60,34 @@ local PRESETS = {
 	["MINE"] = {7,9,14} -- from scripts/stategraphs/SGwilson.lua:1828 to :1846
 }
 
---TODO move this stuff to global
+--TODO move this stuff to modmain?
+--bait moles
 local RECIPES = {
+	["walrus_tusk"] = {
+		name="Whalers feast",
+		num=5,
+		recipe={cane=2, walrushat=2, fireflies=2},
+		min_level={REPAIR=5},
+		chance={"REPAIR",0.5},
+		fu=function(player, center)
+			spawn_to_target("walrus_camp", center)
+			center:Remove()
+		end
+	},
+	["walrus_camp"] = {
+		name="Arctic fishing",
+		num=5,
+		recipe={cane=2, walrushat=2, fireflies=2},
+		min_level={REPAIR=5},
+		chance={"REPAIR",0.5},
+		fu=function(player, center)
+			center:Remove()
+		end
+	},
 	["deerclops_eyeball"] = {
 		name="A new life",
-		num=6,
-		recipe={goose_feather=2, bearger_fur=2, fireflies=2},
+		num=7,
+		recipe={goose_feather=2, bearger_fur=2, dragon_scales=1, fireflies=2},
 		min_level={EAT=5},
 		chance={"EAT",2},
 		fu=function(player, center)
@@ -610,6 +631,20 @@ function DsMMO:run_command(cmd, arg)
 				if lvl >= k_lvl then
 					for i,v in ipairs(v_lvl) do
 						output = output .."\n" ..v.name .."(" ..(get_chance(v.chance[2], level[v.chance[1]])*100) .."%)"
+					end
+				end
+			end
+		end
+	elseif arg == "list_rituals" then
+		output = "The following rituals are activated on this server:\n"
+		dur = 15
+		local level = self.level
+		for k_action,v_action in pairs(RECIP_LEVEL_INDEX) do
+			local lvl = level[k_action]
+			for k_lvl,v_lvl in pairs(v_action) do
+				if lvl >= k_lvl then
+					for i,v in ipairs(v_lvl) do
+						output = output ..k_action .." (Lvl: " ..k_lvl .."): " ..v.name .."\n"
 					end
 				end
 			end
