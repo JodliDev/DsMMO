@@ -62,12 +62,12 @@ local PRESETS = {
 
 --TODO move this stuff to global
 local RECIPES = {
-	["flint"] = {
-		name="test",
-		num=1,
-		recipe={rocks=1},
-		min_level={BUILD=1},
-		chance={"BUILD",10},
+	["deerclops_eyeball"] = {
+		name="A new life",
+		num=4,
+		recipe={goose_feather=2, bearger_fur=2},
+		min_level={EAT=5},
+		chance={"EAT",2},
 		fu=function(player, center)
 			player.components.inventory:DropEverything(false, false)
 			player.components.DsMMO._player_original_position = player:GetPosition()

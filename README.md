@@ -4,7 +4,9 @@
 ## Skills
 Everytime you use an skill you get experience and over time you will level up that ability.
 Keep in mind that every level costs double the exp that you needed for the last level which means reaching high levels will be much slower than reaching low levels.
-Depending on the skill, new levels will enable you to perform actions faster, give you new skills, give you random bonuses or give you the option of performing rituals (see below)
+Depending on the skill, new levels will enable you to perform actions faster, give you new skills, give you random bonuses or give you the option of performing rituals (see below).
+
+Everytime your character dies you loose half your exp in every skill.
 
 
 ### CHOP
@@ -111,4 +113,17 @@ Around a **juicy berry**
 #### Description:
 This ritual turns your ingredients into a juicy berry bush.
 It can only be performed when your PLANT-level is higher than 4.
+Depending on your PICK-level, your chance of success is 120 percent if that skill is maxed.
+
+
+### A new life
+#### Recipe:
+goose_feather=2, bearger_fur=2
+
+Around a **deerclops_eyeball**
+
+#### Description:
+This ritual gives you the chance to choose another player. You will keep your recorded map and your DsMMO-levels.
+But you will loose half your exp.
+It can only be performed when your EAT-level is higher than 5.
 Depending on your PICK-level, your chance of success is 120 percent if that skill is maxed.
