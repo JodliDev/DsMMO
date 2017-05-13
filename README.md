@@ -118,7 +118,7 @@ Depending on your PICK-level, your chance of success is 120 percent if that skil
 
 ### A new life
 #### Recipe:
-goose_feather=2, bearger_fur=2
+goose_feather=2, bearger_fur=2, fireflies=
 
 Around a **deerclops_eyeball**
 

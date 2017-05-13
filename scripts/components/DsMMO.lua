@@ -31,6 +31,7 @@ local CHANCE_ATTACK_THUNDER = 0.5
 local CHANCE_FERTILIZE_BONUS = 0.5
 local CHANCE_HARVEST_BONUS = 0.5
 local CHANCE_ATTACKED_BEE = 0.5
+local CHANCE_PICK_FIREFLY = 0.5
 
 local RECIPE_DISTANCE = 5
 --bait moles
@@ -64,8 +65,8 @@ local PRESETS = {
 local RECIPES = {
 	["deerclops_eyeball"] = {
 		name="A new life",
-		num=4,
-		recipe={goose_feather=2, bearger_fur=2},
+		num=6,
+		recipe={goose_feather=2, bearger_fur=2, fireflies=2},
 		min_level={EAT=5},
 		chance={"EAT",2},
 		fu=function(player, center)
@@ -77,9 +78,8 @@ local RECIPES = {
 				dsmmo = player.components.DsMMO:OnSave()
 			}
 				
-			
 			TheWorld:PushEvent("ms_playerdespawnanddelete", player)
-			
+			center:Remove()
 		end
 	},
 	["molehill"] = {
@@ -201,19 +201,21 @@ local RECIPES = {
 }
 
 --TODO move this stuff to global
-RECIP_LEVEL_INDEX = {}
+RECIPE_LEVEL_INDEX = {}
 print("creating level up string")
+
 for k,v in pairs(RECIPES) do
 	for k2,v2 in pairs(v.min_level) do
-		if not RECIP_LEVEL_INDEX[k2] then
-			RECIP_LEVEL_INDEX[k2] = {}
+		if not RECIPE_LEVEL_INDEX[k2] then
+			RECIPE_LEVEL_INDEX[k2] = {}
 		end
-		if not RECIP_LEVEL_INDEX[k2][v2] then
-			RECIP_LEVEL_INDEX[k2][v2] = {}
+		if not RECIPE_LEVEL_INDEX[k2][v2] then
+			RECIPE_LEVEL_INDEX[k2][v2] = {}
 		end
-		table.insert(RECIP_LEVEL_INDEX[k2][v2], v)
+		table.insert(RECIPE_LEVEL_INDEX[k2][v2], v)
 	end
 end
+
 
 function spawn_to_target(n, target)
 	SpawnPrefab(n).Transform:SetPosition(target.Transform:GetWorldPosition())
@@ -286,9 +288,11 @@ function onPerformaction(player, data)
 			if self.level["PICK"] >= MIN_LEVEL_PICK_FIREFLY then
 				local targetN = action.target.prefab
 				if targetN == "flower_evil" then
-					spawn_to_target("collapse_small", player)
-					spawn_to_target("fireflies", action.target)
-					action.target:Remove()
+					if get_success("PICK", CHANCE_PICK_FIREFLY) then
+						spawn_to_target("collapse_small", player)
+						spawn_to_target("fireflies", action.target)
+						action.target:Remove()
+					end
 				end
 			end
 		else
@@ -416,8 +420,8 @@ function DsMMO:newLevelString(action, lvl)
 		base = base ..self:calc_mssing_xp(action) .." exp until lvl " ..(lvl+1) .."\n"
 	end
 	
-	if RECIP_LEVEL_INDEX[action][lvl] then
-		for i,v in ipairs(RECIP_LEVEL_INDEX[action][lvl]) do
+	if RECIPE_LEVEL_INDEX[action] and RECIPE_LEVEL_INDEX[action][lvl] then
+		for i,v in ipairs(RECIPE_LEVEL_INDEX[action][lvl]) do
 			base = base .."\nYou are now able to do the ritual: " ..v.name
 		end
 	end
@@ -429,11 +433,11 @@ function DsMMO:update_actionSpeed(action)
 	-- So we override the timetables as gracefully as we can and hope that
 	-- the source code wont get any major change
 	local lvl = self.level[action]/LEVEL_MAX
-	local action = self.player.sg.sg.states[string.lower(action)]
+	local action_table = self.player.sg.sg.states[string.lower(action)]
 	local t = PRESETS[action]
 	
-	for k,v in pairs(action.timeline) do
-		action.timeline[k] = TimeEvent((t[k] - ((t[k]-1)*lvl)) * FRAMES, v.fn)
+	for k,v in pairs(action_table.timeline) do
+		action_table.timeline[k] = TimeEvent((t[k] - ((t[k]-1)*lvl)) * FRAMES, v.fn)
 	end
 end
 
@@ -585,7 +589,7 @@ function DsMMO:calc_mssing_xp(action, lvl)
 end
 
 function DsMMO:run_command(cmd, arg)
-	local output = "Something went wrong"
+	local output = ""
 	local dur = 5
 	
 	if arg == nil then
@@ -610,15 +614,22 @@ function DsMMO:run_command(cmd, arg)
 				end
 			end
 		end
-	elseif arg == "help" then
-		output = "TODO"
+	elseif arg == "help" or arg == "?" then
+		dur = 20
+		output = "______________________ Possible commands: ______________________"
+			.."\n#dsmmo _____________________ List of all DsMMO-levels and experience"
+			.."\n#dsmmo rituals ___ List of all available rituals and their chance of success"
+			.."\n#dsmmo help _______________________________________ this help-text"
+			.."\n#dsmmo [ skill ] ________________ Level and experience of a specific skill"
 	else
-		arg = string.upper(arg)
-		if DSMMO_ACTIONS[arg] then
-			local lvl = self.level[arg]
-			local xp = self:calc_mssing_xp(arg)
+		local arg_upper = string.upper(arg)
+		if DSMMO_ACTIONS[arg_upper] then
+			local lvl = self.level[arg_upper]
+			local xp = self:calc_mssing_xp(arg_upper)
 			
-			output = arg ..": " ..xp .." exp --> lvl " ..(lvl+1)
+			output = arg_upper ..": " ..xp .." exp --> lvl " ..(lvl+1)
+		else
+			output = arg .." is not a valid DsMMO-skill"
 		end
 	end
 	
