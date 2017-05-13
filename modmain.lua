@@ -5,10 +5,53 @@ GLOBAL.CHEATS_ENABLED = true
 GLOBAL.require( 'debugkeys' )
 
 
+function check_player(player)
+	if player and player.components and player.components.DsMMO then
+		return true
+	else
+		print("player not found")
+		return false
+	end
+end
+
+GLOBAL.global("dsmmo_reset")
+GLOBAL.dsmmo_reset = function(player)
+	if check_player(player) then
+		player.components.DsMMO:create_array()
+		print(player.name .." levels have been reset")
+		player.components.DsMMO:run_command("#dsmmo")
+	end
+end
+
+GLOBAL.global("dsmmo_set")
+GLOBAL.dsmmo_set = function(player, action, lvl)
+	if check_player(player) then
+		if player.components.DsMMO:set_level(action, lvl) then
+			print(player.name .." " ..action .."-level have been set to " ..lvl)
+		else
+			print("This action-skill does not seem to exist")
+		end
+	end
+end
+
+
+
+
+
 local _touchstones_index = {} --will be filled in AddGamePostInit
+local _player_backup = {}
 AddPlayerPostInit(function(player)
+	print("AddPlayerPostInit")
 	player:AddComponent("DsMMO")
-	player.components.DsMMO:add_touchstoneIndex(_touchstones_index)
+	player.components.DsMMO:add_indexVars(_touchstones_index, _player_backup)
+	
+	
+	for k,v in pairs(_player_backup) do
+		print(k)
+	end
+	print(player.userid)
+	
+	
 	--GLOBAL.AddUserCommand("test", {
 		--prettyname = function(command) return "Test" end,
 		--desc = function() return "Test" end,
@@ -27,34 +70,24 @@ AddPlayerPostInit(function(player)
 		--end
 	--})
 end)
-
-function check_player(player)
-	if player and player.components and player.components.DsMMO then
-		return true
-	else
-		print("player not found")
-		return false
-	end
-end
-
-GLOBAL.global("dsmmo_reset")
-GLOBAL.dsmmo_reset = function(player)
-	if check_player(player) then
-		player.components.DsMMO:create_array()
-		print(player.name .." levels have been reset")
-	end
-end
-
-GLOBAL.global("dsmmo_set")
-GLOBAL.dsmmo_set = function(player, action, lvl)
-	if check_player(player) then
-		if player.components.DsMMO:set_level(action, lvl) then
-			print(player.name .." " ..action .."-level have been set to " ..lvl)
+AddComponentPostInit("playerspawner", function(OnPlayerSpawn, inst)
+	inst:ListenForEvent("ms_playerjoined", function(self, player)
+		print("ms_playerjoined")
+		print(player.userid)
+		
+		local backup = _player_backup[player.userid]
+		if backup then
+			player:DoTaskInTime(1, function(player)
+				player.components.DsMMO:OnLoad(backup.dsmmo)
+				player.player_classified.MapExplorer:LearnRecordedMap(backup.map)
+				_player_backup[player.userid] = nil
+			end)
+			
 		else
-			print("This action-skill does not seem to exist")
+			print("new spawn?")
 		end
-	end
-end
+	end)
+end)
 
 
 

@@ -36,7 +36,7 @@ local RECIPE_DISTANCE = 5
 --bait moles
 --change charakter
 
-
+--TODO move this stuff to global
 local DSMMO_ACTIONS = {
 	["BUILD"] = 100,
 	["CHOP"] = 60,
@@ -60,8 +60,30 @@ local PRESETS = {
 	["MINE"] = {7,9,14} -- from scripts/stategraphs/SGwilson.lua:1828 to :1846
 }
 
+--TODO move this stuff to global
 local RECIPES = {
+	["flint"] = {
+		name="test",
+		num=1,
+		recipe={rocks=1},
+		min_level={BUILD=1},
+		chance={"BUILD",10},
+		fu=function(player, center)
+			player.components.inventory:DropEverything(false, false)
+			player.components.DsMMO._player_original_position = player:GetPosition()
+			player.components.DsMMO:penalty()
+			player.components.DsMMO._player_backup[player.userid] = {
+				map = player.player_classified.MapExplorer:RecordMap(),
+				dsmmo = player.components.DsMMO:OnSave()
+			}
+				
+			
+			TheWorld:PushEvent("ms_playerdespawnanddelete", player)
+			
+		end
+	},
 	["molehill"] = {
+		name="Secret of moles",
 		num=3,
 		recipe={rocks=1, flint=1, nitre=1, goldnugget=1, marble=1, moonrocknugget=1, bluegem=1, redgem=1, yellowgem=1, orangegem=1, purplegem=1},
 		min_level={DIG=1},
@@ -77,10 +99,11 @@ local RECIPES = {
 		end
 	},
 	["skeleton_player"] = {
-		num=3,
-		recipe={nightmarefuel=1, marble=2},
+		name="Rerevival",
+		num=4,
+		recipe={nightmarefuel=1, marble=2, amulet=1},
 		min_level={BUILD=8},
-		chance={"DIG",0.8},
+		chance={"BUILD",0.8},
 		fu=function(player, center)
 			local k
 			local v
@@ -132,6 +155,7 @@ local RECIPES = {
 		end
 	},
 	["twigs"] = {
+		name="Get the longest Twig",
 		num=4,
 		recipe={bluegem=1, redgem=1, log=2},
 		min_level={BUILD=3},
@@ -142,6 +166,7 @@ local RECIPES = {
 		end
 	},
 	["cutgrass"] = {
+		name="Green Grass",
 		num=4,
 		recipe={bluegem=1, redgem=1, spoiled_food=2},
 		min_level={BUILD=4},
@@ -152,6 +177,7 @@ local RECIPES = {
 		end
 	},
 	["berries"] = {
+		name="Red",
 		num=4,
 		recipe={bluegem=1, redgem=1, spoiled_food=2},
 		min_level={PICK=3},
@@ -162,6 +188,7 @@ local RECIPES = {
 		end
 	},
 	["berries_juicy"] = {
+		name="Red and juicy",
 		num=4,
 		recipe={bluegem=1, redgem=1, spoiled_food=2},
 		min_level={PICK=4},
@@ -171,10 +198,22 @@ local RECIPES = {
 			center:Remove()
 		end
 	}
-
-
 }
 
+--TODO move this stuff to global
+RECIP_LEVEL_INDEX = {}
+print("creating level up string")
+for k,v in pairs(RECIPES) do
+	for k2,v2 in pairs(v.min_level) do
+		if not RECIP_LEVEL_INDEX[k2] then
+			RECIP_LEVEL_INDEX[k2] = {}
+		end
+		if not RECIP_LEVEL_INDEX[k2][v2] then
+			RECIP_LEVEL_INDEX[k2][v2] = {}
+		end
+		table.insert(RECIP_LEVEL_INDEX[k2][v2], v)
+	end
+end
 
 function spawn_to_target(n, target)
 	SpawnPrefab(n).Transform:SetPosition(target.Transform:GetWorldPosition())
@@ -182,17 +221,18 @@ end
 function is_fullMoon()
 	return TheWorld.state.moonphase == "full" --GetClock():GetMoonPhase()
 end
-function get_success(player, action, base_r)
-	local r = math.random() + (1-base_r)
-	print("Base chance is: " ..(r*100) .."%")
-	if is_fullMoon() then
-		r = r - 0.5
-	end
+function get_chance(base_r, lvl)
+	local chance = base_r * (lvl / LEVEL_MAX)
 	
-	return r < player.components.DsMMO.level[action] / LEVEL_MAX and true or false
+	return is_fullMoon() and chance + 0.5 or chance
+end
+function get_success(player, action, base_r)
+	local chance = get_chance(base_r, player.components.DsMMO.level[action])
+	return math.random() < chance
 end
 function alert(player, msg, color)
 	player.components.talker:Say(msg, 10, nil, nil, nil, color)
+	--self.player.components.talker:Say(output, 20, nil, nil, nil, {1,1,1,1})
 end
 function get_level(xp)
 	return math.floor(math.log(xp) / math.log(2))
@@ -288,7 +328,7 @@ function onStopStarving(player)
 	end
 end
 function onbecameghost(player)
-	player.components.DsMMO:reset()
+	player.components.DsMMO:penalty()
 end
 
 
@@ -303,7 +343,6 @@ end
 
 local _DsMMO = nil
 local DsMMO = Class(function(self, player)
-
 	_DsMMO = self
 	self.player = player
 	self._player_original_position = nil --if not nil, this will be saved when the player logs out unexpectedly
@@ -312,7 +351,7 @@ local DsMMO = Class(function(self, player)
 	--print(TheNet:GetIsServer())
 	
 	if not TheWorld.ismastersim then
-		selg:log_msg("is client - stop")
+		self:log_msg("is client - stop")
 		--self.last_state = nil
 		--self:create_array();
 		--player:ListenForEvent("performaction", onPerformactionDirty)
@@ -323,9 +362,7 @@ local DsMMO = Class(function(self, player)
 			--end)
 		return
 	end
-	
-	
-	
+
 	
 	local main_lookat = ACTIONS.LOOKAT.fn
 	ACTIONS.LOOKAT.fn = function(act)
@@ -346,8 +383,9 @@ end)
 function DsMMO:log_msg(msg)
 	print("[DsMMO/" ..self.player.name .."] " ..msg)
 end
-function DsMMO:add_touchstoneIndex(index)
-	_touchstone_index = index
+function DsMMO:add_indexVars(touchtstone_index, player_backup)
+	self._touchstone_index = touchtstone_index
+	self._player_backup = player_backup
 end
 
 function DsMMO:get_experience(action)
@@ -361,8 +399,7 @@ function DsMMO:get_experience(action)
 			lvl = lvl+1
 			self.level[action] = lvl
 	
-			player.components.talker:Say(action .."-level: " ..lvl .." !\n" ..self:calc_mssing_xp(action) .." exp until lvl " ..(lvl+1))
-			player.components.talker:Say(self:newLevelString(action, lvl))
+			alert(player, self:newLevelString(action, lvl), COLOR_RED)
 			player.SoundEmitter:PlaySound("dontstarve/characters/wx78/levelup")
 			
 			
@@ -373,17 +410,27 @@ function DsMMO:get_experience(action)
 	end
 end
 function DsMMO:newLevelString(action, lvl)
-	local base = action .."-level: " ..lvl .." !\n" ..self:calc_mssing_xp(action) .." exp until lvl " ..(lvl+1)
+	local base = action .."-level: " ..lvl .." !\n"
+	
+	if lvl < LEVEL_MAX then
+		base = base ..self:calc_mssing_xp(action) .." exp until lvl " ..(lvl+1) .."\n"
+	end
+	
+	if RECIP_LEVEL_INDEX[action][lvl] then
+		for i,v in ipairs(RECIP_LEVEL_INDEX[action][lvl]) do
+			base = base .."\nYou are now able to do the ritual: " ..v.name
+		end
+	end
 	
 	return base
 end
-function DsMMO:update_actionSpeed(action_key)
+function DsMMO:update_actionSpeed(action)
 	--Unfortunately, there is no real way to increase the Action-animation-speed
 	-- So we override the timetables as gracefully as we can and hope that
 	-- the source code wont get any major change
-	local lvl = self.level[action_key]/LEVEL_MAX
-	local action = self.player.sg.sg.states[string.lower(action_key)]
-	local t = PRESETS[action_key]
+	local lvl = self.level[action]/LEVEL_MAX
+	local action = self.player.sg.sg.states[string.lower(action)]
+	local t = PRESETS[action]
 	
 	for k,v in pairs(action.timeline) do
 		action.timeline[k] = TimeEvent((t[k] - ((t[k]-1)*lvl)) * FRAMES, v.fn)
@@ -503,7 +550,7 @@ function DsMMO:create_array()
 		self.level[k] = 0
 	end
 end
-function DsMMO:reset()
+function DsMMO:penalty()
 	local player = self.player
 	for k,v in pairs(DSMMO_ACTIONS) do
 		local xp = math.floor(self.exp[k] / 2)
@@ -515,8 +562,9 @@ function DsMMO:reset()
 end
 function DsMMO:set_level(action, lvl)
 	if DSMMO_ACTIONS[action] then
-		self.exp[action] = get_max_exp(action, lvl-1)+1
-		self.level[action] = lvl
+		self.exp[action] = get_max_exp(action, lvl-1)
+		self.level[action] = lvl-1
+		self:get_experience(action)
 		return true
 	else
 		return false
@@ -537,24 +585,44 @@ function DsMMO:calc_mssing_xp(action, lvl)
 end
 
 function DsMMO:run_command(cmd, arg)
+	local output = "Something went wrong"
+	local dur = 5
+	
 	if arg == nil then
-		local output = ""
+		dur = 20
 		for k,v in pairs(self.level) do
 			local xp = self:calc_mssing_xp(k)
 			
 			output = output ..k ..":" ..add_spaces(k, 10) ..add_spaces(tostring(xp), 4) ..add_spaces(tostring(v+1), 2) ..xp .." exp until lvl " ..(v+1) .."\n"
 		end
 		
-		self.player.components.talker:Say(output, 20, nil, nil, nil, {1,1,1,1})
+	elseif arg == "rituals" then
+		output = "You know about the following rituals:\n"
+		dur = 15
+		local level = self.level
+		for k_action,v_action in pairs(RECIP_LEVEL_INDEX) do
+			local lvl = level[k_action]
+			for k_lvl,v_lvl in pairs(v_action) do
+				if lvl >= k_lvl then
+					for i,v in ipairs(v_lvl) do
+						output = output .."\n" ..v.name .."(" ..(get_chance(v.chance[2], level[v.chance[1]])*100) .."%)"
+					end
+				end
+			end
+		end
+	elseif arg == "help" then
+		output = "TODO"
 	else
 		arg = string.upper(arg)
 		if DSMMO_ACTIONS[arg] then
 			local lvl = self.level[arg]
 			local xp = self:calc_mssing_xp(arg)
 			
-			self.player.components.talker:Say(arg ..": " ..xp .." exp --> lvl " ..(lvl+1), 5, nil, nil, nil, {1,1,1,1})
+			output = arg ..": " ..xp .." exp --> lvl " ..(lvl+1)
 		end
 	end
+	
+	self.player.components.talker:Say(output, dur, nil, nil, nil, COLOR_RED)
 end
 
 return DsMMO

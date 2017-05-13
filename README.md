@@ -21,6 +21,7 @@ The higher your MINE-level, the faster you will be able to mine stones
 ### FERTILIZE
 ### EAT
 ### PICK
+### BUILD
 
 
 ### Secret Fireflies
@@ -51,21 +52,21 @@ This ritual can spawn one or more moles out of ores.
 If your DIG-level is maxed, you have a 100 perent chance of being successfull and a 5 percent chance that four moles instead of one spawn.
 
 
-### Touchstones
+### Rerevival
 #### Recipe:
-nightmarefuel=1, marble=2
+nightmarefuel=1, marble=2, amulet=1
 
 Around a **skeleton from a died player**
 
 #### Description:
-With this ritual you can make a random touchstone reusable again.
+With this ritual you can make a random touchstone (out of the ones you have used) reusable again.
 It can only be performed when your BUILD-level is higher than 8 and its chance of success is 80 percent if your skill is maxed
 
-This ritual does not work if there are touchstones you have already used.
+This ritual will not work if the world has no touchstones you have already used.
 DsMMO only checks touchstones that have been existed when the game (/server) was initiated. That means, if you have other mods that creat touchstones while the game is running, DsMMO will not be able to see them until the game has been restarted
 
 
-### Sapling
+### Get the longest Twig
 #### Recipe:
 bluegem=1, redgem=1, log=2
 
@@ -77,7 +78,7 @@ It can only be performed when your BUILD-level is higher than 3.
 If your BUILD-level is maxed, your chance of success is 120 percent.
 
 
-### Grass
+### Green Grass
 #### Recipe:
 bluegem=1, redgem=1, spoiled_food=2
 
@@ -89,7 +90,7 @@ It can only be performed when your BUILD-level is higher than 4.
 If your BUILD-level is maxed, your chance of success is 120 percent.
 
 
-### Berry Bush
+### Red
 #### Recipe:
 bluegem=1, redgem=1, spoiled_food=2
 
@@ -101,7 +102,7 @@ It can only be performed when your PLANT-level is higher than 3.
 Depending on your PICK-level, your chance of success is 120 percent if that skill is maxed.
 
 
-### Juicy Berry Bush
+### Red and juicy
 #### Recipe:
 bluegem=1, redgem=1, spoiled_food=2
 
