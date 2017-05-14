@@ -14,19 +14,26 @@ The higher your CHOP-level, the faster you will be able to chop trees
 
 ### MINE
 The higher your MINE-level, the faster you will be able to mine stones
-### DIG
 
-### REPAIR
-### ATTACKED
 ### ATTACK
 ### PLANT
 ### FERTILIZE
+### DIG
+
+Level 1
+Secret of moles
+
+### REPAIR
+
+Level 5
+Arctic fishing
+Whalers feast
 ### EAT
 ### PICK
 ### BUILD
 
 
-### Secret Fireflies
+### Ghosty Fireflies
 After your PICK-Ability reached level 5, you will be able to turn evil flowers into fireflys by haunting them.
 
 
@@ -136,10 +143,7 @@ cane=2, walrushat=2, fireflies=2
 Around a **walrus_camp**
 
 #### Description:
-This ritual gives you the chance to choose another player. You will keep your recorded map and your DsMMO-levels.
-But you will loose half your exp.
-It can only be performed when your EAT-level is higher than 5.
-Depending on your PICK-level, your chance of success is 120 percent if that skill is maxed.
+
 
 
 ### Whalers feast
@@ -149,7 +153,4 @@ cane=2, walrushat=2, fireflies=2
 Around a **walrus_tusk**
 
 #### Description:
-This ritual gives you the chance to choose another player. You will keep your recorded map and your DsMMO-levels.
-But you will loose half your exp.
-It can only be performed when your EAT-level is higher than 5.
-Depending on your PICK-level, your chance of success is 120 percent if that skill is maxed.
+

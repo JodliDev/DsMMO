@@ -23,14 +23,11 @@ function list_table(v, values)
 	end
 end
 
-local VERSION = "0.1.0"
+local VERSION = "0.1.1"
 local LEVEL_MAX = 10
-local MIN_LEVEL_PICK_FIREFLY = 5
 
-local CHANCE_ATTACK_THUNDER = 0.5
 local CHANCE_FERTILIZE_BONUS = 0.5
 local CHANCE_HARVEST_BONUS = 0.5
-local CHANCE_ATTACKED_BEE = 0.5
 local CHANCE_PICK_FIREFLY = 0.5
 
 local RECIPE_DISTANCE = 5
@@ -40,13 +37,11 @@ local RECIPE_DISTANCE = 5
 local DSMMO_ACTIONS = {
 	["CHOP"] = 60,
 	["MINE"] = 50,
-	["BUILD"] = 100,
-	["DIG"] = 40,
-	["REPAIR"] = 25,
-	["ATTACKED"] = 15,
 	["ATTACK"] = 30,
 	["PLANT"] = 30,
 	["FERTILIZE"] = 25,
+	["BUILD"] = 100,
+	["DIG"] = 40,
 	["EAT"] = 40,
 	["PICK"] = 80
 }
@@ -63,32 +58,32 @@ local PRESETS = {
 --TODO move this stuff to modmain?
 --bait moles
 local RECIPES = {
-	["walrus_tusk"] = {
-		name="Whalers feast",
+	walrus_tusk = {
+		name="Ritual of whalers feast",
 		num=5,
 		recipe={cane=2, walrushat=2, fireflies=2},
-		min_level={REPAIR=5},
-		chance={"REPAIR",0.5},
+		min_level={"BUILD",5},
+		chance={"BUILD",0.5},
 		fu=function(player, center)
 			spawn_to_target("walrus_camp", center)
 			center:Remove()
 		end
 	},
-	["walrus_camp"] = {
-		name="Arctic fishing",
+	walrus_camp = {
+		name="Ritual of arctic fishing",
 		num=5,
 		recipe={cane=2, walrushat=2, fireflies=2},
-		min_level={REPAIR=5},
-		chance={"REPAIR",0.5},
+		min_level={"BUILD",4},
+		chance={"BUILD",0.5},
 		fu=function(player, center)
 			center:Remove()
 		end
 	},
-	["deerclops_eyeball"] = {
-		name="A new life",
+	deerclops_eyeball = {
+		name="Ritual of a new life",
 		num=7,
 		recipe={goose_feather=2, bearger_fur=2, dragon_scales=1, fireflies=2},
-		min_level={EAT=5},
+		min_level={"EAT",5},
 		chance={"EAT",2},
 		fu=function(player, center)
 			player.components.inventory:DropEverything(false, false)
@@ -103,11 +98,11 @@ local RECIPES = {
 			center:Remove()
 		end
 	},
-	["molehill"] = {
-		name="Secret of moles",
+	molehill = {
+		name="Ritual of mole infestation",
 		num=3,
 		recipe={rocks=1, flint=1, nitre=1, goldnugget=1, marble=1, moonrocknugget=1, bluegem=1, redgem=1, yellowgem=1, orangegem=1, purplegem=1},
-		min_level={DIG=1},
+		min_level={"DIG",1},
 		chance={"DIG",1},
 		fu=function(player, center)
 			spawn_to_target("mole", center)
@@ -119,11 +114,11 @@ local RECIPES = {
 			end
 		end
 	},
-	["skeleton_player"] = {
-		name="Rerevival",
+	skeleton_player = {
+		name="Ritual of rerevival",
 		num=4,
 		recipe={nightmarefuel=1, marble=2, amulet=1},
-		min_level={BUILD=8},
+		min_level={"BUILD",8},
 		chance={"BUILD",0.8},
 		fu=function(player, center)
 			local k
@@ -175,67 +170,115 @@ local RECIPES = {
 			end
 		end
 	},
-	["twigs"] = {
-		name="Get the longest Twig",
+	twigs = {
+		name="Ritual of the longest Twig",
 		num=4,
 		recipe={bluegem=1, redgem=1, log=2},
-		min_level={BUILD=3},
+		min_level={"BUILD",2},
 		chance={"BUILD",1.2},
 		fu=function(player, center)
 			spawn_to_target("sapling", center)
 			center:Remove()
 		end
 	},
-	["cutgrass"] = {
-		name="Green Grass",
+	cutgrass = {
+		name="Ritual of mind altering grass",
 		num=4,
 		recipe={bluegem=1, redgem=1, spoiled_food=2},
-		min_level={BUILD=4},
+		min_level={"BUILD",3},
 		chance={"BUILD",1.2},
 		fu=function(player, center)
 			spawn_to_target("grass", center)
 			center:Remove()
 		end
 	},
-	["berries"] = {
-		name="Red",
+	berries = {
+		name="Ritual of redness",
 		num=4,
 		recipe={bluegem=1, redgem=1, spoiled_food=2},
-		min_level={PICK=3},
-		chance={"PLANT",1.2},
+		min_level={"PICK",3},
+		chance={"PICK",1.2},
 		fu=function(player, center)
 			spawn_to_target("berrybush", center)
 			center:Remove()
 		end
 	},
-	["berries_juicy"] = {
-		name="Red and juicy",
+	berries_juicy = {
+		name="Ritual of red juicyness",
 		num=4,
 		recipe={bluegem=1, redgem=1, spoiled_food=2},
-		min_level={PICK=4},
-		chance={"PLANT",1.2},
+		min_level={"PICK",4},
+		chance={"PICK",1.2},
 		fu=function(player, center)
 			spawn_to_target("berrybush2", center)
 			center:Remove()
 		end
+	--},
+	--firepit = {
+		--name="Ritual of red juicyness",
+		--num=4,
+		--recipe={pigskin=4, redgem=1, spoiled_food=2},
+		--min_level={"PICK",4},
+		--chance={"PICK",1.2},
+		--fu=function(player, center)
+			--spawn_to_target("pigtorch", center)
+			--center:Remove()
+		--end
 	}
 }
 
---TODO move this stuff to global
-RECIPE_LEVEL_INDEX = {}
-print("creating level up string")
-
-for k,v in pairs(RECIPES) do
-	for k2,v2 in pairs(v.min_level) do
-		if not RECIPE_LEVEL_INDEX[k2] then
-			RECIPE_LEVEL_INDEX[k2] = {}
+local SKILLS = {
+	fireflies= {
+		name="Ghosty fireflies",
+		min_level={"PICK",5},
+		chance={"PICK",0.5}
+	},
+	hungry_attack = {
+		name="Hungry fighter",
+		min_level={"EAT",1},
+		chance={"EAT",1}
+	},
+	attack = {
+		name="Lightning bolt",
+		min_level={"ATTACK",1},
+		chance={"ATTACK",0.5}
+	},
+	attacked = {
+		name="Beetaliation",
+		min_level={"ATTACK",2},
+		chance={"ATTACK",0.5}
+	},
+	fertilize = {
+		name="Double the shit",
+		min_level={"FERTILIZE",2},
+		chance={"FERTILIZE",0.5}
+	},
+	plant = {
+		name="Plant another day",
+		min_level={"PLANT",2},
+		chance={"PLANT",0.5}
+	}
+	
+}
+--TODO move this stuff to modmain?
+function add_to_index(array)
+	for k,v in pairs(array) do
+		local action = v.min_level[1]
+		local lvl = v.min_level[2]
+		
+		if not RECIPE_LEVEL_INDEX[action] then
+			RECIPE_LEVEL_INDEX[action] = {}
 		end
-		if not RECIPE_LEVEL_INDEX[k2][v2] then
-			RECIPE_LEVEL_INDEX[k2][v2] = {}
+		if not RECIPE_LEVEL_INDEX[action][lvl] then
+			RECIPE_LEVEL_INDEX[action][lvl] = {}
 		end
-		table.insert(RECIPE_LEVEL_INDEX[k2][v2], v)
+		table.insert(RECIPE_LEVEL_INDEX[action][lvl], v)
 	end
 end
+print("creating level up string")
+RECIPE_LEVEL_INDEX = {}
+add_to_index(SKILLS)
+add_to_index(RECIPES)
 
 
 function spawn_to_target(n, target)
@@ -252,6 +295,9 @@ end
 function get_success(player, action, base_r)
 	local chance = get_chance(base_r, player.components.DsMMO.level[action])
 	return math.random() < chance
+end
+function test_skill(self, player, skill)
+	return self.level[skill.min_level[1]] >= skill.min_level[2] and get_success(player, skill.chance[1], skill.chance[2])
 end
 function alert(player, msg, color)
 	player.components.talker:Say(msg, 10, nil, nil, nil, color)
@@ -286,35 +332,30 @@ function onPerformaction(player, data)
 			player.components.DsMMO:get_experience(actionId)
 			
 			if actionId == "ATTACK" then
-				if get_success(player, "ATTACK", CHANCE_ATTACK_THUNDER) then
+				if test_skill(self, player, SKILLS.attack) then
 					spawn_to_target("lightning", action.target)
-					target.components.combat:GetAttacked(action.target, TUNING.SPEAR_DAMAGE)
+					action.target.components.combat:GetAttacked(action.target, TUNING.SPEAR_DAMAGE)
 				end
 			elseif actionId == "FERTILIZE" then
 				local crop = action.target.components.crop
-				if crop and not crop:IsReadyForHarvest() and get_success(player, "FERTILIZE", CHANCE_FERTILIZE_BONUS) then
+				local skill = SKILLS.fertilize
+				if crop and not crop:IsReadyForHarvest() and test_skill(self, player, SKILLS.fertilize) then
 					crop:Fertilize(SpawnPrefab("guano"), player)
 					spawn_to_target("collapse_small", player)
 				end
 			end
 		elseif actionId == "HARVEST" then
 			local crop = action.target.components.crop
-			if crop ~= nil then
-				if get_success(player, "PLANT", CHANCE_HARVEST_BONUS) then
-					player.components.inventory:GiveItem(SpawnPrefab(crop.product_prefab))
-					spawn_to_target("collapse_small", player)
-				end
+			if crop and test_skill(self, player, SKILLS.harvest) then
+				player.components.inventory:GiveItem(SpawnPrefab(crop.product_prefab))
+				spawn_to_target("collapse_small", player)
 			end
 		elseif actionId == "HAUNT" then
-			if self.level["PICK"] >= MIN_LEVEL_PICK_FIREFLY then
-				local targetN = action.target.prefab
-				if targetN == "flower_evil" then
-					if get_success("PICK", CHANCE_PICK_FIREFLY) then
-						spawn_to_target("collapse_small", player)
-						spawn_to_target("fireflies", action.target)
-						action.target:Remove()
-					end
-				end
+			local targetN = action.target.prefab
+			if targetN == "flower_evil" and test_skill(self, player, SKILLS.fireflies) then
+				spawn_to_target("collapse_small", player)
+				spawn_to_target("fireflies", action.target)
+				action.target:Remove()
 			end
 		else
 			print(actionId)
@@ -324,9 +365,9 @@ function onPerformaction(player, data)
 	end
 end
 function onAttacked(player, data)
-	player.components.DsMMO:get_experience("ATTACKED")
+	local skill = SKILLS.attacked
 	
-	if get_success(player, "ATTACKED", CHANCE_ATTACKED_BEE) then
+	if test_skill(player.components.DsMMO, player, SKILLS.attacked) then
 		local bee = SpawnPrefab("bee")
 		bee.persists = false
 		bee.Transform:SetPosition(player.Transform:GetWorldPosition())
@@ -340,10 +381,11 @@ function onStartStarving(player)
 		player.default_damagemultiplier = 1
 	end
 	local self = player.components.DsMMO
-	local new_damagemultiplier = self.level["EAT"]
+	local skill = SKILLS.hungry_attack
+	local new_damagemultiplier = self.level[skill.chance[1]] * skill.chance[2]
 	
-	if new_damagemultiplier > player.default_damagemultiplier then
-		player.components.combat.damagemultiplier = self.level["EAT"]
+	if self.level[skill.min_level[1]] >= skill.min_level[2] and new_damagemultiplier > player.default_damagemultiplier then
+		player.components.combat.damagemultiplier = new_damagemultiplier
 		alert(player, "I feel mighty", COLOR_GOLD)
 	end
 end
@@ -443,7 +485,7 @@ function DsMMO:newLevelString(action, lvl)
 	
 	if RECIPE_LEVEL_INDEX[action] and RECIPE_LEVEL_INDEX[action][lvl] then
 		for i,v in ipairs(RECIPE_LEVEL_INDEX[action][lvl]) do
-			base = base .."\nYou are now able to do the ritual: " ..v.name
+			base = base .."\nYou learned a new skill: " ..v.name
 		end
 	end
 	
@@ -465,15 +507,10 @@ end
 function DsMMO:init_recipe(target)
 	local recipe_data = RECIPES[target.prefab]
 	if recipe_data then
-		local min_levels = recipe_data.min_level
-		for k,v in pairs(min_levels) do
-			if self.level[k] < v then
-				self:log_msg(target.prefab .."-recipe: " ..k .."-level(" ..self.level[k] .."<" ..v ..") is not high enough")
-				alert(self.player, "I don't feel prepared...", COLOR_RED)
-				return true
-			end
-		end
-		if recipe_data.check and recipe_data.check(self.player, target) then
+		if self.level[recipe_data.min_level[1]] < recipe_data.min_level[2] then
+			self:log_msg(target.prefab .."-recipe: " ..k .."-level(" ..self.level[k] .."<" ..v ..") is not high enough")
+			alert(self.player, "I don't feel prepared...", COLOR_RED)
+		elseif recipe_data.check and recipe_data.check(self.player, target) then
 			alert(self.player, "I just can't...", COLOR_RED)
 		else
 			self:check_recipe(target, recipe_data.recipe, recipe_data.num, recipe_data.chance, recipe_data.fu)
@@ -530,6 +567,7 @@ function DsMMO:check_recipe(center, recipe, ings_needed_sum, chance, fn)
 end
 
 function DsMMO:OnLoad(data)
+	print("onLoad")
 	if data.dsmmo_level then
 		if data.dsmmo_version == VERSION then
 			self.exp = data.dsmmo_exp
@@ -552,6 +590,7 @@ function DsMMO:OnLoad(data)
 	end
 end
 function DsMMO:OnSave()
+	print("OnSave")
 	local data = {
 			["dsmmo_exp"] = self.exp,
 			["dsmmo_level"] = self.level,
@@ -621,11 +660,11 @@ function DsMMO:run_command(cmd, arg)
 			output = output ..k ..":" ..add_spaces(k, 10) ..add_spaces(tostring(xp), 4) ..add_spaces(tostring(v+1), 2) ..xp .." exp until lvl " ..(v+1) .."\n"
 		end
 		
-	elseif arg == "rituals" then
-		output = "You know about the following rituals:\n"
+	elseif arg == "skills" then
+		output = "You know about the following skills:\n"
 		dur = 15
 		local level = self.level
-		for k_action,v_action in pairs(RECIP_LEVEL_INDEX) do
+		for k_action,v_action in pairs(RECIPE_LEVEL_INDEX) do
 			local lvl = level[k_action]
 			for k_lvl,v_lvl in pairs(v_action) do
 				if lvl >= k_lvl then
@@ -635,17 +674,15 @@ function DsMMO:run_command(cmd, arg)
 				end
 			end
 		end
-	elseif arg == "list_rituals" then
-		output = "The following rituals are activated on this server:\n"
+	elseif arg == "list_skills" then
+		output = "The following skills are activated on this server:"
 		dur = 15
 		local level = self.level
-		for k_action,v_action in pairs(RECIP_LEVEL_INDEX) do
-			local lvl = level[k_action]
+		for k_action,v_action in pairs(RECIPE_LEVEL_INDEX) do
+			output= output .."\n" ..k_action ..":\n"
 			for k_lvl,v_lvl in pairs(v_action) do
-				if lvl >= k_lvl then
-					for i,v in ipairs(v_lvl) do
-						output = output ..k_action .." (Lvl: " ..k_lvl .."): " ..v.name .."\n"
-					end
+				for i,v in ipairs(v_lvl) do
+					output = output ..v.name .." (Lvl: " ..k_lvl .."), "
 				end
 			end
 		end

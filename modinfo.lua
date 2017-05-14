@@ -1,6 +1,6 @@
 name = "DSMMO"
 
-description = "Inspired by MCMMO for mincraft. This mod adds a levelup system for certain actions. The more often you do an action, the more perks you will receive from it"
+description = "Inspired by McMMO for mincraft. This mod adds a levelup system for certain actions. The more often you do an action, the more perks you will receive from it"
 
 author = "Jodli Developement"
 
@@ -14,7 +14,7 @@ dst_compatible = true
 
 forumthread = ""
 
-all_clients_require_mod = true
+all_clients_require_mod = false
 clients_only_mod = false
 
 server_filter_tags = {"Character", "Utility"}
