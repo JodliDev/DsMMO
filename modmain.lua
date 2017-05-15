@@ -103,7 +103,6 @@ AddGamePostInit(function()
 		local Old_Networking_Say = GLOBAL.Networking_Say
 		GLOBAL.Networking_Say = function(guid, userid, name, prefab, msg, colour, whisper, isemote, ...)
 			local player = GLOBAL.Ents[guid]
-			
 			if player == nil then
 				return
 			end
@@ -111,9 +110,25 @@ AddGamePostInit(function()
 			local cmd = string.split(string.lower(msg), " ")
 		
 			if cmd[1] == "#dsmmo" then
+				if not whisper then
+					player.components.talker:Say("DsMMO-commands have to be whispered!")
+					return
+				end
 				player.components.DsMMO:run_command(cmd[1], cmd[2])
 			else
 				Old_Networking_Say(guid, userid, name, prefab, msg, colour, whisper, isemote, ...)
+			end
+			
+			--Old_Networking_Say(guid, userid, name, prefab, "test", colour, whisper, isemote, ...)
+		end
+		
+		
+		
+	
+		local main_lookat = GLOBAL.ACTIONS.LOOKAT.fn
+		GLOBAL.ACTIONS.LOOKAT.fn = function(act)
+			if not act.target or not act.doer.components.DsMMO:init_recipe(act.target) then
+				main_lookat(act)
 			end
 		end
 	end

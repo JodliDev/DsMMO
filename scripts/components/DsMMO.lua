@@ -23,7 +23,7 @@ function list_table(v, values)
 	end
 end
 
-local VERSION = "0.1.1"
+local VERSION = "0.1.2"
 local LEVEL_MAX = 10
 
 local CHANCE_FERTILIZE_BONUS = 0.5
@@ -40,7 +40,7 @@ local DSMMO_ACTIONS = {
 	["ATTACK"] = 30,
 	["PLANT"] = 30,
 	["FERTILIZE"] = 25,
-	["BUILD"] = 100,
+	["BUILD"] = 100, --and REPAIR
 	["DIG"] = 40,
 	["EAT"] = 40,
 	["PICK"] = 80
@@ -50,9 +50,10 @@ local COLOR_RED = {1, 0, 0, 1}
 
 local _touchstone_index = nil
 
-local PRESETS = {
-	["CHOP"] = {2,5,10,12,2,9,14,16}, -- from scripts/stategraphs/SGwilson.lua:1707 to :1778
-	["MINE"] = {7,9,14} -- from scripts/stategraphs/SGwilson.lua:1828 to :1846
+local ACTION_SPEED_INCREASE = {
+--be aware: Not all action have a simular named state!
+	["CHOP"] = true, -- from scripts/stategraphs/SGwilson.lua:1707 to :1778
+	["MINE"] = true -- from scripts/stategraphs/SGwilson.lua:1828 to :1846
 }
 
 --TODO move this stuff to modmain?
@@ -110,7 +111,7 @@ local RECIPES = {
 				spawn_to_target("mole", center)
 				spawn_to_target("mole", center)
 				spawn_to_target("mole", center)
-				alert(player, "That was lucky", COLOR_GOLD)
+				alert(player, "That was lucky")
 			end
 		end
 	},
@@ -121,6 +122,8 @@ local RECIPES = {
 		min_level={"BUILD",8},
 		chance={"BUILD",0.8},
 		fu=function(player, center)
+		--SetCameraDistance
+		--player_classified:ShowHUD(false)
 			local k
 			local v
 			for local_k,local_v in pairs(player.components.touchstonetracker.used) do
@@ -213,15 +216,26 @@ local RECIPES = {
 			spawn_to_target("berrybush2", center)
 			center:Remove()
 		end
+	},
+	firepit = {
+		name="Ritual of the pigable flame",
+		num=4,
+		recipe={pigskin=4, dragon_scales=1},
+		min_level={"BUILD",7},
+		chance={"BUILD",0.5},
+		fu=function(player, center)
+			spawn_to_target("pigtorch", center)
+			center:Remove()
+		end
 	--},
 	--firepit = {
-		--name="Ritual of red juicyness",
+		--name="Ritual of the pigable flame",
 		--num=4,
-		--recipe={pigskin=4, redgem=1, spoiled_food=2},
-		--min_level={"PICK",4},
-		--chance={"PICK",1.2},
+		--recipe={pigskin=4, dragon_scales=1},
+		--min_level={"BUILD",7},
+		--chance={"BUILD",0.5},
 		--fu=function(player, center)
-			--spawn_to_target("pigtorch", center)
+			--spawn_to_target("catcoonden", center)
 			--center:Remove()
 		--end
 	}
@@ -230,8 +244,8 @@ local RECIPES = {
 local SKILLS = {
 	fireflies= {
 		name="Ghosty fireflies",
-		min_level={"PICK",5},
-		chance={"PICK",0.5}
+		min_level={"PICK",1},
+		chance={"PICK",0.9}
 	},
 	hungry_attack = {
 		name="Hungry fighter",
@@ -253,7 +267,7 @@ local SKILLS = {
 		min_level={"FERTILIZE",2},
 		chance={"FERTILIZE",0.5}
 	},
-	plant = {
+	harvest = {
 		name="Plant another day",
 		min_level={"PLANT",2},
 		chance={"PLANT",0.5}
@@ -299,9 +313,8 @@ end
 function test_skill(self, player, skill)
 	return self.level[skill.min_level[1]] >= skill.min_level[2] and get_success(player, skill.chance[1], skill.chance[2])
 end
-function alert(player, msg, color)
-	player.components.talker:Say(msg, 10, nil, nil, nil, color)
-	--self.player.components.talker:Say(output, 20, nil, nil, nil, {1,1,1,1})
+function alert(player, msg, len)
+	player.components.talker:Say(msg, len or 10)
 end
 function get_level(xp)
 	return math.floor(math.log(xp) / math.log(2))
@@ -311,6 +324,7 @@ function get_max_exp(action, lvl)
 end
 
 function onPerformaction(player, data)
+--inst.sg.statemem.action
 	local action = player.bufferedaction or data.action
 	local self = player.components.DsMMO
 		--spawn_to_target("ground_chunks_breaking", player)
@@ -324,6 +338,7 @@ function onPerformaction(player, data)
 	if action then
 		local actionId = action.action.id
 		
+		
 		if actionId == "EAT" then
 			if player.components.hunger.current <player.components.hunger.max then
 				player.components.DsMMO:get_experience(actionId)
@@ -332,7 +347,7 @@ function onPerformaction(player, data)
 			player.components.DsMMO:get_experience(actionId)
 			
 			if actionId == "ATTACK" then
-				if test_skill(self, player, SKILLS.attack) then
+				if action.target and test_skill(self, player, SKILLS.attack) then
 					spawn_to_target("lightning", action.target)
 					action.target.components.combat:GetAttacked(action.target, TUNING.SPEAR_DAMAGE)
 				end
@@ -357,10 +372,13 @@ function onPerformaction(player, data)
 				spawn_to_target("fireflies", action.target)
 				action.target:Remove()
 			end
+		elseif actionId == "REPAIR" then
+			player.components.DsMMO:get_experience("REPAIR")
 		else
 			print(actionId)
+			return
 		end
-		
+		self.last_action = actionId --has to be a valid DsMMO-skill
 		
 	end
 end
@@ -386,7 +404,7 @@ function onStartStarving(player)
 	
 	if self.level[skill.min_level[1]] >= skill.min_level[2] and new_damagemultiplier > player.default_damagemultiplier then
 		player.components.combat.damagemultiplier = new_damagemultiplier
-		alert(player, "I feel mighty", COLOR_GOLD)
+		alert(player, "I feel mighty")
 	end
 end
 function onStopStarving(player)
@@ -403,7 +421,7 @@ function onExp_update(player, action)
 	local xp = player.components.DsMMO.exp[action]
 	
 	if(player.components.DsMMO.level ~= get_level(xp)) then
-		alert(player, action .." was not in sync with server (" ..player.components.DsMMO.level[action] .."/=" ..get_level(xp) ..")", COLOR_RED)
+		alert(player, action .." was not in sync with server (" ..player.components.DsMMO.level[action] .."/=" ..get_level(xp) ..")")
 	end
 	player.components.DsMMO.level = get_level(xp)
 end
@@ -412,8 +430,10 @@ local _DsMMO = nil
 local DsMMO = Class(function(self, player)
 	_DsMMO = self
 	self.player = player
+	self:log_msg("init " ..VERSION)
 	self._player_original_position = nil --if not nil, this will be saved when the player logs out unexpectedly
-	self:log_msg("init")
+	self._action_states = {}
+	self.last_action = "EAT"
 	--print(TheNet:IsDedicated())
 	--print(TheNet:GetIsServer())
 	
@@ -429,14 +449,20 @@ local DsMMO = Class(function(self, player)
 			--end)
 		return
 	end
-
 	
-	local main_lookat = ACTIONS.LOOKAT.fn
-	ACTIONS.LOOKAT.fn = function(act)
-		if not act.target or not act.doer.components.DsMMO:init_recipe(act.target) then
-			main_lookat(act)
+	local origin_updateState = self.player.sg.UpdateState
+	player.sg.UpdateState = function(...)
+		if not player.sg.currentstate then 
+			return
 		end
+		if self._action_states[player.sg.currentstate.name] then
+			player.sg.currentstate = self._action_states[player.sg.currentstate.name]
+		end
+		
+		origin_updateState(...)
 	end
+	
+	
 	--OnNewSpawn
 	self:create_array() --this is a waste of performance - But I havent found a way to detect a newly created character
 	player:ListenForEvent("ms_becameghost", onbecameghost)
@@ -466,11 +492,11 @@ function DsMMO:get_experience(action)
 			lvl = lvl+1
 			self.level[action] = lvl
 	
-			alert(player, self:newLevelString(action, lvl), COLOR_RED)
+			alert(player, self:newLevelString(action, lvl))
 			player.SoundEmitter:PlaySound("dontstarve/characters/wx78/levelup")
 			
 			
-			if PRESETS[action] then
+			if ACTION_SPEED_INCREASE[action] then
 				self:update_actionSpeed(action)
 			end
 		end
@@ -491,16 +517,30 @@ function DsMMO:newLevelString(action, lvl)
 	
 	return base
 end
+
 function DsMMO:update_actionSpeed(action)
-	--Unfortunately, there is no real way to increase the Action-animation-speed
-	-- So we override the timetables as gracefully as we can and hope that
-	-- the source code wont get any major change
+	--Unfortunately, there is no real way to increase the Action-state-speed
+	--	So we create our own State and override it if necessary
+	--	sources:
+	--	scripts/stategraph.lua
+	--	scripts/stategraphs/SGwilson.lua
 	local lvl = self.level[action]/LEVEL_MAX
-	local action_table = self.player.sg.sg.states[string.lower(action)]
-	local t = PRESETS[action]
+	local action_lower = string.lower(action)
+	local origin_state = self.player.sg.sg.states[action_lower]
 	
-	for k,v in pairs(action_table.timeline) do
-		action_table.timeline[k] = TimeEvent((t[k] - ((t[k]-1)*lvl)) * FRAMES, v.fn)
+	self._action_states[action_lower] = State{name=origin_state.name}
+	
+	local new_state = self._action_states[action_lower]
+	
+	for k,v in pairs(origin_state) do
+		if k == "timeline" then
+			for k_timeline,v_timeline in pairs(v) do
+				--new_state.timeline[k_timeline] = TimeEvent((t[k_timeline] - ((t[k_timeline]-1)*lvl)) * FRAMES, v_timeline.fn)
+				new_state.timeline[k_timeline] = TimeEvent(v_timeline.time - v_timeline.time*lvl, v_timeline.fn)
+			end
+		else
+			new_state[k] = v
+		end
 	end
 end
 
@@ -508,10 +548,10 @@ function DsMMO:init_recipe(target)
 	local recipe_data = RECIPES[target.prefab]
 	if recipe_data then
 		if self.level[recipe_data.min_level[1]] < recipe_data.min_level[2] then
-			self:log_msg(target.prefab .."-recipe: " ..k .."-level(" ..self.level[k] .."<" ..v ..") is not high enough")
-			alert(self.player, "I don't feel prepared...", COLOR_RED)
+			self:log_msg(target.prefab .."-recipe: " ..recipe_data.min_level[1] .."-level(" ..self.level[recipe_data.min_level[1]] .."<" ..recipe_data.min_level[2] ..") is not high enough")
+			alert(self.player, "I don't feel prepared...")
 		elseif recipe_data.check and recipe_data.check(self.player, target) then
-			alert(self.player, "I just can't...", COLOR_RED)
+			alert(self.player, "I just can't...")
 		else
 			self:check_recipe(target, recipe_data.recipe, recipe_data.num, recipe_data.chance, recipe_data.fu)
 		end
@@ -555,7 +595,7 @@ function DsMMO:check_recipe(center, recipe, ings_needed_sum, chance, fn)
 							spawn_to_target("lightning", center)
 							fn(player, center)
 						else 
-							alert(player, "It failed...", COLOR_RED)
+							alert(player, "It failed...")
 						end
 					end)
 				return
@@ -563,7 +603,7 @@ function DsMMO:check_recipe(center, recipe, ings_needed_sum, chance, fn)
 		end
 	end
 	
-	alert(self.player, "What am I missing..?", COLOR_RED)
+	alert(self.player, "What am I missing..?")
 end
 
 function DsMMO:OnLoad(data)
@@ -572,13 +612,17 @@ function DsMMO:OnLoad(data)
 		if data.dsmmo_version == VERSION then
 			self.exp = data.dsmmo_exp
 			self.level = data.dsmmo_level
+			
+			for k,v in pairs(ACTION_SPEED_INCREASE) do
+				self:update_actionSpeed(k)
+			end
 		else
 			for k,v in pairs(DSMMO_ACTIONS) do
-				--TODO: for now we transfer each variable seperately to make sure future versions will be compatible
+				--we transfer each variable seperately to make sure the different version stays compatible
 				if data.dsmmo_level[k] then
 					self.exp[k] = data.dsmmo_exp[k]
 					self.level[k] = data.dsmmo_level[k]
-					if PRESETS[k] then
+					if ACTION_SPEED_INCREASE[k] then
 						self:update_actionSpeed(k)
 					end
 				end
@@ -652,15 +696,16 @@ function DsMMO:run_command(cmd, arg)
 	local output = ""
 	local dur = 5
 	
-	if arg == nil then
-		dur = 20
-		for k,v in pairs(self.level) do
-			local xp = self:calc_mssing_xp(k)
+	--if arg == nil then
+		--dur = 20
+		--for k,v in pairs(self.level) do
+			--local xp = self:calc_mssing_xp(k)
 			
-			output = output ..k ..":" ..add_spaces(k, 10) ..add_spaces(tostring(xp), 4) ..add_spaces(tostring(v+1), 2) ..xp .." exp until lvl " ..(v+1) .."\n"
-		end
+			--output = output ..k ..":" ..add_spaces(k, 10) ..add_spaces(tostring(xp), 4) ..add_spaces(tostring(v+1), 2) ..xp .." exp until lvl " ..(v+1) .."\n"
+		--end
 		
-	elseif arg == "skills" then
+	--else
+	if arg == "skills" then
 		output = "You know about the following skills:\n"
 		dur = 15
 		local level = self.level
@@ -694,18 +739,18 @@ function DsMMO:run_command(cmd, arg)
 			.."\n#dsmmo help _______________________________________ this help-text"
 			.."\n#dsmmo [ skill ] ________________ Level and experience of a specific skill"
 	else
-		local arg_upper = string.upper(arg)
+		local arg_upper = arg and string.upper(arg) or self.last_action
 		if DSMMO_ACTIONS[arg_upper] then
 			local lvl = self.level[arg_upper]
 			local xp = self:calc_mssing_xp(arg_upper)
 			
-			output = arg_upper ..": " ..xp .." exp --> lvl " ..(lvl+1)
+			output = arg_upper ..": " ..xp .." exp --> lvl " ..(lvl+1) ..(arg and "" or "\n(last used)")
 		else
 			output = arg .." is not a valid DsMMO-skill"
 		end
 	end
 	
-	self.player.components.talker:Say(output, dur, nil, nil, nil, COLOR_RED)
+	alert(self.player, output, dur)
 end
 
 return DsMMO
