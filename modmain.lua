@@ -3,13 +3,14 @@ GLOBAL.CHEATS_ENABLED = true
 GLOBAL.require( 'debugkeys' )
 
 
-function check_player(player)
-	if player and player.components and player.components.DsMMO then
-		return true
-	else
-		print("player not found")
-		return false
+function check_player(playerN)
+	for k,v in pairs(GLOBAL.AllPlayers) do
+		if v.name == playerN and v.components and v.components.DsMMO then
+			return v
+		end
 	end
+	print("player not found")
+	return nil
 end
 
 
@@ -21,21 +22,23 @@ local _player_backup = {}
 
 if GLOBAL.TheNet and GLOBAL.TheNet:GetIsServer() then
 	GLOBAL.global("dsmmo_reset")
-	GLOBAL.dsmmo_reset = function(player)
-	if check_player(player) then
+	GLOBAL.dsmmo_reset = function(playerN)
+		local player = check_player(playerN)
+		if player ~= nil then
 			player.components.DsMMO:create_array()
 			print("Levels from " ..player.name .." have been reset")
 		end
 	end
 
 	GLOBAL.global("dsmmo_set")
-	GLOBAL.dsmmo_set = function(player, action, lvl)
+	GLOBAL.dsmmo_set = function(playerN, action, lvl)
 		action = string.upper(action)
-		if check_player(player) then
+		local player = check_player(playerN)
+		if player ~= nil then
 			if player.components.DsMMO:set_level(action, lvl) then
-				print(player.name .." " ..action .."-level has been set to " ..lvl)
+				print(action .."-level from " ..player.name .." has been set to " ..lvl)
 			else
-				print("This action-skill does not seem to exist")
+				print("A DsMMO-skill named " ..action .." does not exist")
 			end
 		end
 	end
@@ -82,7 +85,7 @@ if GLOBAL.TheNet and GLOBAL.TheNet:GetIsServer() then
 					player.components.talker:Say("DsMMO-commands have to be whispered!")
 					return
 				end
-				player.components.DsMMO:run_command(cmd[1], cmd[2])
+				player.components.DsMMO:run_command(GLOBAL.unpack(cmd))
 			else
 				Old_Networking_Say(guid, userid, name, prefab, msg, colour, whisper, isemote, ...)
 			end

@@ -156,6 +156,17 @@ configuration_options =
 		default = true,
 	},
 	{
+		name = "campfire",
+		label = "Ritual of homing flame",
+		hover = "You can change this setting at any time. Player- or mod-data will not be affected by this",
+		options =
+		{
+			{description = "On",	data = true,	hover = "Enable"},
+			{description = "Off",	data = false,	hover = "Player will not be able to perform this ritual"}
+		},
+		default = true,
+	},
+	{
 		name = "berries",
 		label = "Ritual of redness",
 		hover = "You can change this setting at any time. Player- or mod-data will not be affected by this",
@@ -169,6 +180,61 @@ configuration_options =
 	{
 		name = "berries_juicy",
 		label = "Ritual of red juicyness",
+		hover = "You can change this setting at any time. Player- or mod-data will not be affected by this",
+		options =
+		{
+			{description = "On",	data = true,	hover = "Enable"},
+			{description = "Off",	data = false,	hover = "Player will not be able to perform this ritual"}
+		},
+		default = true,
+	},
+	{
+		name = "cave_banana_cooked",
+		label = "Ritual of dumb monkeys",
+		hover = "You can change this setting at any time. Player- or mod-data will not be affected by this",
+		options =
+		{
+			{description = "On",	data = true,	hover = "Enable"},
+			{description = "Off",	data = false,	hover = "Player will not be able to perform this ritual"}
+		},
+		default = true,
+	},
+	{
+		name = "cave_banana",
+		label = "Ritual of bananana",
+		hover = "You can change this setting at any time. Player- or mod-data will not be affected by this",
+		options =
+		{
+			{description = "On",	data = true,	hover = "Enable"},
+			{description = "Off",	data = false,	hover = "Player will not be able to perform this ritual"}
+		},
+		default = true,
+	},
+	{
+		name = "lightbulb",
+		label = "Ritual of shiny balls",
+		hover = "You can change this setting at any time. Player- or mod-data will not be affected by this",
+		options =
+		{
+			{description = "On",	data = true,	hover = "Enable"},
+			{description = "Off",	data = false,	hover = "Player will not be able to perform this ritual"}
+		},
+		default = true,
+	},
+	{
+		name = "fish",
+		label = "Ritual of splishy splashy",
+		hover = "You can change this setting at any time. Player- or mod-data will not be affected by this",
+		options =
+		{
+			{description = "On",	data = true,	hover = "Enable"},
+			{description = "Off",	data = false,	hover = "Player will not be able to perform this ritual"}
+		},
+		default = true,
+	},
+	{
+		name = "cutreeds",
+		label = "Ritual of Poe",
 		hover = "You can change this setting at any time. Player- or mod-data will not be affected by this",
 		options =
 		{

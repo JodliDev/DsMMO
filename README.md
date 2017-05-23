@@ -9,34 +9,6 @@ Depending on the skill, new levels will enable you to perform actions faster, gi
 Everytime your character dies you loose half your exp in every skill.
 
 
-### CHOP
-The higher your CHOP-level, the faster you will be able to chop trees
-
-### MINE
-The higher your MINE-level, the faster you will be able to mine stones
-
-### ATTACK
-### PLANT
-### FERTILIZE
-### DIG
-
-Level 1
-Secret of moles
-
-### REPAIR
-
-Level 5
-Arctic fishing
-Whalers feast
-### EAT
-### PICK
-### BUILD
-
-
-### Ghosty Fireflies
-After your PICK-Ability reached level 5, you will be able to turn evil flowers into fireflys by haunting them.
-
-
 ## Rituals
 Rituals are a way of sacrificing items to get rare items or performing useful actions.
 They are conducted by placing the nedded items on the floor (they dont have to be placed in any order. Just near one another) and then inspecting the center peace of the sacrifice
@@ -46,111 +18,139 @@ Do not use stacked items!
 The ritual will treat them as a single item anad you will loose all the other items in the stack (or the ritual wont work at all)
 
 
+## Skills
 
 The lore says that all abilities have a 50 percent better chance to be successfull during a full moon...
 
-### Secret of moles
-#### Recipe:
-(only three of the above are needed)
-(rocks=1), (flint=1), (nitre=1), (goldnugget=1), (marble=1), (moonrocknugget=1), (bluegem=1), (redgem=1), (yellowgem=1), (orangegem=1), (purplegem=1)
-
-Around a **molehill**
-
-#### Description:
-This ritual can spawn one or more moles out of ores.
-If your DIG-level is maxed, you have a 100 perent chance of being successfull and a 5 percent chance that four moles instead of one spawn.
 
 
-### Rerevival
-#### Recipe:
-nightmarefuel=1, marble=2, amulet=1
+### CHOP
+The higher your CHOP-level, the faster you will be able to chop trees
 
-Around a **skeleton from a died player**
+### MINE
+The higher your MINE-level, the faster you will be able to mine stones
 
-#### Description:
-With this ritual you can make a random touchstone (out of the ones you have used) reusable again.
-It can only be performed when your BUILD-level is higher than 8 and its chance of success is 80 percent if your skill is maxed
+### ATTACK
 
-This ritual will not work if the world has no touchstones you have already used.
-DsMMO only checks touchstones that have been existed when the game (/server) was initiated. That means, if you have other mods that creat touchstones while the game is running, DsMMO will not be able to see them until the game has been restarted
+Level 1
+Explosive touch
 
+Level 2
+Beetaliation
+ 
+### PLANT
 
-### Get the longest Twig
-#### Recipe:
-bluegem=1, redgem=1, log=2
+Level 1
+Double the shit
 
-Around a **twig**
+Level 2
+Plant another day
 
-#### Description:
-This ritual turns your ingredients into a sapling plant.
-It can only be performed when your BUILD-level is higher than 3.
-If your BUILD-level is maxed, your chance of success is 120 percent.
+Level 3
+Ritual of redness
+![Recipe](./recipes/berries.png)
 
+Level 4
+Ritual of red juicyness
+![Recipe](./recipes/berries_juicy.png)
 
-### Green Grass
-#### Recipe:
-bluegem=1, redgem=1, spoiled_food=2
+Level 6
+Ritual of bananana
+![Recipe](./recipes/cave_banana.png)
 
-Around a **cut grass**
-
-#### Description:
-This ritual turns your ingredients into a grass tufft.
-It can only be performed when your BUILD-level is higher than 4.
-If your BUILD-level is maxed, your chance of success is 120 percent.
-
-
-### Red
-#### Recipe:
-bluegem=1, redgem=1, spoiled_food=2
-
-Around a **berry**
-
-#### Description:
-This ritual turns your ingredients into a berry bush.
-It can only be performed when your PLANT-level is higher than 3.
-Depending on your PICK-level, your chance of success is 120 percent if that skill is maxed.
+Level 8
+Ritual of magic mushrooms
+![Recipe](./recipes/living_log.png)
 
 
-### Red and juicy
-#### Recipe:
-bluegem=1, redgem=1, spoiled_food=2
+### DIG
 
-Around a **juicy berry**
+Level 1
+Treasurehunter
 
-#### Description:
-This ritual turns your ingredients into a juicy berry bush.
-It can only be performed when your PLANT-level is higher than 4.
-Depending on your PICK-level, your chance of success is 120 percent if that skill is maxed.
+Level 2
+Ritual of mole infestation
+![Recipe](./recipes/molehill.png)
 
+Level 3
+Ritual of mole attraction
+![Recipe](./recipes/shovel.png)
 
-### A new life
-#### Recipe:
-goose_feather=2, bearger_fur=2, dragon_scales=1, fireflies=2
-
-Around a **deerclops_eyeball**
-
-#### Description:
-This ritual gives you the chance to choose another player. You will keep your recorded map and your DsMMO-levels.
-But you will loose half your exp.
-It can only be performed when your EAT-level is higher than 5.
-Depending on your PICK-level, your chance of success is 120 percent if that skill is maxed.
+Level 5
+Ritual of roman streets
+![Recipe](./recipes/pitchfork.png)
 
 
-### Arctic fishing
-#### Recipe:
-cane=2, walrushat=2, fireflies=2
+### EAT
 
-Around a **walrus_camp**
+Level 3
+Self-cannibalism
 
-#### Description:
+Level 5
+Ritual of death
+![Recipe](./recipes/amulet.png)
+
+Level 8
+Ritual of a new life
+![Recipe](./recipes/deerclops_eyeball.png)
 
 
+### PICK
 
-### Whalers feast
-#### Recipe:
-cane=2, walrushat=2, fireflies=2
+Level 1
+Ghosty fireflies
 
-Around a **walrus_tusk**
+Level 2
+Ritual of the longest Twig
+![Recipe](./recipes/twigs.png)
 
-#### Description:
+Level 3
+Ritual of reggae dreams
+![Recipe](./recipes/cutgrass.png)
 
+Level 5
+Ritual of shiny balls
+![Recipe](./recipes/lightbulb.png)
+
+Level 7
+Ritual of Poe
+![Recipe](./recipes/cutreed.png)
+
+
+### BUILD
+
+Level 1
+Ritual of pussy love
+![Recipe](./recipes/coontail.png)
+
+Level 2
+Ritual of splishy splashy
+![Recipe](./recipes/fish.png)
+
+Level 3
+Ritual of dumb monkeys
+![Recipe](./recipes/cave_banana_cooked.png)
+
+Level 4
+Ritual of arctic fishing
+![Recipe](./recipes/walrus_camp.png)
+
+Level 5
+Ritual of whalers feast
+![Recipe](./recipes/walrus_tusk.png)
+
+Level 6
+Ritual of Saurons bird
+![Recipe](./recipes/tallbirdegg.png)
+
+Level 7
+Ritual of the pigable flame
+![Recipe](./recipes/firepit.png)
+
+Level 8
+Ritual of rerevival
+![Recipe](./recipes/skeleton_player.png)
+
+Level 10
+Ritual of homing flame
+![Recipe](./recipes/campfire.png)
