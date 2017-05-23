@@ -32,125 +32,96 @@ The higher your MINE-level, the faster you will be able to mine stones
 
 ### ATTACK
 
-Level 1
-Explosive touch
+#### Level 1: Explosive touch
 
-Level 2
-Beetaliation
+#### Level 2: Beetaliation
  
 ### PLANT
 
-Level 1
-Double the shit
+#### Level 1: Double the shit
 
-Level 2
-Plant another day
+#### Level 2: Plant another day
 
-Level 3
-Ritual of redness
+#### Level 3: Ritual of redness
 ![Recipe](./recipes/berries.png)
 
-Level 4
-Ritual of red juicyness
+#### Level 4: Ritual of red juicyness
 ![Recipe](./recipes/berries_juicy.png)
 
-Level 6
-Ritual of bananana
+#### Level 6: Ritual of bananana
 ![Recipe](./recipes/cave_banana.png)
 
-Level 8
-Ritual of magic mushrooms
+#### Level 8: Ritual of magic mushrooms
 ![Recipe](./recipes/living_log.png)
 
 
 ### DIG
 
-Level 1
-Treasurehunter
+#### Level 1: Treasurehunter
 
-Level 2
-Ritual of mole infestation
+#### Level 2: Ritual of mole infestation
 ![Recipe](./recipes/molehill.png)
 
-Level 3
-Ritual of mole attraction
+#### Level 3: Ritual of mole attraction
 ![Recipe](./recipes/shovel.png)
 
-Level 5
-Ritual of roman streets
+#### Level 5: Ritual of roman streets
 ![Recipe](./recipes/pitchfork.png)
 
 
 ### EAT
 
-Level 3
-Self-cannibalism
+#### Level 3: Self-cannibalism
 
-Level 5
-Ritual of death
+#### Level 5: Ritual of death
 ![Recipe](./recipes/amulet.png)
 
-Level 8
-Ritual of a new life
+#### Level 8: Ritual of a new life
 ![Recipe](./recipes/deerclops_eyeball.png)
 
 
 ### PICK
 
-Level 1
-Ghosty fireflies
+#### Level 1: Ghosty fireflies
 
-Level 2
-Ritual of the longest Twig
+#### Level 2: Ritual of the longest Twig
 ![Recipe](./recipes/twigs.png)
 
-Level 3
-Ritual of reggae dreams
+#### Level 3: Ritual of reggae dreams
 ![Recipe](./recipes/cutgrass.png)
 
-Level 5
-Ritual of shiny balls
+#### Level 5: Ritual of shiny balls
 ![Recipe](./recipes/lightbulb.png)
 
-Level 7
-Ritual of Poe
+#### Level 7: Ritual of Poe
 ![Recipe](./recipes/cutreed.png)
 
 
 ### BUILD
 
-Level 1
-Ritual of pussy love
+#### Level 1: Ritual of pussy love
 ![Recipe](./recipes/coontail.png)
 
-Level 2
-Ritual of splishy splashy
+#### Level 2: Ritual of splishy splashy
 ![Recipe](./recipes/fish.png)
 
-Level 3
-Ritual of dumb monkeys
+#### Level 3: Ritual of dumb monkeys
 ![Recipe](./recipes/cave_banana_cooked.png)
 
-Level 4
-Ritual of arctic fishing
+#### Level 4: Ritual of arctic fishing
 ![Recipe](./recipes/walrus_camp.png)
 
-Level 5
-Ritual of whalers feast
+#### Level 5: Ritual of whalers feast
 ![Recipe](./recipes/walrus_tusk.png)
 
-Level 6
-Ritual of Saurons bird
+#### Level 6: Ritual of Saurons bird
 ![Recipe](./recipes/tallbirdegg.png)
 
-Level 7
-Ritual of the pigable flame
+#### Level 7: Ritual of the pigable flame
 ![Recipe](./recipes/firepit.png)
 
-Level 8
-Ritual of rerevival
+#### Level 8: Ritual of rerevival
 ![Recipe](./recipes/skeleton_player.png)
 
-Level 10
-Ritual of homing flame
+#### Level 10: Ritual of homing flame
 ![Recipe](./recipes/campfire.png)
