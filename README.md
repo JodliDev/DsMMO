@@ -94,7 +94,7 @@ The higher your MINE-level, the faster you will be able to mine stones
 ![Recipe](./recipes/lightbulb.png)
 
 #### Level 7: Ritual of Poe
-![Recipe](./recipes/cutreed.png)
+![Recipe](./recipes/cutreeds.png)
 
 
 ### BUILD
