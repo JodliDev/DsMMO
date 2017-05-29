@@ -52,18 +52,22 @@ With a 20 percent chance: moonrocknugget, beardhair, yellowgem, orangegem
 
 #### Level 3: Ritual of redness
 ![Recipe](./recipes/berries.png)
-![Recipe](./recipes/berries_outcome_outcome.png)
+![>](./arrow_r.png)
+![Recipe](./recipes/berries_outcome.png)
 
 #### Level 4: Ritual of red juicyness
 ![Recipe](./recipes/berries_juicy.png)
+![>](./arrow_r.png)
 ![Recipe](./recipes/berries_juicy_outcome.png)
 
 #### Level 6: Ritual of bananana
 ![Recipe](./recipes/cave_banana.png)
+![>](./arrow_r.png)
 ![Recipe](./recipes/cave_banana_outcome.png)
 
 #### Level 8: Ritual of magic mushrooms
 ![Recipe](./recipes/living_log.png)
+![>](./arrow_r.png)
 ![Recipe](./recipes/living_log_outcome.png)
 
 
@@ -74,14 +78,17 @@ Using your shovel for digging has a chance of spawning additional items
 
 #### Level 2: Ritual of mole infestation
 ![Recipe](./recipes/molehill.png)
+![>](./arrow_r.png)
 ![Recipe](./recipes/molehill_outcome.png)
 
 #### Level 3: Ritual of mole attraction
 ![Recipe](./recipes/shovel.png)
+![>](./arrow_r.png)
 ![Recipe](./recipes/shovel_outcome.png)
 
 #### Level 5: Ritual of roman streets
 ![Recipe](./recipes/pitchfork.png)
+![>](./arrow_r.png)
 ![Recipe](./recipes/pitchfork_outcome.png)
 
 
@@ -91,10 +98,12 @@ Using your shovel for digging has a chance of spawning additional items
 
 #### Level 5: Ritual of death
 ![Recipe](./recipes/amulet.png)
+![>](./arrow_r.png)
 ![Recipe](./recipes/amulet_outcome.png)
 
 #### Level 8: Ritual of a new life
 ![Recipe](./recipes/deerclops_eyeball.png)
+![>](./arrow_r.png)
 ![Recipe](./recipes/deerclops_eyeball_outcome.png)
 
 
@@ -104,18 +113,22 @@ Using your shovel for digging has a chance of spawning additional items
 
 #### Level 2: Ritual of the longest Twig
 ![Recipe](./recipes/twigs.png)
+![>](./arrow_r.png)
 ![Recipe](./recipes/twigs_outcome.png)
 
 #### Level 3: Ritual of reggae dreams
 ![Recipe](./recipes/cutgrass.png)
+![>](./arrow_r.png)
 ![Recipe](./recipes/cutgrass_outcome.png)
 
 #### Level 5: Ritual of shiny balls
 ![Recipe](./recipes/lightbulb.png)
+![>](./arrow_r.png)
 ![Recipe](./recipes/lightbulb_outcome.png)
 
 #### Level 7: Ritual of Poe
 ![Recipe](./recipes/cutreeds.png)
+![>](./arrow_r.png)
 ![Recipe](./recipes/cutreeds_outcome.png)
 
 
@@ -123,36 +136,45 @@ Using your shovel for digging has a chance of spawning additional items
 
 #### Level 1: Ritual of pussy love
 ![Recipe](./recipes/coontail.png)
+![>](./arrow_r.png)
 ![Recipe](./recipes/coontail_outcome.png)
 
 #### Level 2: Ritual of splishy splashy
 ![Recipe](./recipes/fish.png)
+![>](./arrow_r.png)
 ![Recipe](./recipes/fish_outcome.png)
 
 #### Level 3: Ritual of dumb monkeys
 ![Recipe](./recipes/cave_banana_cooked.png)
+![>](./arrow_r.png)
 ![Recipe](./recipes/cave_banana_cooked_outcome.png)
 
 #### Level 4: Ritual of arctic fishing
 ![Recipe](./recipes/walrus_camp.png)
+![>](./arrow_r.png)
 ![Recipe](./recipes/walrus_camp_outcome.png)
 
 #### Level 5: Ritual of whalers feast
 ![Recipe](./recipes/walrus_tusk.png)
+![>](./arrow_r.png)
 ![Recipe](./recipes/walrus_tusk_outcome.png)
 
 #### Level 6: Ritual of Saurons bird
 ![Recipe](./recipes/tallbirdegg.png)
+![>](./arrow_r.png)
 ![Recipe](./recipes/tallbirdegg_outcome.png)
 
 #### Level 7: Ritual of the pigable flame
 ![Recipe](./recipes/firepit.png)
+![>](./arrow_r.png)
 ![Recipe](./recipes/firepit_outcome.png)
 
 #### Level 8: Ritual of rerevival
 ![Recipe](./recipes/skeleton_player.png)
+![>](./arrow_r.png)
 ![Recipe](./recipes/skeleton_player_outcome.png)
 
 #### Level 10: Ritual of homing flame
 ![Recipe](./recipes/campfire.png)
+![>](./arrow_r.png)
 ![Recipe](./recipes/campfire_outcome.png)
