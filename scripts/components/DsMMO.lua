@@ -313,7 +313,7 @@ local RECIPES = {
 		end
 	},
 	berries_juicy = {
-		name="Ritual of red juicyness",
+		name="Ritual of red juiciness",
 		num=4,
 		recipe={fireflies=1, spoiled_food=2},
 		min_level={"PLANT",4},
@@ -447,7 +447,7 @@ local SKILLS = {
 		chance={"PLANT",0.5}
 	},
 	dig = {
-		name="Treasurehunter",
+		name="Treasure hunter",
 		min_level={"DIG",1},
 		chance={"DIG",0.5},
 		items={--keys are their respective chances and should sum up to 1
@@ -469,7 +469,7 @@ local DEPLOY_PLANT_ACTIONS = { --deploying these will give PLANT-exp. Everything
 	grass = true
 }
 
-print("[DdMMO] Implement settings")
+print("[DsMMO] Implement settings")
 for k,v in pairs(RECIPES) do
 	if not GetModConfigData(k, KnownModIndex:GetModActualName("DsMMO")) then
 		RECIPES[k] = nil
@@ -491,7 +491,7 @@ function add_to_index(array)
 		table.insert(RECIPE_LEVEL_INDEX[action][lvl], v)
 	end
 end
-print("[DdMMO] Creating level up string")
+print("[DsMMO] Creating level up string")
 RECIPE_LEVEL_INDEX = {}
 add_to_index(SKILLS)
 add_to_index(RECIPES)

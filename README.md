@@ -1,30 +1,37 @@
-![DsMMO](./modicon.png)
+# ![DsMMO](./modicon.png)
 
-The purpose of this mod is to reward players for every action they do. You will get experience for several actions and over time get level ups that let you learn new skills, rituals and increase the effect rate and chance of skills and rituals that you have already learned
-But be careful. Everytime you die, you loose half of your exp.
+The purpose of this mod is to reward players for every action they do. You will get experience for several actions and over time get level ups that let you learn new skills, rituals and increase the effect rate and chance of skills and rituals that you have already learned.
+But be careful. Every time you die, you loose half of your experience.
+
+The lore says that all skills and rituals have a 50 percent better chance to be successful during a full moon...
+
+
 
 # Rituals
 Rituals are a way of sacrificing items to build rare structures or performing useful actions.
 
 ## Conducting a ritual
 * Place all the needed items on the ground (**but don't use stacked items or you will loose them**)
-* The don't need to be placed in any specific order or arrangement but there is always a middle piece that needs to be near enough to all the other ingredients.
-* When you have layed out all the needed items, **inspect** the middle piece (you may have to **force inspect**. You can set its key command in the settings).
+* They don't need to be placed in any specific order or arrangement but there is always a middle piece that needs to be near to all the other ingredients.
+* When you have laid out all the needed items, **inspect** the middle piece (you may have to **force inspect**. You can set its key command in the settings).
 
 
 # Skills
-Skills passivly increase
+Skills give you bonuses when you conduct an action.
+The higher your level in the matching DsMMO-action, the higher is your chance and / or effectiveness of the skill.
 
-The lore says that all skills and rituals have a 50 percent better chance to be successful during a full moon...
 
 
-# Skill and Ritual-tree:
+# Skill- and ritual-tree:
+
 
 ## CHOP
 The higher your CHOP-level, the faster you will be able to chop trees
 
+
 ## MINE
 The higher your MINE-level, the faster you will be able to mine stones
+
 
 ## ATTACK
 You get experience for: Attacking other player, NPCs or structures and when you are attacked.
@@ -33,8 +40,9 @@ You get experience for: Attacking other player, NPCs or structures and when you 
 Every attack you deal has a chance of doing extra damage (same damage like of a spear).
 
 ### Level 2: Beetaliation
-Everytime you are attacked, there is a chance that you spawn a bee, that will attack the source that attacked you.
- 
+Every time you are attacked, there is a chance that you spawn a bee, that will attack the source that attacked you.
+
+
 ## PLANT
 
 ### Level 1: Double the shit
@@ -42,16 +50,16 @@ Fertilizing has a chance of being extra effective.
 
 ### Level 2: Plant another day
 Harvesting crops has a chance of getting double drops. Possible drops are:
-With a 50 percent chance: lightbulb, redgem, bluegem
-With a 30 percent chance: mandrake, purplegem, cutreeds, slurper_pelt, furtuft
-With a 20 percent chance: moonrocknugget, beardhair, yellowgem, orangegem
+With a 50 percent chance: lightbulb, red gem, blue gem
+With a 30 percent chance: mandrake, purple gem, cutreeds, slurper pelt, furtuft
+With a 20 percent chance: moonrocks, beardhair, yellow gem, orange gem
 
 ### Level 3: Ritual of redness
 ![Recipe](./recipes/berries.png)
 ![>](./arrow_r.png)
 ![Recipe](./recipes/berries_outcome.png)
 
-### Level 4: Ritual of red juicyness
+### Level 4: Ritual of red juiciness
 ![Recipe](./recipes/berries_juicy.png)
 ![>](./arrow_r.png)
 ![Recipe](./recipes/berries_juicy_outcome.png)
@@ -69,7 +77,7 @@ With a 20 percent chance: moonrocknugget, beardhair, yellowgem, orangegem
 
 ## DIG
 
-### Level 1: Treasurehunter
+### Level 1: Treasure hunter
 Using your shovel for digging has a chance of spawning additional items
 
 ### Level 2: Ritual of mole infestation
@@ -91,6 +99,12 @@ Using your shovel for digging has a chance of spawning additional items
 ## EAT
 
 ### Level 3: Self-cannibalism
+Exchange DsMMO-experience to completely fill your health, hunger or sanity.
+Use this skill with the following chat-command:
+```
+#dsmmo eat [skill] [health / hunger / sanity]
+```
+The higher your EAT-skill the less DsMMO-experience is used for healing yourself.
 
 ### Level 5: Ritual of death
 ![Recipe](./recipes/amulet.png)
@@ -106,6 +120,7 @@ Using your shovel for digging has a chance of spawning additional items
 ## PICK
 
 ### Level 1: Ghosty fireflies
+As a ghost, haunting evil flowers has a chance to turn into fireflies. The higher your PICK-skill, the higher your chance of succeeding.
 
 ### Level 2: Ritual of the longest Twig
 ![Recipe](./recipes/twigs.png)
@@ -174,3 +189,31 @@ Using your shovel for digging has a chance of spawning additional items
 ![Recipe](./recipes/campfire.png)
 ![>](./arrow_r.png)
 ![Recipe](./recipes/campfire_outcome.png)
+
+
+
+# User-commands
+User-commands are available for all players. To use them they have to **whispered** into the chat.
+
+## #dsmmo [action]
+This command spawns a mini-sign at your current position (which will despawn over time). The sign always shows your last used DsMMO-action and if you examine it, you will be shown your current level, experience and learned skills.
+If you specify an action, the mini-sign will show the specified action instead of the last used one.
+
+## #dsmmo list
+Lists the levels of all your DsMMO-actions
+
+## #dsmmo eat
+See the skill [Self-cannibalism](#Level 3: Self-cannibalism) 
+
+
+
+# Admin-commands
+Admin-commands are only available if you have remote access to the server-console.
+
+## dsmmo_reset(player_name)
+Resets all DsMMO-actions to level 0 for the specified player.
+The player has to be online for the command to work properly.
+
+## dsmmo_set(player_name, action, level)
+Sets the level of a specific DsMMO-action to the specified level for the specified player.
+The player has to be online for the command to work properly.

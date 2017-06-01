@@ -179,7 +179,7 @@ configuration_options =
 	},
 	{
 		name = "berries_juicy",
-		label = "Ritual of red juicyness",
+		label = "Ritual of red juiciness",
 		hover = "You can change this setting at any time. Player- or mod-data will not be affected by this",
 		options =
 		{
