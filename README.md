@@ -199,10 +199,10 @@ User-commands are available for all players. To use them they have to **whispere
 This command spawns a mini-sign at your current position (which will despawn over time). The sign always shows your last used DsMMO-action and if you examine it, you will be shown your current level, experience and learned skills.
 If you specify an action, the mini-sign will show the specified action instead of the last used one.
 
-## ```#dsmmo list```
+### ```#dsmmo list```
 Lists the levels of all your DsMMO-actions
 
-## ```#dsmmo eat [action] [hunger | health | sanity]```
+### ```#dsmmo eat [action] [hunger | health | sanity]```
 See the skill [Self-cannibalism](#level-3-self-cannibalism)
 
 
@@ -210,10 +210,10 @@ See the skill [Self-cannibalism](#level-3-self-cannibalism)
 # Admin-commands
 Admin-commands are only available if you have remote access to the server-console.
 
-## ```dsmmo_reset(player_name)```
+### ```dsmmo_reset(player_name)```
 Resets all DsMMO-actions to level 0 for the specified player.
 The player has to be online for the command to work properly.
 
-## ```dsmmo_set(player_name, action, level)```
+### ```dsmmo_set(player_name, action, level)```
 Sets the level of a specific DsMMO-action to the specified level for the specified player.
 The player has to be online for the command to work properly.
