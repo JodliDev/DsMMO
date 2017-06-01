@@ -1,4 +1,4 @@
-# ![DsMMO](./modicon.png)
+# ![DsMMO](./pics/modicon.png)
 
 The purpose of this mod is to reward players for every action they do. You will get experience for several actions and over time get level ups that let you learn new skills, rituals and increase the effect rate and chance of skills and rituals that you have already learned.
 But be careful. Every time you die, you loose half of your experience.
@@ -55,24 +55,24 @@ With a 30 percent chance: mandrake, purple gem, cutreeds, slurper pelt, furtuft
 With a 20 percent chance: moonrocks, beardhair, yellow gem, orange gem
 
 ### Level 3: Ritual of redness
-![Recipe](./recipes/berries.png)
-![>](./arrow_r.png)
-![Recipe](./recipes/berries_outcome.png)
+![Recipe](./pics/recipes/berries.png)
+![>](./pics/arrow_r.png)
+![Recipe](./pics/recipes/berries_outcome.png)
 
 ### Level 4: Ritual of red juiciness
-![Recipe](./recipes/berries_juicy.png)
-![>](./arrow_r.png)
-![Recipe](./recipes/berries_juicy_outcome.png)
+![Recipe](./pics/recipes/berries_juicy.png)
+![>](./pics/arrow_r.png)
+![Recipe](./pics/recipes/berries_juicy_outcome.png)
 
 ### Level 6: Ritual of bananana
-![Recipe](./recipes/cave_banana.png)
-![>](./arrow_r.png)
-![Recipe](./recipes/cave_banana_outcome.png)
+![Recipe](./pics/recipes/cave_banana.png)
+![>](./pics/arrow_r.png)
+![Recipe](./pics/recipes/cave_banana_outcome.png)
 
 ### Level 8: Ritual of magic mushrooms
-![Recipe](./recipes/living_log.png)
-![>](./arrow_r.png)
-![Recipe](./recipes/living_log_outcome.png)
+![Recipe](./pics/recipes/living_log.png)
+![>](./pics/arrow_r.png)
+![Recipe](./pics/recipes/living_log_outcome.png)
 
 
 ## DIG
@@ -81,19 +81,19 @@ With a 20 percent chance: moonrocks, beardhair, yellow gem, orange gem
 Using your shovel for digging has a chance of spawning additional items
 
 ### Level 2: Ritual of mole infestation
-![Recipe](./recipes/molehill.png)
-![>](./arrow_r.png)
-![Recipe](./recipes/molehill_outcome.png)
+![Recipe](./pics/recipes/molehill.png)
+![>](./pics/arrow_r.png)
+![Recipe](./pics/recipes/molehill_outcome.png)
 
 ### Level 3: Ritual of mole attraction
-![Recipe](./recipes/shovel.png)
-![>](./arrow_r.png)
-![Recipe](./recipes/shovel_outcome.png)
+![Recipe](./pics/recipes/shovel.png)
+![>](./pics/arrow_r.png)
+![Recipe](./pics/recipes/shovel_outcome.png)
 
 ### Level 5: Ritual of roman streets
-![Recipe](./recipes/pitchfork.png)
-![>](./arrow_r.png)
-![Recipe](./recipes/pitchfork_outcome.png)
+![Recipe](./pics/recipes/pitchfork.png)
+![>](./pics/arrow_r.png)
+![Recipe](./pics/recipes/pitchfork_outcome.png)
 
 
 ## EAT
@@ -107,14 +107,14 @@ Use this skill with the following chat-command:
 The higher your EAT-action-level the less DsMMO-experience is used for healing yourself.
 
 ### Level 5: Ritual of death
-![Recipe](./recipes/amulet.png)
-![>](./arrow_r.png)
-![Recipe](./recipes/amulet_outcome.png)
+![Recipe](./pics/recipes/amulet.png)
+![>](./pics/arrow_r.png)
+![Recipe](./pics/recipes/amulet_outcome.png)
 
 ### Level 8: Ritual of a new life
-![Recipe](./recipes/deerclops_eyeball.png)
-![>](./arrow_r.png)
-![Recipe](./recipes/deerclops_eyeball_outcome.png)
+![Recipe](./pics/recipes/deerclops_eyeball.png)
+![>](./pics/arrow_r.png)
+![Recipe](./pics/recipes/deerclops_eyeball_outcome.png)
 
 
 ## PICK
@@ -123,72 +123,72 @@ The higher your EAT-action-level the less DsMMO-experience is used for healing y
 As a ghost, haunting evil flowers has a chance to turn into fireflies. The higher your PICK-action-level, the higher your chance of succeeding.
 
 ### Level 2: Ritual of the longest Twig
-![Recipe](./recipes/twigs.png)
-![>](./arrow_r.png)
-![Recipe](./recipes/twigs_outcome.png)
+![Recipe](./pics/recipes/twigs.png)
+![>](./pics/arrow_r.png)
+![Recipe](./pics/recipes/twigs_outcome.png)
 
 ### Level 3: Ritual of reggae dreams
-![Recipe](./recipes/cutgrass.png)
-![>](./arrow_r.png)
-![Recipe](./recipes/cutgrass_outcome.png)
+![Recipe](./pics/recipes/cutgrass.png)
+![>](./pics/arrow_r.png)
+![Recipe](./pics/recipes/cutgrass_outcome.png)
 
 ### Level 5: Ritual of shiny balls
-![Recipe](./recipes/lightbulb.png)
-![>](./arrow_r.png)
-![Recipe](./recipes/lightbulb_outcome.png)
+![Recipe](./pics/recipes/lightbulb.png)
+![>](./pics/arrow_r.png)
+![Recipe](./pics/recipes/lightbulb_outcome.png)
 
 ### Level 7: Ritual of Poe
-![Recipe](./recipes/cutreeds.png)
-![>](./arrow_r.png)
-![Recipe](./recipes/cutreeds_outcome.png)
+![Recipe](./pics/recipes/cutreeds.png)
+![>](./pics/arrow_r.png)
+![Recipe](./pics/recipes/cutreeds_outcome.png)
 
 
 ## BUILD
 
 ### Level 1: Ritual of pussy love
-![Recipe](./recipes/coontail.png)
-![>](./arrow_r.png)
-![Recipe](./recipes/coontail_outcome.png)
+![Recipe](./pics/recipes/coontail.png)
+![>](./pics/arrow_r.png)
+![Recipe](./pics/recipes/coontail_outcome.png)
 
 ### Level 2: Ritual of splishy splashy
-![Recipe](./recipes/fish.png)
-![>](./arrow_r.png)
-![Recipe](./recipes/fish_outcome.png)
+![Recipe](./pics/recipes/fish.png)
+![>](./pics/arrow_r.png)
+![Recipe](./pics/recipes/fish_outcome.png)
 
 ### Level 3: Ritual of dumb monkeys
-![Recipe](./recipes/cave_banana_cooked.png)
-![>](./arrow_r.png)
-![Recipe](./recipes/cave_banana_cooked_outcome.png)
+![Recipe](./pics/recipes/cave_banana_cooked.png)
+![>](./pics/arrow_r.png)
+![Recipe](./pics/recipes/cave_banana_cooked_outcome.png)
 
 ### Level 4: Ritual of arctic fishing
-![Recipe](./recipes/walrus_camp.png)
-![>](./arrow_r.png)
-![Recipe](./recipes/walrus_camp_outcome.png)
+![Recipe](./pics/recipes/walrus_camp.png)
+![>](./pics/arrow_r.png)
+![Recipe](./pics/recipes/walrus_camp_outcome.png)
 
 ### Level 5: Ritual of whalers feast
-![Recipe](./recipes/walrus_tusk.png)
-![>](./arrow_r.png)
-![Recipe](./recipes/walrus_tusk_outcome.png)
+![Recipe](./pics/recipes/walrus_tusk.png)
+![>](./pics/arrow_r.png)
+![Recipe](./pics/recipes/walrus_tusk_outcome.png)
 
 ### Level 6: Ritual of Saurons bird
-![Recipe](./recipes/tallbirdegg.png)
-![>](./arrow_r.png)
-![Recipe](./recipes/tallbirdegg_outcome.png)
+![Recipe](./pics/recipes/tallbirdegg.png)
+![>](./pics/arrow_r.png)
+![Recipe](./pics/recipes/tallbirdegg_outcome.png)
 
 ### Level 7: Ritual of the pigable flame
-![Recipe](./recipes/firepit.png)
-![>](./arrow_r.png)
-![Recipe](./recipes/firepit_outcome.png)
+![Recipe](./pics/recipes/firepit.png)
+![>](./pics/arrow_r.png)
+![Recipe](./pics/recipes/firepit_outcome.png)
 
 ### Level 8: Ritual of rerevival
-![Recipe](./recipes/skeleton_player.png)
-![>](./arrow_r.png)
-![Recipe](./recipes/skeleton_player_outcome.png)
+![Recipe](./pics/recipes/skeleton_player.png)
+![>](./pics/arrow_r.png)
+![Recipe](./pics/recipes/skeleton_player_outcome.png)
 
 ### Level 10: Ritual of homing flame
-![Recipe](./recipes/campfire.png)
-![>](./arrow_r.png)
-![Recipe](./recipes/campfire_outcome.png)
+![Recipe](./pics/recipes/campfire.png)
+![>](./pics/arrow_r.png)
+![Recipe](./pics/recipes/campfire_outcome.png)
 
 
 
