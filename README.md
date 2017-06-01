@@ -102,9 +102,9 @@ Using your shovel for digging has a chance of spawning additional items
 Exchange DsMMO-experience to completely fill your health, hunger or sanity.
 Use this skill with the following chat-command:
 ```
-#dsmmo eat [skill] [health / hunger / sanity]
+#dsmmo eat [action] [health | hunger | sanity]
 ```
-The higher your EAT-skill the less DsMMO-experience is used for healing yourself.
+The higher your EAT-action-level the less DsMMO-experience is used for healing yourself.
 
 ### Level 5: Ritual of death
 ![Recipe](./recipes/amulet.png)
@@ -120,7 +120,7 @@ The higher your EAT-skill the less DsMMO-experience is used for healing yourself
 ## PICK
 
 ### Level 1: Ghosty fireflies
-As a ghost, haunting evil flowers has a chance to turn into fireflies. The higher your PICK-skill, the higher your chance of succeeding.
+As a ghost, haunting evil flowers has a chance to turn into fireflies. The higher your PICK-action-level, the higher your chance of succeeding.
 
 ### Level 2: Ritual of the longest Twig
 ![Recipe](./recipes/twigs.png)
@@ -195,25 +195,25 @@ As a ghost, haunting evil flowers has a chance to turn into fireflies. The highe
 # User-commands
 User-commands are available for all players. To use them they have to **whispered** into the chat.
 
-## #dsmmo [action]
+## ```#dsmmo [action]```
 This command spawns a mini-sign at your current position (which will despawn over time). The sign always shows your last used DsMMO-action and if you examine it, you will be shown your current level, experience and learned skills.
 If you specify an action, the mini-sign will show the specified action instead of the last used one.
 
-## #dsmmo list
+## ```#dsmmo list```
 Lists the levels of all your DsMMO-actions
 
-## #dsmmo eat
-See the skill [Self-cannibalism](#Level 3: Self-cannibalism) 
+## ```#dsmmo eat [action] [hunger | health | sanity]```
+See the skill [Self-cannibalism](#level-3-self-cannibalism)
 
 
 
 # Admin-commands
 Admin-commands are only available if you have remote access to the server-console.
 
-## dsmmo_reset(player_name)
+## ```dsmmo_reset(player_name)```
 Resets all DsMMO-actions to level 0 for the specified player.
 The player has to be online for the command to work properly.
 
-## dsmmo_set(player_name, action, level)
+## ```dsmmo_set(player_name, action, level)```
 Sets the level of a specific DsMMO-action to the specified level for the specified player.
 The player has to be online for the command to work properly.
