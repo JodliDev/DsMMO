@@ -67,12 +67,14 @@ With a 20 percent chance: moonrocks, beardhair, yellow gem, orange gem
 
 ### Level 6: Ritual of bananana
 Can only be performed in the caves.
+
 ![Recipe](./pics/recipes/cave_banana.png)
 ![>](./pics/arrow_r.png)
 ![Recipe](./pics/recipes/cave_banana_outcome.png)
 
 ### Level 8: Ritual of magic mushrooms
 Creates a mushroom with random color.
+
 ![Recipe](./pics/recipes/living_log.png)
 ![>](./pics/arrow_r.png)
 ![Recipe](./pics/recipes/living_log_outcome.png)
@@ -137,12 +139,14 @@ As a ghost, haunting evil flowers has a chance to turn into fireflies. The highe
 
 ### Level 5: Ritual of shiny balls
 Can only be performed in the caves.
+
 ![Recipe](./pics/recipes/lightbulb.png)
 ![>](./pics/arrow_r.png)
 ![Recipe](./pics/recipes/lightbulb_outcome.png)
 
 ### Level 7: Ritual of Poe
 Can only be performed on marsh-ground.
+
 ![Recipe](./pics/recipes/cutreeds.png)
 ![>](./pics/arrow_r.png)
 ![Recipe](./pics/recipes/cutreeds_outcome.png)
@@ -157,18 +161,21 @@ Can only be performed on marsh-ground.
 
 ### Level 2: Ritual of splishy splashy
 The resulting pond type depends on the ground and place (forest / cave, Marsh-ground / other) where it is summoned.
+
 ![Recipe](./pics/recipes/fish.png)
 ![>](./pics/arrow_r.png)
 ![Recipe](./pics/recipes/fish_outcome.png)
 
 ### Level 3: Ritual of dumb monkeys
 Can only be performed in the caves.
+
 ![Recipe](./pics/recipes/cave_banana_cooked.png)
 ![>](./pics/arrow_r.png)
 ![Recipe](./pics/recipes/cave_banana_cooked_outcome.png)
 
 ### Level 4: Ritual of arctic fishing
 Removes an existing walrus camp.
+
 ![Recipe](./pics/recipes/walrus_camp.png)
 ![>](./pics/arrow_r.png)
 ![Recipe](./pics/recipes/walrus_camp_outcome.png)
@@ -190,12 +197,14 @@ Removes an existing walrus camp.
 
 ### Level 8: Ritual of rerevival
 (only works with player skeletons)
+
 ![Recipe](./pics/recipes/skeleton_player.png)
 ![>](./pics/arrow_r.png)
 ![Recipe](./pics/recipes/skeleton_player_outcome.png)
 
 ### Level 10: Ritual of homing flame
 (does not teleport to campfires)
+
 ![Recipe](./pics/recipes/campfire.png)
 ![>](./pics/arrow_r.png)
 ![Recipe](./pics/recipes/campfire_outcome.png)
