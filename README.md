@@ -1,6 +1,7 @@
 # ![DsMMO](./pics/modicon.png)
 
-The purpose of this mod is to reward players for every action they do. You will get experience for several actions and over time get level ups that let you learn new skills, rituals and increase the effect rate and chance of skills and rituals that you have already learned.
+Inspired by McMMO for Minecraft, the purpose of this mod is to reward players for every action they do and make the game less grindy the longer they play (and survive).
+You will get experience for several actions and over time get level-ups that let you learn new skills, rituals and increase the effect rate and chance of skills and rituals that you have already learned.
 But be careful. Every time you die, you loose half of your experience.
 
 The lore says that all skills and rituals have a 50 percent better chance to be successful during a full moon...
@@ -212,8 +213,12 @@ Admin-commands are only available if you have remote access to the server-consol
 
 ### ```dsmmo_reset(player_name)```
 Resets all DsMMO-actions to level 0 for the specified player.
-The player has to be online for the command to work properly.
+The target player has to be online for the command to work properly.
 
 ### ```dsmmo_set(player_name, action, level)```
 Sets the level of a specific DsMMO-action to the specified level for the specified player.
-The player has to be online for the command to work properly.
+The target player has to be online for the command to work properly.
+
+
+
+This is a server-only mod which means no fancy UI but other users don't need to download anything as long as the server-admin has this mod activated

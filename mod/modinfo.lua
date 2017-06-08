@@ -1,7 +1,7 @@
 name = "DsMMO"
 author = "Jodli Developement"
 
-description = "Inspired by McMMO for Minecraft. This mod adds a levelup system for certain actions. The more often you do an action, the more perks you will receive from it"
+description = "Inspired by McMMO for Minecraft. This mod adds a levelup system for certain actions. The more often you do an action, the more perks you will receive from it.\n\nThis is a server-only mod which means no fancy UI but other users don't need to download anything as long as the server-admin has this mod activated.\n\nRepository and help:\nhttps://github.com/JodliDev/DsMMO"
 forumthread = ""
 server_filter_tags = {"Character", "Utility"}
 
