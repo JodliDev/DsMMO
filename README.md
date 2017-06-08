@@ -66,11 +66,13 @@ With a 20 percent chance: moonrocks, beardhair, yellow gem, orange gem
 ![Recipe](./pics/recipes/berries_juicy_outcome.png)
 
 ### Level 6: Ritual of bananana
+Can only be performed in the caves.
 ![Recipe](./pics/recipes/cave_banana.png)
 ![>](./pics/arrow_r.png)
 ![Recipe](./pics/recipes/cave_banana_outcome.png)
 
 ### Level 8: Ritual of magic mushrooms
+Creates a mushroom with random color.
 ![Recipe](./pics/recipes/living_log.png)
 ![>](./pics/arrow_r.png)
 ![Recipe](./pics/recipes/living_log_outcome.png)
@@ -134,11 +136,13 @@ As a ghost, haunting evil flowers has a chance to turn into fireflies. The highe
 ![Recipe](./pics/recipes/cutgrass_outcome.png)
 
 ### Level 5: Ritual of shiny balls
+Can only be performed in the caves.
 ![Recipe](./pics/recipes/lightbulb.png)
 ![>](./pics/arrow_r.png)
 ![Recipe](./pics/recipes/lightbulb_outcome.png)
 
 ### Level 7: Ritual of Poe
+Can only be performed on marsh-ground.
 ![Recipe](./pics/recipes/cutreeds.png)
 ![>](./pics/arrow_r.png)
 ![Recipe](./pics/recipes/cutreeds_outcome.png)
@@ -152,16 +156,19 @@ As a ghost, haunting evil flowers has a chance to turn into fireflies. The highe
 ![Recipe](./pics/recipes/coontail_outcome.png)
 
 ### Level 2: Ritual of splishy splashy
+The resulting pond type depends on the ground and place (forest / cave, Marsh-ground / other) where it is summoned.
 ![Recipe](./pics/recipes/fish.png)
 ![>](./pics/arrow_r.png)
 ![Recipe](./pics/recipes/fish_outcome.png)
 
 ### Level 3: Ritual of dumb monkeys
+Can only be performed in the caves.
 ![Recipe](./pics/recipes/cave_banana_cooked.png)
 ![>](./pics/arrow_r.png)
 ![Recipe](./pics/recipes/cave_banana_cooked_outcome.png)
 
 ### Level 4: Ritual of arctic fishing
+Removes an existing walrus camp.
 ![Recipe](./pics/recipes/walrus_camp.png)
 ![>](./pics/arrow_r.png)
 ![Recipe](./pics/recipes/walrus_camp_outcome.png)
@@ -182,11 +189,13 @@ As a ghost, haunting evil flowers has a chance to turn into fireflies. The highe
 ![Recipe](./pics/recipes/firepit_outcome.png)
 
 ### Level 8: Ritual of rerevival
+(only works with player skeletons)
 ![Recipe](./pics/recipes/skeleton_player.png)
 ![>](./pics/arrow_r.png)
 ![Recipe](./pics/recipes/skeleton_player_outcome.png)
 
 ### Level 10: Ritual of homing flame
+(does not teleport to campfires)
 ![Recipe](./pics/recipes/campfire.png)
 ![>](./pics/arrow_r.png)
 ![Recipe](./pics/recipes/campfire_outcome.png)
@@ -200,10 +209,10 @@ User-commands are available for all players. To use them they have to **whispere
 This command spawns a mini-sign at your current position (which will despawn over time). The sign always shows your last used DsMMO-action and if you examine it, you will be shown your current level, experience and learned skills.
 If you specify an action, the mini-sign will show the specified action instead of the last used one.
 
-### ```#dsmmo list```
+## ```#dsmmo list```
 Lists the levels of all your DsMMO-actions
 
-### ```#dsmmo eat [action] [hunger | health | sanity]```
+## ```#dsmmo eat [action] [hunger | health | sanity]```
 See the skill [Self-cannibalism](#level-3-self-cannibalism)
 
 
@@ -211,11 +220,11 @@ See the skill [Self-cannibalism](#level-3-self-cannibalism)
 # Admin-commands
 Admin-commands are only available if you have remote access to the server-console.
 
-### ```dsmmo_reset(player_name)```
+## ```dsmmo_reset(player_name)```
 Resets all DsMMO-actions to level 0 for the specified player.
 The target player has to be online for the command to work properly.
 
-### ```dsmmo_set(player_name, action, level)```
+## ```dsmmo_set(player_name, action, level)```
 Sets the level of a specific DsMMO-action to the specified level for the specified player.
 The target player has to be online for the command to work properly.
 
