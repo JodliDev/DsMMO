@@ -549,7 +549,7 @@ function onPerformaction(player, data)
 		elseif actionId == "FERTILIZE" then
 			player.components.DsMMO:get_experience("PLANT")
 			local crop = action.target.components.crop
-			if crop and not crop:IsReadyForHarvest() and self:test_skill(SKILLS.plant) then
+			if crop and not crop:IsReadyForHarvest() and self:test_skill(SKILLS.harvest) then
 				crop:Fertilize(SpawnPrefab("guano"), player)
 				spawn_to_target("collapse_small", player)
 			end
@@ -558,8 +558,11 @@ function onPerformaction(player, data)
 			if targetN == "flower_evil" then
 				spawn_to_target("ground_chunks_breaking", player)
 				if self:test_skill(SKILLS.fireflies) then
-					spawn_to_target("collapse_small", player)
-					spawn_to_target("fireflies", action.target)
+					spawn_to_target("collapse_small", action.target)
+					
+					local fireflies = SpawnPrefab("fireflies")
+					fireflies.Transform:SetPosition(action.target.Transform:GetWorldPosition())
+					fireflies.components.inventoryitem.ondropfn(fireflies)
 					action.target:Remove()
 				end
 			end
