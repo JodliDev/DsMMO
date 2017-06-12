@@ -56,28 +56,28 @@ With a 30 percent chance: mandrake, purple gem, cutreeds, slurper pelt, furtuft
 With a 20 percent chance: moonrocks, beardhair, yellow gem, orange gem
 
 ### Level 3: Ritual of redness
-![Recipe](./pics/recipes/berries.png)
+![Berries, Fireflies, Rot*2](./pics/recipes/berries.png)
 ![>](./pics/arrow_r.png)
-![Recipe](./pics/recipes/berries_outcome.png)
+![Berry Bush](./pics/recipes/berries_outcome.png)
 
 ### Level 4: Ritual of red juiciness
-![Recipe](./pics/recipes/berries_juicy.png)
+![Juicy Berries, Fireflies, Rot*2](./pics/recipes/berries_juicy.png)
 ![>](./pics/arrow_r.png)
-![Recipe](./pics/recipes/berries_juicy_outcome.png)
+![Juicy Berry Bush](./pics/recipes/berries_juicy_outcome.png)
 
 ### Level 6: Ritual of bananana
 Can only be performed in the caves.
 
-![Recipe](./pics/recipes/cave_banana.png)
+![Banana, Fireflies, Rot*2](./pics/recipes/cave_banana.png)
 ![>](./pics/arrow_r.png)
-![Recipe](./pics/recipes/cave_banana_outcome.png)
+![Banana Tree](./pics/recipes/cave_banana_outcome.png)
 
 ### Level 8: Ritual of magic mushrooms
 Creates a mushroom with random color.
 
-![Recipe](./pics/recipes/living_log.png)
+![Living Log, Red Cap, Green Cap, Blue Cap, Fireflies, Mushroom](./pics/recipes/living_log.png)
 ![>](./pics/arrow_r.png)
-![Recipe](./pics/recipes/living_log_outcome.png)
+![Mushroom (random color)](./pics/recipes/living_log_outcome.png)
 
 
 ## DIG
@@ -86,19 +86,19 @@ Creates a mushroom with random color.
 Using your shovel for digging has a chance of spawning additional items
 
 ### Level 2: Ritual of mole infestation
-![Recipe](./pics/recipes/molehill.png)
+![Burrow, 3 different ores](./pics/recipes/molehill.png)
 ![>](./pics/arrow_r.png)
-![Recipe](./pics/recipes/molehill_outcome.png)
+![Spawns a Mole (or three, if lucky)](./pics/recipes/molehill_outcome.png)
 
 ### Level 3: Ritual of mole attraction
-![Recipe](./pics/recipes/shovel.png)
+![Shovel, Hounds Tooth, Log](./pics/recipes/shovel.png)
 ![>](./pics/arrow_r.png)
-![Recipe](./pics/recipes/shovel_outcome.png)
+![Teleports all nearby moles to the current position](./pics/recipes/shovel_outcome.png)
 
 ### Level 5: Ritual of roman streets
-![Recipe](./pics/recipes/pitchfork.png)
+![Pitchfork, Stones*3, Boards*3, Guano*3](./pics/recipes/pitchfork.png)
 ![>](./pics/arrow_r.png)
-![Recipe](./pics/recipes/pitchfork_outcome.png)
+![Creates three cobblestone-tiles](./pics/recipes/pitchfork_outcome.png)
 
 
 ## EAT
@@ -112,14 +112,14 @@ Use this skill with the following chat-command:
 The higher your EAT-action-level the less DsMMO-experience is used for healing yourself.
 
 ### Level 5: Ritual of death
-![Recipe](./pics/recipes/amulet.png)
+![Amulet, Mandrake*2, Nightmare Fuel*2](./pics/recipes/amulet.png)
 ![>](./pics/arrow_r.png)
-![Recipe](./pics/recipes/amulet_outcome.png)
+![Death without loosing DsMMO-exp (but EAT-exp will be set to 0)](./pics/recipes/amulet_outcome.png)
 
 ### Level 8: Ritual of a new life
-![Recipe](./pics/recipes/deerclops_eyeball.png)
+![Deerclops Eyeball, Thick Fur*2. Fireflies*2, Down Feather, Scales](./pics/recipes/deerclops_eyeball.png)
 ![>](./pics/arrow_r.png)
-![Recipe](./pics/recipes/deerclops_eyeball_outcome.png)
+![Change player](./pics/recipes/deerclops_eyeball_outcome.png)
 
 
 ## PICK
@@ -128,86 +128,87 @@ The higher your EAT-action-level the less DsMMO-experience is used for healing y
 As a ghost, haunting evil flowers has a chance to turn into fireflies. The higher your PICK-action-level, the higher your chance of succeeding.
 
 ### Level 2: Ritual of the longest Twig
-![Recipe](./pics/recipes/twigs.png)
+![Twigs, Log*2, Fireflies](./pics/recipes/twigs.png)
 ![>](./pics/arrow_r.png)
-![Recipe](./pics/recipes/twigs_outcome.png)
+![Sapling](./pics/recipes/twigs_outcome.png)
 
 ### Level 3: Ritual of reggae dreams
-![Recipe](./pics/recipes/cutgrass.png)
+![Cut Grass, Rot*2, Fireflies](./pics/recipes/cutgrass.png)
 ![>](./pics/arrow_r.png)
-![Recipe](./pics/recipes/cutgrass_outcome.png)
+![Grass](./pics/recipes/cutgrass_outcome.png)
 
 ### Level 5: Ritual of shiny balls
 Can only be performed in the caves.
 
-![Recipe](./pics/recipes/lightbulb.png)
+![Lightbulb, Twigs*2, Fireflies](./pics/recipes/lightbulb.png)
 ![>](./pics/arrow_r.png)
-![Recipe](./pics/recipes/lightbulb_outcome.png)
+![Light Bulb](./pics/recipes/lightbulb_outcome.png)
 
 ### Level 7: Ritual of Poe
 Can only be performed on marsh-ground.
 
-![Recipe](./pics/recipes/cutreeds.png)
+![Cut reeds, Rot*2, Fireflies](./pics/recipes/cutreeds.png)
 ![>](./pics/arrow_r.png)
-![Recipe](./pics/recipes/cutreeds_outcome.png)
+![Hollow Stump](./pics/recipes/cutreeds_outcome.png)
 
 
 ## BUILD
 
 ### Level 1: Ritual of pussy love
-![Recipe](./pics/recipes/coontail.png)
+![Cat Tail, Meat, Hounds Tooth *2, Fireflies *2](./pics/recipes/coontail.png)
 ![>](./pics/arrow_r.png)
 ![Recipe](./pics/recipes/coontail_outcome.png)
 
 ### Level 2: Ritual of splishy splashy
 The resulting pond type depends on the ground and place (forest / cave, Marsh-ground / other) where it is summoned.
 
-![Recipe](./pics/recipes/fish.png)
+![Fish, Frog Legs, Mosquito Sack, Fireflies *2](./pics/recipes/fish.png)
 ![>](./pics/arrow_r.png)
-![Recipe](./pics/recipes/fish_outcome.png)
+![Pond](./pics/recipes/fish_outcome.png)
 
 ### Level 3: Ritual of dumb monkeys
 Can only be performed in the caves.
 
-![Recipe](./pics/recipes/cave_banana_cooked.png)
+![Cooked Banana, Purple Gem, Manure *2, Fireflies *2](./pics/recipes/cave_banana_cooked.png)
 ![>](./pics/arrow_r.png)
-![Recipe](./pics/recipes/cave_banana_cooked_outcome.png)
+![Splumonkey Pod](./pics/recipes/cave_banana_cooked_outcome.png)
 
 ### Level 4: Ritual of arctic fishing
 Removes an existing walrus camp.
 
-![Recipe](./pics/recipes/walrus_camp.png)
+![Walrus Camp, Tam o' Shanter *2, Walking Cane *2, Fireflies *2](./pics/recipes/walrus_camp.png)
 ![>](./pics/arrow_r.png)
-![Recipe](./pics/recipes/walrus_camp_outcome.png)
+![Removed Walrus Camp](./pics/recipes/walrus_camp_outcome.png)
 
 ### Level 5: Ritual of whalers feast
-![Recipe](./pics/recipes/walrus_tusk.png)
+![Walrus Tusk, Tam o' Shanter *2, Walking Cane *2, Fireflies *2](./pics/recipes/walrus_tusk.png)
 ![>](./pics/arrow_r.png)
 ![Recipe](./pics/recipes/walrus_tusk_outcome.png)
 
 ### Level 6: Ritual of Saurons bird
-![Recipe](./pics/recipes/tallbirdegg.png)
+![Tallbird Egg, Beard Hair *2, Cut Grass *2, Fireflies *2](./pics/recipes/tallbirdegg.png)
 ![>](./pics/arrow_r.png)
-![Recipe](./pics/recipes/tallbirdegg_outcome.png)
+![Tallbird Nest](./pics/recipes/tallbirdegg_outcome.png)
 
 ### Level 7: Ritual of the pigable flame
-![Recipe](./pics/recipes/firepit.png)
+![Firepit, Pig Skin *4, Scale, Fireflies *2](./pics/recipes/firepit.png)
 ![>](./pics/arrow_r.png)
-![Recipe](./pics/recipes/firepit_outcome.png)
+![Pig Torch](./pics/recipes/firepit_outcome.png)
 
 ### Level 8: Ritual of rerevival
 (only works with player skeletons)
 
-![Recipe](./pics/recipes/skeleton_player.png)
+![Player Skeleton, Nightmare Fuel, Marble *2, Amulet](./pics/recipes/skeleton_player.png)
 ![>](./pics/arrow_r.png)
-![Recipe](./pics/recipes/skeleton_player_outcome.png)
+![Makes on random used touchstone useable again](./pics/recipes/skeleton_player_outcome.png)
 
 ### Level 10: Ritual of homing flame
-(does not teleport to campfires)
+Costs one Build-level!
+Does not teleport to campfires.
 
-![Recipe](./pics/recipes/campfire.png)
+![Campfire, Log *2, Pine Cones *2, Cut Grass *2, Twigs *2](./pics/recipes/campfire.png)
 ![>](./pics/arrow_r.png)
-![Recipe](./pics/recipes/campfire_outcome.png)
+![Teleport to last used firepit](./pics/recipes/campfire_outcome.png)
 
 
 
