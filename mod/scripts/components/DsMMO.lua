@@ -592,7 +592,7 @@ function onPerformaction(player, data)
 					local r = math.random()
 					for k,v in pairs(items) do
 						if r < k then
-							spawn_to_target(items[math.random(1,table.getn(items))], player)
+							spawn_to_target(v[math.random(1,table.getn(v))], player)
 							break
 						else
 							r = r - k
