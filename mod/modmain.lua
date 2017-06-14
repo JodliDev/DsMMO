@@ -1,6 +1,6 @@
-GLOBAL.CHEATS_ENABLED = true
+--GLOBAL.CHEATS_ENABLED = true
 
-GLOBAL.require( 'debugkeys' )
+--GLOBAL.require( 'debugkeys' )
 
 
 function check_player(playerN)
