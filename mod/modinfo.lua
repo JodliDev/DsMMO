@@ -5,7 +5,7 @@ description = "Inspired by McMMO for Minecraft. This mod adds a levelup system f
 forumthread = ""
 server_filter_tags = {"Character", "Utility"}
 
-version = "1.0.3"
+version = "1.1.3"
 
 api_version = 10
 dont_starve_compatible = false
@@ -13,228 +13,17 @@ reign_of_giants_compatible = true
 dst_compatible = true
 
 all_clients_require_mod = false
-clients_only_mod = false
+client_only_mod = false
 
 
 icon_atlas = "modicon.xml"
 icon = "modicon.tex"
 
 
-
-configuration_options =
-{
-	{
-		name = "deerclops_eyeball",
-		label = "Ritual of a new life",
-		hover = "You can change this setting at any time. Player- or mod-data will not be affected by this",
-		options =
-		{
-			{description = "On",	data = true,	hover = "Enable"},
-			{description = "Off",	data = false,	hover = "Player will not be able to perform this ritual"}
-		},
-		default = true,
-	},
-	{
-		name = "molehill",
-		label = "Ritual of mole infestation",
-		hover = "You can change this setting at any time. Player- or mod-data will not be affected by this",
-		options =
-		{
-			{description = "On",	data = true,	hover = "Enable"},
-			{description = "Off",	data = false,	hover = "Player will not be able to perform this ritual"}
-		},
-		default = true,
-	},
-	{
-		name = "shovel",
-		label = "Ritual of mole attraction",
-		hover = "You can change this setting at any time. Player- or mod-data will not be affected by this",
-		options =
-		{
-			{description = "On",	data = true,	hover = "Enable"},
-			{description = "Off",	data = false,	hover = "Player will not be able to perform this ritual"}
-		},
-		default = true,
-	},
-	{
-		name = "pitchfork",
-		label = "Ritual of roman streets",
-		hover = "You can change this setting at any time. Player- or mod-data will not be affected by this",
-		options =
-		{
-			{description = "On",	data = true,	hover = "Enable"},
-			{description = "Off",	data = false,	hover = "Player will not be able to perform this ritual"}
-		},
-		default = true,
-	},
-	{
-		name = "twigs",
-		label = "Ritual of the longest Twig",
-		hover = "You can change this setting at any time. Player- or mod-data will not be affected by this",
-		options =
-		{
-			{description = "On",	data = true,	hover = "Enable"},
-			{description = "Off",	data = false,	hover = "Player will not be able to perform this ritual"}
-		},
-		default = true,
-	},
-	{
-		name = "cutgrass",
-		label = "Ritual of reggae dreams",
-		hover = "You can change this setting at any time. Player- or mod-data will not be affected by this",
-		options =
-		{
-			{description = "On",	data = true,	hover = "Enable"},
-			{description = "Off",	data = false,	hover = "Player will not be able to perform this ritual"}
-		},
-		default = true,
-	},
-	{
-		name = "coontail",
-		label = "Ritual of pussy love",
-		hover = "You can change this setting at any time. Player- or mod-data will not be affected by this",
-		options =
-		{
-			{description = "On",	data = true,	hover = "Enable"},
-			{description = "Off",	data = false,	hover = "Player will not be able to perform this ritual"}
-		},
-		default = true,
-	},
-	{
-		name = "walrus_camp",
-		label = "Ritual of arctic fishing",
-		hover = "You can change this setting at any time. Player- or mod-data will not be affected by this",
-		options =
-		{
-			{description = "On",	data = true,	hover = "Enable"},
-			{description = "Off",	data = false,	hover = "Player will not be able to perform this ritual"}
-		},
-		default = true,
-	},
-	{
-		name = "walrus_tusk",
-		label = "Ritual of whalers feast",
-		hover = "You can change this setting at any time. Player- or mod-data will not be affected by this",
-		options =
-		{
-			{description = "On",	data = true,	hover = "Enable"},
-			{description = "Off",	data = false,	hover = "Player will not be able to perform this ritual"}
-		},
-		default = true,
-	},
-	{
-		name = "tallbirdegg",
-		label = "Ritual of Saurons bird",
-		hover = "You can change this setting at any time. Player- or mod-data will not be affected by this",
-		options =
-		{
-			{description = "On",	data = true,	hover = "Enable"},
-			{description = "Off",	data = false,	hover = "Player will not be able to perform this ritual"}
-		},
-		default = true,
-	},
-	{
-		name = "firepit",
-		label = "Ritual of the pigable flame",
-		hover = "You can change this setting at any time. Player- or mod-data will not be affected by this",
-		options =
-		{
-			{description = "On",	data = true,	hover = "Enable"},
-			{description = "Off",	data = false,	hover = "Player will not be able to perform this ritual"}
-		},
-		default = true,
-	},
-	{
-		name = "skeleton_player",
-		label = "Ritual of rerevival",
-		hover = "You can change this setting at any time. Player- or mod-data will not be affected by this",
-		options =
-		{
-			{description = "On",	data = true,	hover = "Enable"},
-			{description = "Off",	data = false,	hover = "Player will not be able to perform this ritual"}
-		},
-		default = true,
-	},
-	{
-		name = "campfire",
-		label = "Ritual of homing flame",
-		hover = "You can change this setting at any time. Player- or mod-data will not be affected by this",
-		options =
-		{
-			{description = "On",	data = true,	hover = "Enable"},
-			{description = "Off",	data = false,	hover = "Player will not be able to perform this ritual"}
-		},
-		default = true,
-	},
-	{
-		name = "berries",
-		label = "Ritual of redness",
-		hover = "You can change this setting at any time. Player- or mod-data will not be affected by this",
-		options =
-		{
-			{description = "On",	data = true,	hover = "Enable"},
-			{description = "Off",	data = false,	hover = "Player will not be able to perform this ritual"}
-		},
-		default = true,
-	},
-	{
-		name = "berries_juicy",
-		label = "Ritual of red juiciness",
-		hover = "You can change this setting at any time. Player- or mod-data will not be affected by this",
-		options =
-		{
-			{description = "On",	data = true,	hover = "Enable"},
-			{description = "Off",	data = false,	hover = "Player will not be able to perform this ritual"}
-		},
-		default = true,
-	},
-	{
-		name = "cave_banana_cooked",
-		label = "Ritual of dumb monkeys",
-		hover = "You can change this setting at any time. Player- or mod-data will not be affected by this",
-		options =
-		{
-			{description = "On",	data = true,	hover = "Enable"},
-			{description = "Off",	data = false,	hover = "Player will not be able to perform this ritual"}
-		},
-		default = true,
-	},
-	{
-		name = "cave_banana",
-		label = "Ritual of bananana",
-		hover = "You can change this setting at any time. Player- or mod-data will not be affected by this",
-		options =
-		{
-			{description = "On",	data = true,	hover = "Enable"},
-			{description = "Off",	data = false,	hover = "Player will not be able to perform this ritual"}
-		},
-		default = true,
-	},
-	{
-		name = "lightbulb",
-		label = "Ritual of shiny balls",
-		hover = "You can change this setting at any time. Player- or mod-data will not be affected by this",
-		options =
-		{
-			{description = "On",	data = true,	hover = "Enable"},
-			{description = "Off",	data = false,	hover = "Player will not be able to perform this ritual"}
-		},
-		default = true,
-	},
-	{
-		name = "fish",
-		label = "Ritual of splishy splashy",
-		hover = "You can change this setting at any time. Player- or mod-data will not be affected by this",
-		options =
-		{
-			{description = "On",	data = true,	hover = "Enable"},
-			{description = "Off",	data = false,	hover = "Player will not be able to perform this ritual"}
-		},
-		default = true,
-	},
-	{
-		name = "cutreeds",
-		label = "Ritual of Poe",
+function d(name, label)
+	return {
+		name = name,
+		label = label,
 		hover = "You can change this setting at any time. Player- or mod-data will not be affected by this",
 		options =
 		{
@@ -243,4 +32,71 @@ configuration_options =
 		},
 		default = true,
 	}
+end
+
+
+
+function option_range(min, max, incr, default, hover)
+	hover = hover or "Default is " ..default
+	local a = {}
+	local k=1
+	
+	--we have to do some magic because lua doesnt seem to be very percise with float numbers
+	default = default*10
+	for i=min*10, max*10, incr*10 do
+		a[k] = {description=(i==default) and (i/10) .." (Default)" or (i/10), data=i/10, hover=hover}
+		k = k+1
+	end
+	return a
+end
+
+
+configuration_options = {
+	{
+		name = "penalty_divide",
+		label = "Penalty",
+		hover = "On death all exp will be divided by this number",
+		options = option_range(1.1, 3, 0.1, 2),
+		default = 2,
+	},
+	{
+		name = "level_up_rate",
+		label = "Exp-gain",
+		hover = "After each level-up, the needed Exp for the next level up will be multiplied by this number",
+		options = option_range(1.1, 3, 0.1, 1.5),
+		default = 1.5,
+	},
+	
+	d("amulet",				"Ritual of death"),
+	d("deerclops_eyeball",	"Ritual of a new life"),
+	
+	d("molehill",			"Ritual of mole infestation"),
+	d("shovel",				"Ritual of mole attraction"),
+	d("pitchfork",			"Ritual of roman streets"),
+	
+	d("coontail",			"Ritual of pussy love"),
+	d("cave_banana_cooked",	"Ritual of dumb monkeys"),
+	d("pond",				"Ritual of the lady without water"),
+	d("fish",				"Ritual of splishy splashy"),
+	d("walrus_camp",		"Ritual of arctic fishing"),
+	d("walrus_tusk",		"Ritual of whalers feast"),
+	d("houndstooth",		"Ritual of puppy love"),
+	d("batwing",			"Ritual of... I am Batman!"),
+	d("batcave",			"Ritual of robins fate"),
+	d("pigskin",			"Ritual of Aquarius"),
+	d("armorsnurtleshell",	"Ritual of escargot"),
+	d("tallbirdegg",		"Ritual of Saurons bird"),
+	d("firepit",			"Ritual of the pigable flame"),
+	d("skeleton_player",	"Ritual of rerevival"),
+	d("campfire",			"Ritual of homing flame"),
+	
+	d("berries",			"Ritual of redness"),
+	d("berries_juicy",		"Ritual of red juiciness"),
+	d("cave_banana",		"Ritual of bananana"),
+	d("livinglog",			"Ritual of magic mushrooms"),
+	
+	d("twigs",				"Ritual of the longest Twig"),
+	d("cutgrass",			"Ritual of reggae dreams"),
+	d("lightbulb",			"Ritual of shiny balls"),
+	d("cutreeds",			"Ritual of Poe")
 }
