@@ -100,5 +100,20 @@ if GLOBAL.TheNet and GLOBAL.TheNet:GetIsServer() then
 end
 
 
+
+function init_client_communication(player)
+	local self = player.components.DsMMO
+	
+	self:enable_client()
+end
+
+
+AddModRPCHandler(modname, "client_enabled", init_client_communication)
+
+
+
 --AddPrefabPostInit("forest_network", init_server)
 --AddPrefabPostInit("cave_network", init_server)
+
+
+

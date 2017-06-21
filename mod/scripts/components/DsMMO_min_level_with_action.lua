@@ -25,9 +25,9 @@ end
 
 local VERSION = 6
 local LEVEL_MAX = 10
-local LEVEL_UP_RATE = GetModConfigData("level_up_rate", KnownModIndex:GetModActualName("DsMMO")) or 1.5
-local PENALTY_DIVIDE = GetModConfigData("penalty_divide", KnownModIndex:GetModActualName("DsMMO")) or 2
-local RECIPE_DISTANCE = 10
+local LEVEL_UP_RATE = 1.5
+local PENALTY_DIVIDE = 2
+local RECIPE_DISTANCE = 5
 
 local DSMMO_ACTIONS = {
 	["CHOP"] = 100,
@@ -67,16 +67,11 @@ local RECIPES = {
 		tree="EAT",
 		num=4,
 		recipe={mandrake=2, nightmarefuel=2},
-		min_level=5,
-		chance=2,
+		min_level={"EAT",5},
+		chance={"EAT",2},
 		fu=function(player, center)
 			local self = player.components.DsMMO
-			
-			local xp = math.floor(self.exp.EAT / PENALTY_DIVIDE)
-			self.exp.EAT = xp
-			self.level.EAT = get_level("EAT", xp)
-			
-			--self:set_level("EAT", self.level.EAT - 1)
+			self:set_level("EAT", self.level.EAT - 1)
 			self._no_penalty = true
 			player:PushEvent('death')
 			center:Remove()
@@ -87,8 +82,8 @@ local RECIPES = {
 		tree="EAT",
 		num=7,
 		recipe={goose_feather=2, bearger_fur=2, dragon_scales=1, fireflies=2},
-		min_level=8,
-		chance=2,
+		min_level={"EAT",8},
+		chance={"EAT",2},
 		fu=function(player, center)
 			local self = player.components.DsMMO
 			player.components.inventory:DropEverything(false, false)
@@ -112,8 +107,8 @@ local RECIPES = {
 		tree="DIG",
 		num=3,
 		recipe={rocks=1, flint=1, nitre=1, goldnugget=1, marble=1, moonrocknugget=1, bluegem=1, redgem=1, purplegem=1, yellowgem=1, orangegem=1, greengem=1},
-		min_level=2,
-		chance=1,
+		min_level={"DIG",2},
+		chance={"DIG",1},
 		fu=function(player, center)
 			spawn_to_target("mole", center)
 			if get_success(player, "DIG", 0.05) then
@@ -129,12 +124,12 @@ local RECIPES = {
 		tree="DIG",
 		num=4,
 		recipe={houndstooth=2, log=2},
-		min_level=3,
-		chance=1.5,
+		min_level={"DIG",3},
+		chance={"DIG",1.5},
 		fu=function(player, center)
 			local x,y,z = center.Transform:GetWorldPosition() 
 			local ents = TheSim:FindEntities(x,y,z, 30, {'mole'}) 
-			for k,v in pairs(ents) do 
+			for i,v in ipairs(ents) do 
 				v.Transform:SetPosition(x,y,z)  
 			end
 		end
@@ -144,8 +139,8 @@ local RECIPES = {
 		tree="DIG",
 		num=7,
 		recipe={guano=3, rocks=3, boards=3, fireflies=1},
-		min_level=5,
-		chance=0.8,
+		min_level={"DIG",5},
+		chance={"DIG",0.8},
 		fu=function(player, center)
 			local x, y = TheWorld.Map:GetTileCoordsAtPoint(center.Transform:GetWorldPosition())
 			TheWorld.Map:SetTile(x, y, GROUND.ROAD)
@@ -165,8 +160,8 @@ local RECIPES = {
 		tree="BUILD",
 		num=5,
 		recipe={fireflies=2, meat=1, houndstooth=2},
-		min_level=1,
-		chance=0.5,
+		min_level={"BUILD",1},
+		chance={"BUILD",0.5},
 		fu=function(player, center)
 			spawn_to_target("catcoonden", center)
 			center:Remove()
@@ -180,8 +175,8 @@ local RECIPES = {
 		tree="BUILD",
 		num=5,
 		recipe={fireflies=2, poop=2, purplegem=1},
-		min_level=2,
-		chance=0.5,
+		min_level={"BUILD",2},
+		chance={"BUILD",0.5},
 		fu=function(player, center)
 			spawn_to_target("monkeybarrel", center)
 			center:Remove()
@@ -195,8 +190,8 @@ local RECIPES = {
 		tree="BUILD",
 		num=6,
 		recipe={fish=2, fireflies=2, froglegs=1, mosquitosack=1},
-		min_level=3,
-		chance=0.5,
+		min_level={"BUILD",3},
+		chance={"BUILD",0.5},
 		fu=function(player, center)
 			center:Remove()
 		end
@@ -206,8 +201,8 @@ local RECIPES = {
 		tree="BUILD",
 		num=4,
 		recipe={fireflies=2, froglegs=1, mosquitosack=1},
-		min_level=3,
-		chance=0.5,
+		min_level={"BUILD",3},
+		chance={"BUILD",0.5},
 		fu=function(player, center)
 			if TheWorld:HasTag("cave") then
 				spawn_to_target("pond_cave", center)
@@ -225,8 +220,8 @@ local RECIPES = {
 		tree="BUILD",
 		num=6,
 		recipe={cane=2, walrushat=2, fireflies=2},
-		min_level=4,
-		chance=0.5,
+		min_level={"BUILD",4},
+		chance={"BUILD",0.5},
 		fu=function(player, center)
 			center:Remove()
 		end
@@ -236,8 +231,8 @@ local RECIPES = {
 		tree="BUILD",
 		num=6,
 		recipe={cane=2, walrushat=2, fireflies=2},
-		min_level=4,
-		chance=0.5,
+		min_level={"BUILD",4},
+		chance={"BUILD",0.5},
 		fu=function(player, center)
 			spawn_to_target("walrus_camp", center)
 			center:Remove()
@@ -251,8 +246,8 @@ local RECIPES = {
 		tree="BUILD",
 		num=8,
 		recipe={redgem=3, bluegem=3, fireflies=2},
-		min_level=5,
-		chance=0.5,
+		min_level={"BUILD",5},
+		chance={"BUILD",0.5},
 		fu=function(player, center)
 			spawn_to_target("houndmound", center)
 			center:Remove()
@@ -261,39 +256,13 @@ local RECIPES = {
 			return not TheWorld:HasTag("cave")
 		end
 	},
-	batwing = {
-		name="Ritual of... I am Batman!",
-		tree="BUILD",
-		num=9,
-		recipe={guano=4, rocks=3, fireflies=2},
-		min_level=6,
-		chance=0.5,
-		fu=function(player, center)
-			spawn_to_target("batcave", center)
-			center:Remove()
-		end,
-		check=function(player, center)
-			return TheWorld:HasTag("cave")
-		end
-	},
-	batcave = {
-		name="Ritual of robins fate",
-		tree="BUILD",
-		num=9,
-		recipe={batwing=1, guano=3, rocks=3, fireflies=2},
-		min_level=6,
-		chance=0.5,
-		fu=function(player, center)
-			center:Remove()
-		end
-	},
 	pigskin = {
 		name="Ritual of Aquarius",
 		tree="BUILD",
 		num=11,
 		recipe={fish=3, boards=3, rocks=3, fireflies=2},
-		min_level=7,
-		chance=0.5,
+		min_level={"BUILD",6},
+		chance={"BUILD",0.5},
 		fu=function(player, center)
 			spawn_to_target("mermhouse", center)
 			center:Remove()
@@ -307,8 +276,8 @@ local RECIPES = {
 		tree="BUILD",
 		num=8,
 		recipe={slurtleslime=4, slurtle_shellpieces=3, slurtlehat=1},
-		min_level=7,
-		chance=0.5,
+		min_level={"BUILD",6},
+		chance={"BUILD",0.5},
 		fu=function(player, center)
 			spawn_to_target("slurtlehole", center)
 			center:Remove()
@@ -322,8 +291,8 @@ local RECIPES = {
 		tree="BUILD",
 		num=5,
 		recipe={beardhair=2, cutgrass=2, fireflies=1},
-		min_level=8,
-		chance=0.5,
+		min_level={"BUILD",7},
+		chance={"BUILD",0.5},
 		fu=function(player, center)
 			spawn_to_target("tallbirdnest", center)
 			center:Remove()
@@ -337,8 +306,8 @@ local RECIPES = {
 		tree="BUILD",
 		num=7,
 		recipe={pigskin=4, dragon_scales=1, fireflies=2},
-		min_level=8,
-		chance=0.5,
+		min_level={"BUILD",8},
+		chance={"BUILD",0.5},
 		fu=function(player, center)
 			spawn_to_target("pigtorch", center)
 			center:Remove()
@@ -349,8 +318,8 @@ local RECIPES = {
 		tree="BUILD",
 		num=4,
 		recipe={nightmarefuel=1, marble=2, amulet=1},
-		min_level=9,
-		chance=0.8,
+		min_level={"BUILD",9},
+		chance={"BUILD",0.8},
 		check=function(player, center)
 			for k, v in pairs(player.components.touchstonetracker.used) do
 				return true
@@ -405,8 +374,8 @@ local RECIPES = {
 		tree="BUILD",
 		num=8,
 		recipe={cutgrass=2, log=2, twigs=2, pinecone=2},
-		min_level=10,
-		chance=1,
+		min_level={"BUILD",10},
+		chance={"BUILD",1},
 		fu=function(player, center)
 			local self = player.components.DsMMO
 			local pos = self._teleport_to
@@ -425,8 +394,8 @@ local RECIPES = {
 		tree="PLANT",
 		num=4,
 		recipe={fireflies=1, spoiled_food=2},
-		min_level=3,
-		chance=1,
+		min_level={"PLANT",3},
+		chance={"PLANT",1},
 		fu=function(player, center)
 			spawn_to_target("berrybush", center)
 			center:Remove()
@@ -437,8 +406,8 @@ local RECIPES = {
 		tree="PLANT",
 		num=4,
 		recipe={fireflies=1, spoiled_food=2},
-		min_level=4,
-		chance=1,
+		min_level={"PLANT",4},
+		chance={"PLANT",1},
 		fu=function(player, center)
 			spawn_to_target("berrybush_juicy", center)
 			center:Remove()
@@ -449,8 +418,8 @@ local RECIPES = {
 		tree="PLANT",
 		num=3,
 		recipe={spoiled_food=2, fireflies=1},
-		min_level=6,
-		chance=0.9,
+		min_level={"PLANT",6},
+		chance={"PLANT",0.9},
 		fu=function(player, center)
 			spawn_to_target("cave_banana_tree", center)
 			center:Remove()
@@ -464,8 +433,8 @@ local RECIPES = {
 		tree="PLANT",
 		num=4,
 		recipe={red_cap=1, blue_cap=1, green_cap=1, fireflies=1},
-		min_level=8,
-		chance=0.8,
+		min_level={"PLANT",8},
+		chance={"PLANT",0.8},
 		fu=function(player, center)
 			local r = math.random(1,3)
 			
@@ -486,8 +455,8 @@ local RECIPES = {
 		tree="PICK",
 		num=3,
 		recipe={log=2, fireflies=1},
-		min_level=2,
-		chance=1,
+		min_level={"PICK",2},
+		chance={"PICK",1},
 		fu=function(player, center)
 			spawn_to_target("sapling", center)
 			center:Remove()
@@ -498,8 +467,8 @@ local RECIPES = {
 		tree="PICK",
 		num=3,
 		recipe={spoiled_food=2, fireflies=1},
-		min_level=3,
-		chance=0.9,
+		min_level={"PICK",3},
+		chance={"PICK",0.9},
 		fu=function(player, center)
 			spawn_to_target("grass", center)
 			center:Remove()
@@ -510,8 +479,8 @@ local RECIPES = {
 		tree="PICK",
 		num=3,
 		recipe={twigs=2, fireflies=1},
-		min_level=5,
-		chance=0.8,
+		min_level={"PICK",5},
+		chance={"PICK",0.8},
 		fu=function(player, center)
 			spawn_to_target("flower_cave", center)
 			center:Remove()
@@ -525,8 +494,8 @@ local RECIPES = {
 		tree="PICK",
 		num=3,
 		recipe={spoiled_food=2, fireflies=5},
-		min_level=7,
-		chance=0.7,
+		min_level={"PICK",7},
+		chance={"PICK",0.7},
 		fu=function(player, center)
 			spawn_to_target("reeds", center)
 			center:Remove()
@@ -541,51 +510,43 @@ local RECIPES = {
 local SKILLS = {
 	fireflies= {
 		name="Ghosty fireflies",
-		tree="PICK",
-		min_level=1,
-		chance=0.9
+		min_level={"PICK",1},
+		chance={"PICK",0.9}
 	},
 	hungry_attack = {
 		name="Hungry fighter",
-		tree="EAT",
-		min_level=1,
-		rate=1
+		min_level={"EAT",1},
+		rate={"EAT",1}
 	},
 	self_cannibalism = {
 		name="Self-cannibalism",
-		tree="EAT",
-		min_level=3,
-		rate=-0.05
+		min_level={"EAT",3},
+		rate={"EAT",-0.05}
 	},
 	attack = {
 		name="Explosive touch",
-		tree="ATTACK",
-		min_level=1,
-		chance=0.5
+		min_level={"ATTACK",1},
+		chance={"ATTACK",0.5}
 	},
 	attacked = {
 		name="Beetaliation",
-		tree="ATTACK",
-		min_level=2,
-		chance=0.2
+		min_level={"ATTACK",2},
+		chance={"ATTACK",0.5}
 	},
 	fertilize = {
 		name="Double the shit",
-		tree="PLANT",
-		min_level=1,
-		chance=0.5
+		min_level={"PLANT",1},
+		chance={"PLANT",0.5}
 	},
 	harvest = {
 		name="Plant another day",
-		tree="PLANT",
-		min_level=2,
-		chance=0.5
+		min_level={"PLANT",2},
+		chance={"PLANT",0.5}
 	},
 	dig = {
 		name="Treasure hunter",
-		tree="DIG",
-		min_level=1,
-		chance=0.3,
+		min_level={"DIG",1},
+		chance={"DIG",0.3},
 		items={--keys are their respective chances and should sum up to 1
 			[0.5]={"lightbulb", "redgem", "bluegem"},
 			[0.3]={"mandrake", "purplegem", "cutreeds", "slurper_pelt", "furtuft"},
@@ -595,7 +556,7 @@ local SKILLS = {
 }
 
 local skill_num = table.getn(SKILLS)
-print("[DsMMO] Implementing settings")
+print("[DsMMO] Implement settings")
 for k,v in pairs(RECIPES) do
 	if not GetModConfigData(k, KnownModIndex:GetModActualName("DsMMO")) then
 		RECIPES[k] = nil
@@ -607,8 +568,6 @@ function duplicate_recipe(origin, copy)
 	RECIPES[copy] = {
 		duplicate = true,
 		name = origin.name, 
-		tree = origin.tree, 
-		id = origin.tree, 
 		num = origin.num, 
 		recipe = origin.recipe, 
 		min_level = origin.min_level, 
@@ -616,11 +575,15 @@ function duplicate_recipe(origin, copy)
 		fu = origin.fu
 	}
 end
+
 function add_to_index(array, id_start)
+	local id = id_start and id_start or 0
 	for k,v in pairs(array) do
 		if not v._duplicate then
-			local action = v.tree
-			local lvl = v.min_level
+			id = id+1
+			v.id = id
+			local action = v.min_level[1]
+			local lvl = v.min_level[2]
 			
 			if not RECIPE_LEVEL_INDEX[action] then
 				RECIPE_LEVEL_INDEX[action] = {}
@@ -641,9 +604,7 @@ end
 print("[DsMMO] Creating level up index")
 RECIPE_LEVEL_INDEX = {}
 add_to_index(SKILLS)
-add_to_index(RECIPES)
-
-
+add_to_index(RECIPES, skill_num)
 
 function spawn_to_target(n, target)
 	SpawnPrefab(n).Transform:SetPosition(target.Transform:GetWorldPosition())
@@ -688,24 +649,22 @@ function onPerformaction(player, data)
 	local self = player.components.DsMMO
 	--spawn_to_target("impact", player)
 	--spawn_to_target("shadow_bishop_fx", player)
-	
-	print(action)
 	if action then
 		local actionId = action.action.id
 		
 		if actionId == "EAT" then
 			if player.components.hunger.current < player.components.hunger.max and action.invobject and action.invobject.components.edible.hungervalue > 0 then
-				self:get_experience(actionId)
+				player.components.DsMMO:get_experience(actionId)
 			end
 		elseif actionId == "HARVEST" then
-			self:get_experience("PLANT")
+			player.components.DsMMO:get_experience("PLANT")
 			local crop = action.target.components.crop
 			if crop and self:test_skill(SKILLS.harvest) then
 				player.components.inventory:GiveItem(SpawnPrefab(crop.product_prefab))
 				spawn_to_target("collapse_small", player)
 			end
 		elseif actionId == "FERTILIZE" then
-			self:get_experience("PLANT")
+			player.components.DsMMO:get_experience("PLANT")
 			local crop = action.target.components.crop
 			if crop and not crop:IsReadyForHarvest() and self:test_skill(SKILLS.harvest) then
 				crop:Fertilize(SpawnPrefab("guano"), player)
@@ -730,13 +689,13 @@ function onPerformaction(player, data)
 				self._teleport_to = action.target:GetPosition()
 			end
 		elseif actionId == "REPAIR" or actionId == "HAMMER" then
-			self:get_experience("BUILD")
+			player.components.DsMMO:get_experience("BUILD")
 		elseif actionId == "TERRAFORM" then
-			self:get_experience("DIG")
+			player.components.DsMMO:get_experience("DIG")
 		elseif actionId == "DEPLOY" then
-			self:get_experience(DEPLOY_PLANT_ACTIONS[action.invobject.prefab] and "PLANT" or "BUILD")
+			player.components.DsMMO:get_experience(DEPLOY_PLANT_ACTIONS[action.invobject.prefab] and "PLANT" or "BUILD")
 		elseif self.level[actionId] then
-			self:get_experience(actionId)
+			player.components.DsMMO:get_experience(actionId)
 			
 			if actionId == "ATTACK" then
 				if action.target and self:test_skill(SKILLS.attack) then
@@ -779,9 +738,9 @@ function onStartStarving(player)
 	end
 	local self = player.components.DsMMO
 	local skill = SKILLS.hungry_attack
-	local new_damagemultiplier = self.level[skill.tree] * skill.rate
+	local new_damagemultiplier = self.level[skill.rate[1]] * skill.rate[2]
 	
-	if self.level[skill.tree] >= skill.min_level and new_damagemultiplier > player.default_damagemultiplier then
+	if self.level[skill.min_level[1]] >= skill.min_level[2] and new_damagemultiplier > player.default_damagemultiplier then
 		player.components.combat.damagemultiplier = new_damagemultiplier
 	end
 end
@@ -804,7 +763,6 @@ end
 
 
 local DsMMO = Class(function(self, player)
-	self.client = false
 	self.player = player
 	self._player_original_position = nil --if not nil, this will be saved when the player logs out unexpectedly
 	self._action_states = {}
@@ -812,8 +770,18 @@ local DsMMO = Class(function(self, player)
 	self.last_action = "EAT"
 	self._teleport_to = nil
 	
+	--if not TheWorld.ismastersim then
+		--player:ListenForEvent("newstate", function(player, state)
+			--if player.bufferedaction then
+				--print(">>" ..player.bufferedaction.action.id)
+			--else
+				--print(state.statename)
+			--end
+		--end)
+		--return
+	--end
 	
-	local origin_updateState = player.sg.UpdateState
+	local origin_updateState = self.player.sg.UpdateState
 	player.sg.UpdateState = function(...)
 		if not player.sg.currentstate then 
 			return
@@ -826,10 +794,8 @@ local DsMMO = Class(function(self, player)
 		origin_updateState(...)
 	end
 	
-	--self.recipe = net_string(player.GUID, "DsMMO.recipe", "DsMMO.recipe") --##
+	
 	self:create_array() --this is a waste of performance - But I havent found a way to detect a newly created character
-	
-	
 	--player:ListenForEvent("ms_becameghost", onbecameghost)
 	player:ListenForEvent("death", onbecameghost)
 	player:ListenForEvent("onremove", onLogout)
@@ -840,31 +806,6 @@ local DsMMO = Class(function(self, player)
 	player:ListenForEvent("startstarving", onStartStarving)
 	player:ListenForEvent("stopstarving", onStopStarving)
 end)
-
-function DsMMO:enable_client()
-	local guid = self.player.GUID
-	self.player.DsMMO_enabled = net_event(guid, "DsMMO_enabled", "DsMMO_enabled")
-	self.player.DsMMO_enabled:push()
-	self.client = true
-	self:log_msg("Client-mod enabled")
-	
-	self.recipe = net_string(guid, "DsMMO.recipe", "DsMMO.recipe")
-	
-	local level = {}
-	self.exp_left = {}
-	self.net_level = {}
-	for k_action,v in pairs(DSMMO_ACTIONS) do
-		if self.level[k_action] < LEVEL_MAX then
-			print("DsMMO.expleft." ..k_action)
-			self.exp_left[k_action] = net_uint(guid, "DsMMO.expleft." ..k_action)
-			self.net_level[k_action] = net_ushortint(guid, "DsMMO.level." ..k_action)
-			
-			self.exp_left[k_action]:set(get_max_exp(k_action, self.level[k_action]) - self.exp[k_action])
-			self.net_level[k_action]:set(self.level[k_action])
-		end
-	end
-	
-end
 
 function DsMMO:log_msg(msg)
 	print("[DsMMO/" ..self.player.name .."] " ..msg)
@@ -934,7 +875,7 @@ function DsMMO:newLevelString(action, lvl)
 	end
 	
 	if RECIPE_LEVEL_INDEX[action] and RECIPE_LEVEL_INDEX[action][lvl] then
-		for k,v in pairs(RECIPE_LEVEL_INDEX[action][lvl]) do
+		for i,v in ipairs(RECIPE_LEVEL_INDEX[action][lvl]) do
 			base = base .."\nYou learned a new skill: " ..v.name
 		end
 	end
@@ -982,27 +923,22 @@ end
 function DsMMO:init_recipe(target)
 	local recipe_data = RECIPES[target.prefab]
 	if recipe_data then
-		if self.level[recipe_data.tree] < recipe_data.min_level then
-			--self:log_msg(target.prefab .."-recipe: " ..recipe_data.tree .."-level(" ..self.level[recipe_data.tree] .."<" ..recipe_data.min_level ..") is not high enough")
+		if self.level[recipe_data.min_level[1]] < recipe_data.min_level[2] then
+			self:log_msg(target.prefab .."-recipe: " ..recipe_data.min_level[1] .."-level(" ..self.level[recipe_data.min_level[1]] .."<" ..recipe_data.min_level[2] ..") is not high enough")
 			alert(self.player, "I don't feel prepared...")
-			if self.client then
-				self.recipe:set_local("") --to make sure that the same recipe can be sent multiple times
-				self.recipe:set(target.prefab)
-			end
-			
 		elseif recipe_data.check and not recipe_data.check(self.player, target) then
 			alert(self.player, "I just can't...")
 		else
-			self:check_recipe(target, recipe_data.recipe, recipe_data.num, recipe_data.tree, recipe_data.chance, recipe_data.fu)
+			self:check_recipe(target, recipe_data.recipe, recipe_data.num, recipe_data.chance, recipe_data.fu)
 		end
 		return true
 	end
 	return false
 end
-function DsMMO:check_recipe(center, recipe, ings_needed_sum, tree, chance, fn)
+function DsMMO:check_recipe(center, recipe, ings_needed_sum, chance, fn)
 	local collection = {}
 	local pos = center:GetPosition()
-	local near = TheSim:FindEntities(pos.x, pos.y, pos.z, RECIPE_DISTANCE)
+	local near = TheSim:FindEntities(pos.x, pos.y, pos.z, 5)
 	
 	local ingredients = {}
 	for k,v in pairs(recipe) do
@@ -1028,7 +964,7 @@ function DsMMO:check_recipe(center, recipe, ings_needed_sum, tree, chance, fn)
 					self.player:DoTaskInTime(2, function(player) 
 						spawn_to_target("collapse_big", center)
 						
-						if get_success(player, tree, chance) then
+						if get_success(player, chance[1], chance[2]) then
 							spawn_to_target("lightning", center)
 							fn(player, center)
 						else 
@@ -1040,45 +976,38 @@ function DsMMO:check_recipe(center, recipe, ings_needed_sum, tree, chance, fn)
 		end
 	end
 	
-	if self.client then
-		self.recipe:set_local("") --to make sure that the same recipe can be sent multiple times
-		self.recipe:set(center.prefab)
-	end
-	--self.recipe:set_local("") --to make sure that the same recipe can be sent multiple times --##
-	--self.recipe:set(center.prefab) --##
 	alert(self.player, "What am I missing..?")
 end
 
 function DsMMO:test_skill(skill)
-	return self.level[skill.tree] >= skill.min_level and get_success(self.player, skill.tree, skill.chance)
+	return self.level[skill.min_level[1]] >= skill.min_level[2] and get_success(self.player, skill.chance[1], skill.chance[2])
 end
 
 function DsMMO:OnLoad(data)
 	if data.dsmmo_version then
-		if data.dsmmo_version == VERSION and data.dsmmo_level_up_rate == LEVEL_UP_RATE then
+		if data.dsmmo_version == VERSION then
 			self.exp = data.dsmmo_exp
 			self.level = data.dsmmo_level
 			
-			for k_action,v in pairs(DSMMO_ACTIONS) do
-				if self.level[k_action] < LEVEL_MAX then
-					--self.exp_left[k_action]:set(get_max_exp(k_action, self.level[k_action]) - self.exp[k_action]) --##
-					--self.net_level[k_action]:set(self.level[k_action]) --##
+			for k,v in pairs(DSMMO_ACTIONS) do
+				if self.level[k] < LEVEL_MAX then
+					self.exp_left[k]:set(get_max_exp(k, self.level[k]) - self.exp[k])
 				end
 			end
+			
 			
 			for k,v in pairs(ACTION_SPEED_INCREASE) do
 				self:update_actionSpeed(k)
 			end
 		else
-			self:log_msg("Upgrading from v" ..(data.dsmmo_version or "nil") ..",rate=" ..(data.dsmmo_level_up_rate or "nil") .." to v" ..VERSION ..",rate=" ..LEVEL_UP_RATE)
+			self:log_msg("Upgrading from v" ..data.dsmmo_version .." to v" ..VERSION)
 			for k,v in pairs(DSMMO_ACTIONS) do
 				--we transfer each variable seperately to make sure the different version stays compatible
 				if data.dsmmo_level[k] then
 					self.exp[k] = data.dsmmo_exp[k]
 					local lvl = get_level(k, data.dsmmo_exp[k])
 					self.level[k] = lvl
-					--self.exp_left[k]:set(get_max_exp(k, lvl) - data.dsmmo_exp[k]) --##
-					--self.net_level[k]:set(lvl) --##
+					self.exp_left[k]:set(get_max_exp(k, lvl) - data.dsmmo_exp[k])
 					self:update_actionSpeed(k)
 				end
 			end
@@ -1094,8 +1023,7 @@ function DsMMO:OnSave()
 			dsmmo_exp = self.exp,
 			dsmmo_level = self.level,
 			_teleport_to = self._teleport_to,
-			dsmmo_version = VERSION,
-			dsmmo_level_up_rate = LEVEL_UP_RATE
+			dsmmo_version = VERSION
 		}
 	
 	if self._player_original_position then
@@ -1108,41 +1036,42 @@ function DsMMO:create_array()
 	local player = self.player
 	local guid = player.GUID
 	self.exp = {}
-	--self.exp_left = {}
-	--self.net_level = {}
+	self.exp_left = {}
+	self.net_level = {}
+	self.enabled_extras = {}
 	self.level = {}
 	
 	for k,v in pairs(DSMMO_ACTIONS) do
 		self.exp[k] = 0
 		self.level[k] = 0
 		
-		--self.exp_left[k] = net_ushortint(guid, "DsMMO.expleft." ..k) --##
-		--self.net_level[k] = net_ushortint(guid, "DsMMO.level." ..k) --##
+		self.exp_left[k] = net_ushortint(guid, k .."_DsMMO_exp_left", k .."_DsMMO_exp_left")
+		self.net_level[k] = net_ushortint(guid, k .."_DsMMO_level", k .."_DsMMO_level")
+		self.enabled_extras[k] = net_bytearray(guid, k .."_DsMMO_extras", k .."_DsMMO_extras")
 	end
 end
 function DsMMO:update_client(action)
-	if self.client then
-		local lvl = self.level[action]
-		local xp = self:calc_mssing_xp(action)
-		
-		self.exp_left[action]:set(self:calc_mssing_xp(action))
-		self.net_level[action]:set(lvl)
-	end
-	
-	
-	
 	local lvl = self.level[action]
 	local xp = self:calc_mssing_xp(action)
 	
-	--self.exp_left[action]:set(self:calc_mssing_xp(action)) --##
-	--self.net_level[action]:set(lvl) --##
+	self.exp_left[action]:set(self:calc_mssing_xp(action))
+	self.net_level[action]:set(lvl)
+	
+	local extras = {}
+	if RECIPE_LEVEL_INDEX[action] then
+		for k_lvl,v_lvl in pairs(RECIPE_LEVEL_INDEX[action]) do
+			if lvl >= k_lvl then
+				for i,v in ipairs(v_lvl) do
+					print(v.name ..": " ..v.id ..", " ..(v.chance and v.chance[2]*100 or 100))
+					table.insert(extras, v.id)
+					table.insert(extras, v.chance and v.chance[2]*100 or 100)
+				end
+			end
+		end
+	end
+	
+	self.enabled_extras[action]:set(extras)
 end
-function DsMMO:add_learnedClientInfo(t, entry)
-	table.insert(t, entry.id)
-	table.insert(t, entry.min_level)
-	table.insert(t, entry.chance ~= nil and entry.chance*100 or (entry.rate ~= nil and entry.rate*100 or 100))
-end
-
 
 function DsMMO:penalty()
 	if self._no_penalty then
@@ -1199,10 +1128,10 @@ function DsMMO:show_info()
 		if RECIPE_LEVEL_INDEX[action] then
 			for k_lvl,v_lvl in pairs(RECIPE_LEVEL_INDEX[action]) do
 				if lvl >= k_lvl then
-					for k,v in pairs(v_lvl) do
-						output = output .."\n" ..v.name .."(" ..(v.chance ~= nil
-							and (get_chance(v.chance, level[v.tree])*100) .."%)"
-							or (level[v.tree] * v.rate) .."x)"
+					for i,v in ipairs(v_lvl) do
+						output = output .."\n" ..v.name .."(" ..(v.chance
+							and (get_chance(v.chance[2], level[v.chance[1]])*100) .."%)"
+							or (level[v.rate[1]] * v.rate[2]) .."x)"
 						)
 					end
 				end
@@ -1233,7 +1162,7 @@ function DsMMO:run_command(cmd, arg1, arg2, arg3)
 		end
 	elseif arg1 == "eat" and arg2 and arg3 then
 		local skill = SKILLS.self_cannibalism
-		if self.level[skill.tree] < skill.min_level then
+		if self.level[skill.min_level[1]] < skill.min_level[2] then
 			output = "I don't know how..."
 		else
 			local attr = string.lower(arg3)
@@ -1258,7 +1187,7 @@ function DsMMO:run_command(cmd, arg1, arg2, arg3)
 				end
 				
 				if comp ~= nil then
-					diff = diff + math.ceil(diff * (self.level[skill.tree] * skill.rate)) --skill.rate is negative
+					diff = diff + math.ceil(diff * (self.level[skill.rate[1]] * skill.rate[2])) --skill.rate is negative
 					
 					if self.exp[action] < diff then
 						output = "I don't have enough exp for that"

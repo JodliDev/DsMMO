@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<Atlas>
+	<Texture filename="dsmmo_recipes.tex" />
+	<Elements>
+		<Element name="amulet1.tex" u1="0.000244141" u2="0.0974121" v1="0.805176" v2="0.999512" />
+		<Element name="amulet2.tex" u1="0.0979004" u2="0.195068" v1="0.805176" v2="0.999512" />
+		<Element name="berries1.tex" u1="0.195557" u2="0.292725" v1="0.805176" v2="0.999512" />
+		<Element name="berries2.tex" u1="0.293213" u2="0.390381" v1="0.805176" v2="0.999512" />
+		<Element name="berries_juicy1.tex" u1="0.390869" u2="0.488037" v1="0.805176" v2="0.999512" />
+		<Element name="berries_juicy2.tex" u1="0.488525" u2="0.585693" v1="0.805176" v2="0.999512" />
+		<Element name="campfire1.tex" u1="0.586182" u2="0.68335" v1="0.805176" v2="0.999512" />
+		<Element name="campfire2.tex" u1="0.683838" u2="0.781006" v1="0.805176" v2="0.999512" />
+		<Element name="cave_banana1.tex" u1="0.781494" u2="0.878662" v1="0.805176" v2="0.999512" />
+		<Element name="cave_banana2.tex" u1="0.87915" u2="0.976318" v1="0.805176" v2="0.999512" />
+		<Element name="cave_banana_cooked1.tex" u1="0.000244141" u2="0.0974121" v1="0.609863" v2="0.804199" />
+		<Element name="cave_banana_cooked2.tex" u1="0.0979004" u2="0.195068" v1="0.609863" v2="0.804199" />
+		<Element name="coontail1.tex" u1="0.195557" u2="0.292725" v1="0.609863" v2="0.804199" />
+		<Element name="coontail2.tex" u1="0.293213" u2="0.390381" v1="0.609863" v2="0.804199" />
+		<Element name="cutgrass1.tex" u1="0.390869" u2="0.488037" v1="0.609863" v2="0.804199" />
+		<Element name="cutgrass2.tex" u1="0.488525" u2="0.585693" v1="0.609863" v2="0.804199" />
+		<Element name="cutreeds1.tex" u1="0.586182" u2="0.68335" v1="0.609863" v2="0.804199" />
+		<Element name="cutreeds2.tex" u1="0.683838" u2="0.781006" v1="0.609863" v2="0.804199" />
+		<Element name="deerclops_eyeball1.tex" u1="0.781494" u2="0.878662" v1="0.609863" v2="0.804199" />
+		<Element name="deerclops_eyeball2.tex" u1="0.87915" u2="0.976318" v1="0.609863" v2="0.804199" />
+		<Element name="firepit1.tex" u1="0.000244141" u2="0.0974121" v1="0.414551" v2="0.608887" />
+		<Element name="firepit2.tex" u1="0.0979004" u2="0.195068" v1="0.414551" v2="0.608887" />
+		<Element name="fish1.tex" u1="0.195557" u2="0.292725" v1="0.414551" v2="0.608887" />
+		<Element name="fish2.tex" u1="0.293213" u2="0.390381" v1="0.414551" v2="0.608887" />
+		<Element name="lightbulb1.tex" u1="0.390869" u2="0.488037" v1="0.414551" v2="0.608887" />
+		<Element name="lightbulb2.tex" u1="0.488525" u2="0.585693" v1="0.414551" v2="0.608887" />
+		<Element name="livinglog1.tex" u1="0.586182" u2="0.68335" v1="0.414551" v2="0.608887" />
+		<Element name="livinglog2.tex" u1="0.683838" u2="0.781006" v1="0.414551" v2="0.608887" />
+		<Element name="molehill1.tex" u1="0.781494" u2="0.878662" v1="0.414551" v2="0.608887" />
+		<Element name="molehill2.tex" u1="0.87915" u2="0.976318" v1="0.414551" v2="0.608887" />
+		<Element name="none.tex" u1="0.000244141" u2="0.0974121" v1="0.219238" v2="0.413574" />
+		<Element name="pitchfork1.tex" u1="0.0979004" u2="0.195068" v1="0.219238" v2="0.413574" />
+		<Element name="pitchfork2.tex" u1="0.195557" u2="0.292725" v1="0.219238" v2="0.413574" />
+		<Element name="shovel1.tex" u1="0.293213" u2="0.390381" v1="0.219238" v2="0.413574" />
+		<Element name="shovel2.tex" u1="0.390869" u2="0.488037" v1="0.219238" v2="0.413574" />
+		<Element name="skeleton_player1.tex" u1="0.488525" u2="0.585693" v1="0.219238" v2="0.413574" />
+		<Element name="skeleton_player2.tex" u1="0.586182" u2="0.68335" v1="0.219238" v2="0.413574" />
+		<Element name="tallbirdegg1.tex" u1="0.683838" u2="0.781006" v1="0.219238" v2="0.413574" />
+		<Element name="tallbirdegg2.tex" u1="0.781494" u2="0.878662" v1="0.219238" v2="0.413574" />
+		<Element name="twigs1.tex" u1="0.87915" u2="0.976318" v1="0.219238" v2="0.413574" />
+		<Element name="twigs2.tex" u1="0.000244141" u2="0.0974121" v1="0.0239258" v2="0.218262" />
+		<Element name="walrus_camp1.tex" u1="0.0979004" u2="0.195068" v1="0.0239258" v2="0.218262" />
+		<Element name="walrus_camp2.tex" u1="0.195557" u2="0.292725" v1="0.0239258" v2="0.218262" />
+		<Element name="walrus_tusk1.tex" u1="0.293213" u2="0.390381" v1="0.0239258" v2="0.218262" />
+		<Element name="walrus_tusk2.tex" u1="0.390869" u2="0.488037" v1="0.0239258" v2="0.218262" />
+	</Elements>
+</Atlas>
