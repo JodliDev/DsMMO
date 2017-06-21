@@ -602,6 +602,12 @@ for k,v in pairs(RECIPES) do
 		print("[DsMMO] Disabling " ..k)
 	end
 end
+for k,v in pairs(SKILLS) do
+	if not GetModConfigData(k, KnownModIndex:GetModActualName("DsMMO")) then
+		SKILLS[k] = nil
+		print("[DsMMO] Disabling " ..k)
+	end
+end
 
 function duplicate_recipe(origin, copy)
 	RECIPES[copy] = {
@@ -745,7 +751,7 @@ function onPerformaction(player, data)
 					action.target.components.combat:GetAttacked(player, TUNING.SPEAR_DAMAGE)
 				end
 			elseif actionId == "DIG" then
-				if not action.target.DsMMO_creation and DIG_SKILL_TARGETS[action.invobject.prefab] and self:test_skill(SKILLS.dig) then
+				if not action.target.DsMMO_creation and action.invobject and DIG_SKILL_TARGETS[action.invobject.prefab] and self:test_skill(SKILLS.dig) then
 					local items = SKILLS.dig.items
 					local r = math.random()
 					for k,v in pairs(items) do
@@ -771,18 +777,20 @@ function onAttacked(player, data)
 	end
 end
 function onStartStarving(player)
-	--no test_skill() because this one is not decided by luck
-	if player.components.combat ~= nil and player.components.combat.damagemultiplier ~= nil then
-		player.default_damagemultiplier = player.components.combat.damagemultiplier
-	else
-		player.default_damagemultiplier = 1
-	end
 	local self = player.components.DsMMO
 	local skill = SKILLS.hungry_attack
-	local new_damagemultiplier = self.level[skill.tree] * skill.rate
 	
-	if self.level[skill.tree] >= skill.min_level and new_damagemultiplier > player.default_damagemultiplier then
-		player.components.combat.damagemultiplier = new_damagemultiplier
+	if self:test_skill(skill) then
+		if player.components.combat ~= nil and player.components.combat.damagemultiplier ~= nil then
+			player.default_damagemultiplier = player.components.combat.damagemultiplier
+		else
+			player.default_damagemultiplier = 1
+		end
+		local new_damagemultiplier = self.level[skill.tree] * skill.rate
+		
+		if new_damagemultiplier > player.default_damagemultiplier then
+			player.components.combat.damagemultiplier = new_damagemultiplier
+		end
 	end
 end
 function onStopStarving(player)
@@ -1013,7 +1021,7 @@ function DsMMO:check_recipe(center, recipe, ings_needed_sum, tree, chance, fn)
 end
 
 function DsMMO:test_skill(skill)
-	return self.level[skill.tree] >= skill.min_level and get_success(self.player, skill.tree, skill.chance)
+	return skill and self.level[skill.tree] >= skill.min_level and (not skill.chance or get_success(self.player, skill.tree, skill.chance))
 end
 
 function DsMMO:OnLoad(data)
@@ -1188,7 +1196,7 @@ function DsMMO:run_command(cmd, arg1, arg2, arg3)
 		end
 	elseif arg1 == "eat" and arg2 and arg3 then
 		local skill = SKILLS.self_cannibalism
-		if self.level[skill.tree] < skill.min_level then
+		if not self:test_skill(skill) then
 			output = "I don't know how..."
 		else
 			local attr = string.lower(arg3)
