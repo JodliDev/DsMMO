@@ -5,7 +5,7 @@ description = "Inspired by McMMO for Minecraft. This mod adds a levelup system f
 forumthread = ""
 server_filter_tags = {"Character", "Utility"}
 
-version = "1.1.3"
+version = "1.2.0"
 
 api_version = 10
 dont_starve_compatible = false
@@ -33,9 +33,6 @@ function d(name, label)
 		default = true,
 	}
 end
-
-
-
 function option_range(min, max, incr, default, hover)
 	hover = hover or "Default is " ..default
 	local a = {}
@@ -50,8 +47,38 @@ function option_range(min, max, incr, default, hover)
 	return a
 end
 
+function empty_line()
+	return {
+		name = "",
+		options = {{description = "", data = 0}},
+		default=0
+	}
+end
+
+function title(title)
+	return {
+		name = "",
+		label = title,
+		options = {{description = "", data = 0}},
+		default=0
+	}
+end
+
+
 
 configuration_options = {
+	title("GENERAL"),
+	{
+		name = "start_message",
+		label = "Enable start-message",
+		hover = "On startup a message about the additional client version is displayed in the chat.",
+		options = 
+		{
+			{description = "Enabled",	data = true,	hover = "Display the message"},
+			{description = "Disabled",	data = false,	hover = "Don't display the message"}
+		},
+		default = 2,
+	},
 	{
 		name = "penalty_divide",
 		label = "Penalty",
@@ -66,6 +93,20 @@ configuration_options = {
 		options = option_range(1.1, 3, 0.1, 1.5),
 		default = 1.5,
 	},
+	empty_line(),
+	title("SKILLS"),
+	
+	d("fireflies",			"Ghosty fireflies"),
+	d("hungry_attack",		"Hungry fighter"),
+	d("self_cannibalism",	"Self-cannibalism"),
+	d("attack",				"Explosive touch"),
+	d("attacked",			"Beetaliation"),
+	d("fertilize",			"Double the shit"),
+	d("harvest",			"Plant another day"),
+	d("dig",				"Treasure hunter"),
+	
+	empty_line(),
+	title("RITUALS"),
 	
 	d("amulet",				"Ritual of death"),
 	d("deerclops_eyeball",	"Ritual of a new life"),

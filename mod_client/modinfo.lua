@@ -1,9 +1,9 @@
-name = "DsMMO_client"
+name = "DsMMO - client"
 author = "Jodli Developement"
 
-description = ""
+description = "This is graphical addition for DsMMO.\nIf you are playing on your own server or computer, you need the main DsMMO-mod:\nhttp://bit.ly/ds_dsmmo"
 forumthread = ""
-server_filter_tags = {"Character", "Utility"}
+server_filter_tags = {"Character", "Utility", "Tweak"}
 
 version = "1.0.0"
 
