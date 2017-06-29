@@ -765,7 +765,7 @@ end
 local function onAttacked(player, data)
 	player.components.DsMMO:get_experience("ATTACK")
 	
-	if data.attacker.prefab ~= "bee" and data.attacker.prefab ~= "killerbee" and player.components.DsMMO:test_skill(SKILLS.attacked) then
+	if data and data.attacker.prefab ~= "bee" and data.attacker.prefab ~= "killerbee" and player.components.DsMMO:test_skill(SKILLS.attacked) then
 		local bee = SpawnPrefab("bee")
 		bee.persists = false
 		bee.Transform:SetPosition(player.Transform:GetWorldPosition())
