@@ -16,6 +16,12 @@ Assets = {
 
 local ui_elements = {}
 
+if not GLOBAL.KnownModIndex:IsModEnabled("DsMMO") then --if we are on a single player world, this would mess everything up. ModRPCs are a mess. Why is this necessary anyway...?
+	AddModRPCHandler("DsMMO", "client_enabled", function() print("If this is in your log, something went terribly wrong") end)
+	AddModRPCHandler("DsMMO", "client_is_setup", function() print("If this is in your log, something went terribly wrong") end)
+	AddModRPCHandler("DsMMO", "use_cannibalism_skill", function() print("If this is in your log, something went terribly wrong") end)
+end
+
 
 --if not GLOBAL.TheNet or not GLOBAL.TheNet:GetIsServer() then
 if not GLOBAL.TheNet or not GLOBAL.TheNet:IsDedicated() then
@@ -23,13 +29,12 @@ if not GLOBAL.TheNet or not GLOBAL.TheNet:IsDedicated() then
 	AddClassPostConstruct("widgets/controls", function(self) ui_elements.right_root = self.right_root end)
 	
 	AddPlayerPostInit(function(player)
-		--if not GLOBAL.TheWorld.ismastersim and not MOD_RPC["DsMMO"] then
-		if not MOD_RPC["DsMMO"] then
-			AddModRPCHandler("DsMMO", "client_enabled", function() print("local RPC2??????") end)
-			AddModRPCHandler("DsMMO", "client_is_setup", function() print("local RPC1??????") end)
-			AddModRPCHandler("DsMMO", "use_cannibalism_skill", function() print("local RPC1??????") end)
-		end
-		player:DoTaskInTime(1, function(player) --we have to wait for the RPCHandler and also want to initialize after DsMMO
+		
+		player:DoTaskInTime(3, function(player)
+			if player.HUD == nil then
+				print("not player")
+				return
+			end
 			player:AddComponent("DsMMO_client")
 			player.components.DsMMO_client:add_display(ui_elements)
 		end)

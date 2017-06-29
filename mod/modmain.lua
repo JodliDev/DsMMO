@@ -128,7 +128,6 @@ function use_cannibalism_skill(player, action, heal)
 	end
 end
 
-print("modname: " ..modname)
-AddModRPCHandler(modname, "client_enabled", prepare_client_communication)
-AddModRPCHandler(modname, "client_is_setup", init_client_communication)
-AddModRPCHandler(modname, "use_cannibalism_skill", use_cannibalism_skill)
+AddModRPCHandler("DsMMO", "client_enabled", prepare_client_communication)
+AddModRPCHandler("DsMMO", "client_is_setup", init_client_communication)
+AddModRPCHandler("DsMMO", "use_cannibalism_skill", use_cannibalism_skill)

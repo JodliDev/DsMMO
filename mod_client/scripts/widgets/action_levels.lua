@@ -155,7 +155,7 @@ local Action_levels = Class(Widget, function(self, owner, tab)
 					self_cannibalism_btn.hunger_btn:SetScale(.5, .5)
 					self_cannibalism_btn.hunger_btn:SetTooltip("Sacrifice " ..action .."-exp to gain hunger")
 					self_cannibalism_btn.hunger_btn:SetOnClick(function()
-						SendModRPCToServer(GetModRPC("DsMMO", "use_cannibalism_skill"), action, "hunger")
+						TheNet:SendModRPCToServer("DsMMO", 3, action, "hunger")
 						self:close()
 					end)
 				end

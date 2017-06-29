@@ -5,7 +5,7 @@ description = "Inspired by McMMO for Minecraft. This mod adds a levelup system f
 forumthread = ""
 server_filter_tags = {"Character", "Utility"}
 
-version = "1.2.0"
+version = "1.2.2"
 
 api_version = 10
 dont_starve_compatible = false
@@ -117,7 +117,7 @@ configuration_options = {
 	
 	d("coontail",			"Ritual of pussy love"),
 	d("cave_banana_cooked",	"Ritual of dumb monkeys"),
-	d("pond",				"Ritual of the lady without water"),
+	d("pond",				"Ritual of dry humping"),
 	d("fish",				"Ritual of splishy splashy"),
 	d("walrus_camp",		"Ritual of arctic fishing"),
 	d("walrus_tusk",		"Ritual of whalers feast"),

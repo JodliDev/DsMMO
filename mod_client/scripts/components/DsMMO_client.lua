@@ -367,7 +367,7 @@ local DsMMO_client = Class(function(self, player)
 	
 	
 	self:create_netListeners()
-	SendModRPCToServer(GetModRPC("DsMMO", "client_enabled"))
+	TheNet:SendModRPCToServer("DsMMO", 1)
 end)
 
 function DsMMO_client:add_display(ui)
@@ -393,7 +393,7 @@ function DsMMO_client:create_index(array_in, array_out)
 end
 
 function DsMMO_client:create_netListeners()
-	print("[DsMMO client] Enabling")
+	print("[DsMMO client] Enabled")
 	local player = self.player
 	--if TheWorld.ismastersim then
 	if player.components.DsMMO then
@@ -447,7 +447,7 @@ function DsMMO_client:init_communication()
 		end
 		player:ListenForEvent("DsMMO.recipe", onRecipe)
 		
-		SendModRPCToServer(MOD_RPC["DsMMO"]["client_is_setup"])
+		TheNet:SendModRPCToServer("DsMMO", 2)
 		self:activate()
 	end
 end
@@ -539,7 +539,8 @@ function DsMMO_client:show_recipe(recipe)
 	if self._recipe_display and self._recipe_display.inst:IsValid() then
 		self._recipe_display:show_recipe(recipe)
 	else
-		self._recipe_display = self.ui_elements.right_root:AddChild(Recipe_display(self, recipe))
+		--self._recipe_display = self.ui_elements.right_root:AddChild(Recipe_display(self, recipe))
+		self._recipe_display = self.ui_elements.statusdisplays:AddChild(Recipe_display(self, recipe))
 	end
 end
 

@@ -7,7 +7,8 @@ local Recipe_display = Class(Widget, function(self, owner, recipe)
 	Widget._ctor(self, "Recipe_display")
 	self.owner = owner
 	
-	self:SetPosition(-130, 0, 0)
+	--self:SetPosition(-130, 0, 0)
+	self:SetPosition(-50, -280, 0)
 	
 	self.main_container = self:AddChild(Widget("root"))
 	--self.main_container:SetPosition(260,0,0)
