@@ -709,7 +709,12 @@ local function onPerformaction(player, data)
 			self:get_experience("PLANT")
 			local crop = action.target.components.crop
 			if crop and not crop:IsReadyForHarvest() and self:test_skill(SKILLS.harvest) then
-				crop:Fertilize(SpawnPrefab("guano"), player)
+				local inst = SpawnPrefab("guano")
+				crop:Fertilize(inst, player)
+				if inst:IsValid() then
+					print(23423243)
+					inst:Remove()
+				end
 				spawn_to_target("collapse_small", player)
 			end
 		elseif actionId == "HAUNT" then
@@ -765,7 +770,7 @@ end
 local function onAttacked(player, data)
 	player.components.DsMMO:get_experience("ATTACK")
 	
-	if data and data.attacker.prefab ~= "bee" and data.attacker.prefab ~= "killerbee" and player.components.DsMMO:test_skill(SKILLS.attacked) then
+	if data and data.attacker and data.attacker.prefab ~= "bee" and data.attacker.prefab ~= "killerbee" and player.components.DsMMO:test_skill(SKILLS.attacked) then
 		local bee = SpawnPrefab("bee")
 		bee.persists = false
 		bee.Transform:SetPosition(player.Transform:GetWorldPosition())
