@@ -5,7 +5,7 @@ description = "Inspired by McMMO for Minecraft. This mod adds a levelup system f
 forumthread = ""
 server_filter_tags = {"Character", "Utility"}
 
-version = "1.1.4"
+version = "1.2.4"
 
 api_version = 10
 dont_starve_compatible = false
@@ -67,8 +67,18 @@ end
 
 
 configuration_options = {
-	empty_line(),
 	title("GENERAL"),
+	{
+		name = "start_message",
+		label = "Enable start-message",
+		hover = "On startup a message about the additional client version is displayed in the chat.",
+		options = 
+		{
+			{description = "Enabled",	data = true,	hover = "Display the message"},
+			{description = "Disabled",	data = false,	hover = "Don't display the message"}
+		},
+		default = 2,
+	},
 	{
 		name = "penalty_divide",
 		label = "Penalty",
@@ -90,7 +100,7 @@ configuration_options = {
 	d("hungry_attack",		"Hungry fighter"),
 	d("self_cannibalism",	"Self-cannibalism"),
 	d("attack",				"Explosive touch"),
-	d("attacked",			"Beetaliation (Rework soon ;) )"),
+	d("attacked",			"Beetaliation"),
 	d("fertilize",			"Double the shit"),
 	d("harvest",			"Plant another day"),
 	d("dig",				"Treasure hunter"),
@@ -107,7 +117,7 @@ configuration_options = {
 	
 	d("coontail",			"Ritual of pussy love"),
 	d("cave_banana_cooked",	"Ritual of dumb monkeys"),
-	d("pond",				"Ritual of the lady without water"),
+	d("pond",				"Ritual of dry humping"),
 	d("fish",				"Ritual of splishy splashy"),
 	d("walrus_camp",		"Ritual of arctic fishing"),
 	d("walrus_tusk",		"Ritual of whalers feast"),

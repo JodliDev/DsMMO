@@ -1,8 +1,8 @@
 ![DsMMO](./pics/modicon.png)
 
-----------------------------
-
 Install through the [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=942328680)
+
+----------------------------
 
 
 Inspired by McMMO for Minecraft, the purpose of this mod is to reward players for every action they do and make the game less grindy the longer they play (and survive).
@@ -60,19 +60,19 @@ Skill- and ritual-tree
 CHOP
 ----
 
-The higher your CHOP-level, the faster you will be able to chop trees
+Every CHOP-level increases the speed with which you can cut down trees
 
 
 MINE
 ----
 
-The higher your MINE-level, the faster you will be able to mine stones
+Every MINE-level increases the speed with which you can mine stones
 
 
 ATTACK
 ------
 
-You get experience for: Attacking other player, NPCs or structures and when you are attacked.
+You get experience for attacking other players, NPCs or structures and when you are attacked.
 
 #### Explosive touch (level 1)
 Every attack you deal has a chance of doing extra damage (same damage like of a spear).
@@ -83,6 +83,8 @@ Every time you are attacked, there is a chance that you spawn a bee, that will a
 
 PLANT
 -----
+
+You get experience for planting, harvesting and fertilizing.
 
 #### Double the shit (level 1)
 Fertilizing has a chance of being extra effective.
@@ -123,6 +125,10 @@ DIG
 
 #### Treasure hunter (level 1)
 Using your shovel for digging has a chance of spawning additional items
+The following items can be obtained:
+Common: Light Bulb, Red Gem, Blue Gem
+Uncommon: Mandrake, Purple Gem, Cut Reeds, Slurper Pelt, Fur Tuft
+Rare: Moonrock, Beard Hair, Yellow Gem, Orange Gem
 
 #### Ritual of mole infestation (level 2)
 ![Burrow, 3 different ores](./pics/recipes/molehill.png)

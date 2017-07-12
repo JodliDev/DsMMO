@@ -1,29 +1,5 @@
-function list_table(v, values)
-	local output = {""}
-	local i = 1
-	local max_num = values and 5 or 10
-	local num = max_num
-	for k,v in pairs(v) do
-		if num <= 0 then
-			i = i +1
-			num = max_num
-			output[i] = ""
-		end
-		num = num -1
-		if values then
-			output[i] = output[i] ..k .."=" ..tostring(v) ..","
-		else
-			output[i] = output[i] ..k ..","
-		end
-	end
-	
-	print("---")
-	for k,v in pairs(output) do
-		print(v)
-	end
-end
-
-local VERSION = 6
+----------settings----------
+local VERSION = 8
 local LEVEL_MAX = 10
 local LEVEL_UP_RATE = GetModConfigData("level_up_rate", KnownModIndex:GetModActualName("DsMMO")) or 1.5
 local PENALTY_DIVIDE = GetModConfigData("penalty_divide", KnownModIndex:GetModActualName("DsMMO")) or 2
@@ -38,6 +14,16 @@ local DSMMO_ACTIONS = {
 	["DIG"] = 40,
 	["EAT"] = 50,
 	["PICK"] = 30
+}
+local MIN_EXP_ARRAY = {
+	DSMMO_ACTIONS.CHOP,
+	DSMMO_ACTIONS.MINE,
+	DSMMO_ACTIONS.ATTACK,
+	DSMMO_ACTIONS.PLANT,
+	DSMMO_ACTIONS.BUILD,
+	DSMMO_ACTIONS.DIG,
+	DSMMO_ACTIONS.EAT,
+	DSMMO_ACTIONS.PICK,
 }
 
 local ACTION_SPEED_INCREASE = {
@@ -61,6 +47,56 @@ local DIG_SKILL_TARGETS = { --Treasurehunter works on these targets
 	molehill = true
 }
 
+
+----------global functions----------
+local function is_fullMoon()
+	return TheWorld.state.moonphase == "full" --GetClock():GetMoonPhase()
+end
+local function spawn_to_target(n, target)
+	SpawnPrefab(n).Transform:SetPosition(target.Transform:GetWorldPosition())
+end
+local function get_chance(base_r, lvl)
+	local chance = base_r * (lvl / LEVEL_MAX)
+	
+	return is_fullMoon() and chance + 0.5 or chance
+end
+local function get_success(player, action, base_r)
+	local chance = get_chance(base_r, player.components.DsMMO.level[action])
+	return math.random() < chance
+end
+local function alert(player, msg, len)
+	player.components.talker:Say(msg, len or 10)
+end
+
+local function get_max_exp(action, lvl)
+	return lvl > 0 and DSMMO_ACTIONS[action] + math.ceil(DSMMO_ACTIONS[action] * math.pow(LEVEL_UP_RATE, lvl)) or DSMMO_ACTIONS[action]
+end
+local function get_level(action, xp)
+	if xp < DSMMO_ACTIONS[action] then
+		return 0
+	else
+		for lvl=1, LEVEL_MAX, 1 do
+			if get_max_exp(action, lvl) > xp then
+				return lvl
+			end
+		end
+		return lvl
+		--This would be way better for performance. But it leads to rounding errors:
+		--return math.floor(math.log((xp-DSMMO_ACTIONS[action]) / DSMMO_ACTIONS[action]) / math.log(LEVEL_UP_RATE)) +1
+	end
+end
+
+local function add_spaces(str, size)
+	local space = ""
+	for i = string.len(str)+1, size, 1 do
+		space = space .."_"
+	end
+	
+	return space
+end
+
+
+----------recipes and skills----------
 local RECIPES = {
 	amulet = {
 		name="Ritual of death",
@@ -73,10 +109,10 @@ local RECIPES = {
 			local self = player.components.DsMMO
 			
 			local xp = math.floor(self.exp.EAT / PENALTY_DIVIDE)
-			self.exp.EAT = xp
-			self.level.EAT = get_level("EAT", xp)
+			--self.exp.EAT = xp
+			--self.level.EAT = get_level("EAT", xp)
 			
-			--self:set_level("EAT", self.level.EAT - 1)
+			self:set_level("EAT", get_level("EAT", xp), true)
 			self._no_penalty = true
 			player:PushEvent('death')
 			center:Remove()
@@ -97,7 +133,7 @@ local RECIPES = {
 				map = player.player_classified.MapExplorer:RecordMap(),
 				dsmmo = player.components.DsMMO:OnSave()
 			}
-			self.level.EAT = 0
+			self:set_level("EAT", 0, true)
 				
 			TheWorld:PushEvent("ms_playerdespawnanddelete", player)
 			center:Remove()
@@ -191,7 +227,7 @@ local RECIPES = {
 		end
 	},
 	pond = {
-		name="Ritual of the lady without water",
+		name="Ritual of dry humping",
 		tree="BUILD",
 		num=6,
 		recipe={fish=2, fireflies=2, froglegs=1, mosquitosack=1},
@@ -306,7 +342,7 @@ local RECIPES = {
 		name="Ritual of escargot",
 		tree="BUILD",
 		num=8,
-		recipe={slurtleslime=4, slurtle_shellpieces=3, slurtlehat=1},
+		recipe={slurtleslime=2, slurtle_shellpieces=3, slurtlehat=1, fireflies=2},
 		min_level=7,
 		chance=0.5,
 		fu=function(player, center)
@@ -412,8 +448,8 @@ local RECIPES = {
 			local pos = self._teleport_to
 			center.components.fueled:DoDelta(TUNING.LARGE_FUEL)
 			player.Physics:Teleport(pos.x, pos.y, pos.z)
-			self.level["BUILD"] = 9
-			self.exp["BUILD"] = get_max_exp("BUILD", 8)+1
+			
+			self:set_level("BUILD", 9, true)
 		end,
 		check=function(player, center)
 			return player.components.DsMMO._teleport_to ~= nil
@@ -423,7 +459,7 @@ local RECIPES = {
 	berries = {
 		name="Ritual of redness",
 		tree="PLANT",
-		num=4,
+		num=3,
 		recipe={fireflies=1, spoiled_food=2},
 		min_level=3,
 		chance=1,
@@ -435,7 +471,7 @@ local RECIPES = {
 	berries_juicy = {
 		name="Ritual of red juiciness",
 		tree="PLANT",
-		num=4,
+		num=3,
 		recipe={fireflies=1, spoiled_food=2},
 		min_level=4,
 		chance=1,
@@ -536,8 +572,6 @@ local RECIPES = {
 		end
 	}
 }
-
-
 local SKILLS = {
 	fireflies= {
 		name="Ghosty fireflies",
@@ -567,7 +601,7 @@ local SKILLS = {
 		name="Beetaliation",
 		tree="ATTACK",
 		min_level=2,
-		chance=0.2
+		chance=0.4
 	},
 	fertilize = {
 		name="Double the shit",
@@ -594,7 +628,7 @@ local SKILLS = {
 	}
 }
 
-local skill_num = table.getn(SKILLS)
+----------Mod-settings----------
 print("[DsMMO] Implementing settings")
 for k,v in pairs(RECIPES) do
 	if not GetModConfigData(k, KnownModIndex:GetModActualName("DsMMO")) then
@@ -609,7 +643,7 @@ for k,v in pairs(SKILLS) do
 	end
 end
 
-function duplicate_recipe(origin, copy)
+local function duplicate_recipe(origin, copy)
 	RECIPES[copy] = {
 		duplicate = true,
 		name = origin.name, 
@@ -622,7 +656,7 @@ function duplicate_recipe(origin, copy)
 		fu = origin.fu
 	}
 end
-function add_to_index(array, id_start)
+local function add_to_index(array)
 	for k,v in pairs(array) do
 		if not v._duplicate then
 			local action = v.tree
@@ -644,66 +678,27 @@ if RECIPES.pond then --in case its disabled in the settings
 	duplicate_recipe(RECIPES.pond, "pond_cave")
 end
 
+
+----------Prep-work----------
 print("[DsMMO] Creating level up index")
 RECIPE_LEVEL_INDEX = {}
 add_to_index(SKILLS)
 add_to_index(RECIPES)
 
+----------listener functions----------
 
-
-function spawn_to_target(n, target)
-	SpawnPrefab(n).Transform:SetPosition(target.Transform:GetWorldPosition())
-end
-function is_fullMoon()
-	return TheWorld.state.moonphase == "full" --GetClock():GetMoonPhase()
-end
-function get_chance(base_r, lvl)
-	local chance = base_r * (lvl / LEVEL_MAX)
-	
-	return is_fullMoon() and chance + 0.5 or chance
-end
-function get_success(player, action, base_r)
-	local chance = get_chance(base_r, player.components.DsMMO.level[action])
-	return math.random() < chance
-end
-function alert(player, msg, len)
-	player.components.talker:Say(msg, len or 10)
-end
-function get_level(action, xp)
-	if xp < DSMMO_ACTIONS[action] then
-		return 0
-	elseif xp < DSMMO_ACTIONS[action] * LEVEL_UP_RATE then
-		return 1
-	else
-		for lvl=2, LEVEL_MAX, 1 do
-			if get_max_exp(action, lvl) > xp then
-				return lvl
-			end
-		end
-		return lvl
-		--This would be way better for performance. But it leads to rounding errors:
-		--return math.floor(math.log((xp-DSMMO_ACTIONS[action]) / DSMMO_ACTIONS[action]) / math.log(LEVEL_UP_RATE)) +1
-	end
-end
-function get_max_exp(action, lvl)
-	return lvl > 0 and DSMMO_ACTIONS[action] + math.ceil(DSMMO_ACTIONS[action] * math.pow(LEVEL_UP_RATE, lvl)) or DSMMO_ACTIONS[action]
-end
-
-function onPerformaction(player, data)
+local function onPerformaction(player, data)
 	local action = player.bufferedaction or data.action
 	local self = player.components.DsMMO
-	--spawn_to_target("impact", player)
-	--spawn_to_target("shadow_bishop_fx", player)
 	
-	print(action)
 	if action then
 		local actionId = action.action.id
 		
-		if actionId == "EAT" then
-			if player.components.hunger.current < player.components.hunger.max and action.invobject and action.invobject.components.edible.hungervalue > 0 then
-				self:get_experience(actionId)
-			end
-		elseif actionId == "HARVEST" then
+		--if actionId == "EAT" then
+			--if player.components.hunger.current < player.components.hunger.max and action.invobject and action.invobject.components.edible.hungervalue > 0 then
+				--self:get_experience(actionId)
+			--end
+		if actionId == "HARVEST" then
 			self:get_experience("PLANT")
 			local crop = action.target.components.crop
 			if crop and self:test_skill(SKILLS.harvest) then
@@ -714,7 +709,11 @@ function onPerformaction(player, data)
 			self:get_experience("PLANT")
 			local crop = action.target.components.crop
 			if crop and not crop:IsReadyForHarvest() and self:test_skill(SKILLS.harvest) then
-				crop:Fertilize(SpawnPrefab("guano"), player)
+				local inst = SpawnPrefab("guano")
+				crop:Fertilize(inst, player)
+				if inst:IsValid() then
+					inst:Remove()
+				end
 				spawn_to_target("collapse_small", player)
 			end
 		elseif actionId == "HAUNT" then
@@ -767,16 +766,33 @@ function onPerformaction(player, data)
 		end
 	end
 end
-function onAttacked(player, data)
+local function onAttacked(player, data)
 	player.components.DsMMO:get_experience("ATTACK")
-	if player.components.DsMMO:test_skill(SKILLS.attacked) then
+	
+	if data and data.attacker and data.attacker.prefab ~= "bee" and data.attacker.prefab ~= "killerbee" and player.components.DsMMO:test_skill(SKILLS.attacked) then
 		local bee = SpawnPrefab("bee")
 		bee.persists = false
 		bee.Transform:SetPosition(player.Transform:GetWorldPosition())
 		bee.components.combat:SetTarget(data.attacker)
+		bee.components.combat:SetRetargetFunction(nil, nil)
+		bee.components.health:SetPercent(0.5)
+		
+		bee:RemoveComponent("lootdropper")
+		bee:RemoveComponent("workable")
+		
+		if TheWorld.state.isspring then
+			bee.AnimState:SetBuild("bee_build")
+		end
+		
+		bee:DoTaskInTime(10, function(inst)
+			if inst:IsValid() then
+				inst:Remove()
+			end
+		end)
+		
 	end
 end
-function onStartStarving(player)
+local function onStartStarving(player)
 	local self = player.components.DsMMO
 	local skill = SKILLS.hungry_attack
 	
@@ -793,15 +809,15 @@ function onStartStarving(player)
 		end
 	end
 end
-function onStopStarving(player)
+local function onStopStarving(player)
 	if player.default_damagemultiplier and player.components.combat and player.components.combat.damagemultiplier then
 		player.components.combat.damagemultiplier = player.default_damagemultiplier
 	end
 end
-function onbecameghost(player)
+local function onbecameghost(player)
 	player.components.DsMMO:penalty()
 end
-function onLogout(player)
+local function onLogout(player)
 	local self = player.components.DsMMO
 	if self._info_entity then
 		self:log_msg("Removing skill-indicator-sign")
@@ -811,7 +827,9 @@ function onLogout(player)
 end
 
 
+----------Class----------
 local DsMMO = Class(function(self, player)
+	self.client = false
 	self.player = player
 	self._player_original_position = nil --if not nil, this will be saved when the player logs out unexpectedly
 	self._action_states = {}
@@ -820,7 +838,7 @@ local DsMMO = Class(function(self, player)
 	self._teleport_to = nil
 	
 	
-	local origin_updateState = self.player.sg.UpdateState
+	local origin_updateState = player.sg.UpdateState
 	player.sg.UpdateState = function(...)
 		if not player.sg.currentstate then 
 			return
@@ -835,6 +853,8 @@ local DsMMO = Class(function(self, player)
 	
 	--self.recipe = net_string(player.GUID, "DsMMO.recipe", "DsMMO.recipe") --##
 	self:create_array() --this is a waste of performance - But I havent found a way to detect a newly created character
+	
+	
 	--player:ListenForEvent("ms_becameghost", onbecameghost)
 	player:ListenForEvent("death", onbecameghost)
 	player:ListenForEvent("onremove", onLogout)
@@ -845,6 +865,42 @@ local DsMMO = Class(function(self, player)
 	player:ListenForEvent("startstarving", onStartStarving)
 	player:ListenForEvent("stopstarving", onStopStarving)
 end)
+
+function DsMMO:prepare_client()
+	local guid = self.player.player_classified.GUID
+	self:log_msg("Client-mod enabled")
+	
+	self.net_level_up_rate = net_ushortint(guid, "DsMMO.level_up_rate", "DsMMO.level_up_rate")
+	self.net_min_exp = net_bytearray(guid, "DsMMO.min_exp", "DsMMO.min_exp")
+	
+	self.level_up_rate = LEVEL_UP_RATE --on a world without caves, we just take this value from here
+	self.net_level_up_rate:set(LEVEL_UP_RATE*10) -- a shortint is less expensive than a float - so we just multiply
+	self.net_min_exp:set(MIN_EXP_ARRAY) 
+	--local t = {}
+	--table.insert(t, 2)
+	--table.insert(t, 5)
+	--self.net_min_exp:set(t) 
+end
+function DsMMO:init_client()
+	local guid = self.player.player_classified.GUID
+	
+	self:log_msg("Client-mod is setup")
+	self.client = true
+	
+	self.recipe = net_string(guid, "DsMMO.recipe", "DsMMO.recipe")
+	
+	self.net_exp = {}
+	for k_action,v in pairs(DSMMO_ACTIONS) do
+		self.net_exp[k_action] = net_uint(guid, "DsMMO.exp." ..k_action, "DsMMO.exp." ..k_action)
+		
+		self.net_exp[k_action]:set(self.exp[k_action])
+	end
+end
+function DsMMO:update_client(action)
+	if self.client then
+		self.net_exp[action]:set(self.exp[action])
+	end
+end
 
 function DsMMO:log_msg(msg)
 	print("[DsMMO/" ..self.player.name .."] " ..msg)
@@ -859,12 +915,14 @@ function DsMMO:get_experience(action, silent)
 	local lvl = self.level[action]
 	if lvl < LEVEL_MAX then
 		local xp = self.exp[action] + 1
-		local max_exp = get_max_exp(action, lvl)
+		local max_exp = self.max_exp[action]
 		self.exp[action] = xp;
 		
 		if xp > max_exp then
 			lvl = lvl+1
 			self.level[action] = lvl
+			self.max_exp[action] = get_max_exp(action, lvl)
+			
 			self:update_client(action)
 			
 			if not silent then
@@ -963,8 +1021,12 @@ function DsMMO:init_recipe(target)
 	local recipe_data = RECIPES[target.prefab]
 	if recipe_data then
 		if self.level[recipe_data.tree] < recipe_data.min_level then
-			--self:log_msg(target.prefab .."-recipe: " ..recipe_data.tree .."-level(" ..self.level[recipe_data.tree] .."<" ..recipe_data.min_level ..") is not high enough")
 			alert(self.player, "I don't feel prepared...")
+			if self.client then
+				self.recipe:set_local("") --to make sure that the same recipe can be sent multiple times
+				self.recipe:set(target.prefab)
+			end
+			
 		elseif recipe_data.check and not recipe_data.check(self.player, target) then
 			alert(self.player, "I just can't...")
 		else
@@ -1015,9 +1077,14 @@ function DsMMO:check_recipe(center, recipe, ings_needed_sum, tree, chance, fn)
 		end
 	end
 	
+	if self.client then
+		self.recipe:set_local("") --to make sure that the same recipe can be sent multiple times
+		self.recipe:set(center.prefab)
+	end
 	--self.recipe:set_local("") --to make sure that the same recipe can be sent multiple times --##
 	--self.recipe:set(center.prefab) --##
-	alert(self.player, "What am I missing..?")
+	--alert(self.player, "What am I missing..?")
+	alert(self.player, "I am still missing " ..ings_needed_sum ..((ings_needed_sum>1) and " ingredients." or " ingredient."))
 end
 
 function DsMMO:test_skill(skill)
@@ -1028,14 +1095,12 @@ function DsMMO:OnLoad(data)
 	if data.dsmmo_version then
 		if data.dsmmo_version == VERSION and data.dsmmo_level_up_rate == LEVEL_UP_RATE then
 			self.exp = data.dsmmo_exp
+			self.max_exp = data.dsmmo_max_exp
 			self.level = data.dsmmo_level
 			
-			for k_action,v in pairs(DSMMO_ACTIONS) do
-				if self.level[k_action] < LEVEL_MAX then
-					--self.exp_left[k_action]:set(get_max_exp(k_action, self.level[k_action]) - self.exp[k_action]) --##
-					--self.net_level[k_action]:set(self.level[k_action]) --##
-				end
-			end
+			--for k_action,v in pairs(DSMMO_ACTIONS) do
+				--self.max_exp[k_action] = get_max_exp(k_action, self.level[k_action])
+			--end
 			
 			for k,v in pairs(ACTION_SPEED_INCREASE) do
 				self:update_actionSpeed(k)
@@ -1048,6 +1113,7 @@ function DsMMO:OnLoad(data)
 					self.exp[k] = data.dsmmo_exp[k]
 					local lvl = get_level(k, data.dsmmo_exp[k])
 					self.level[k] = lvl
+					self.max_exp[k] = get_max_exp(k, lvl)
 					--self.exp_left[k]:set(get_max_exp(k, lvl) - data.dsmmo_exp[k]) --##
 					--self.net_level[k]:set(lvl) --##
 					self:update_actionSpeed(k)
@@ -1063,6 +1129,7 @@ end
 function DsMMO:OnSave()
 	local data = {
 			dsmmo_exp = self.exp,
+			dsmmo_max_exp = self.max_exp,
 			dsmmo_level = self.level,
 			_teleport_to = self._teleport_to,
 			dsmmo_version = VERSION,
@@ -1079,33 +1146,20 @@ function DsMMO:create_array()
 	local player = self.player
 	local guid = player.GUID
 	self.exp = {}
-	self.exp_left = {}
-	self.net_level = {}
+	--self.exp_left = {}
+	--self.net_level = {}
 	self.level = {}
+	self.max_exp = {}
 	
 	for k,v in pairs(DSMMO_ACTIONS) do
 		self.exp[k] = 0
 		self.level[k] = 0
+		self.max_exp[k] = DSMMO_ACTIONS[k]
 		
 		--self.exp_left[k] = net_ushortint(guid, "DsMMO.expleft." ..k) --##
 		--self.net_level[k] = net_ushortint(guid, "DsMMO.level." ..k) --##
-		--self.exp_left[k] = net_ushortint(guid, k .."_DsMMO_exp_left")
-		--self.net_level[k] = net_ushortint(guid, k .."_DsMMO_level")
 	end
 end
-function DsMMO:update_client(action)
-	local lvl = self.level[action]
-	local xp = self:calc_mssing_xp(action)
-	
-	--self.exp_left[action]:set(self:calc_mssing_xp(action)) --##
-	--self.net_level[action]:set(lvl) --##
-end
-function DsMMO:add_learnedClientInfo(t, entry)
-	table.insert(t, entry.id)
-	table.insert(t, entry.min_level)
-	table.insert(t, entry.chance ~= nil and entry.chance*100 or (entry.rate ~= nil and entry.rate*100 or 100))
-end
-
 
 function DsMMO:penalty()
 	if self._no_penalty then
@@ -1117,17 +1171,23 @@ function DsMMO:penalty()
 		local xp = math.floor(self.exp[k] / PENALTY_DIVIDE)
 		self.exp[k] = xp
 		if xp > 0 then
-			self.level[k] = get_level(k, xp)
-			self:update_client(k)
-			self:update_actionSpeed(k)
+			
+			--self.level[k] = get_level(k, xp)
+			--self:update_client(k)
+			--self:update_actionSpeed(k)
+			
+			self:set_level(k, get_level(k, xp), true)
 		end
 	end
 end
-function DsMMO:set_level(action, lvl)
+function DsMMO:set_level(action, lvl, silent)
 	if DSMMO_ACTIONS[action] then
-		self.exp[action] = get_max_exp(action, lvl-1)
+		local max_exp = get_max_exp(action, lvl-1)
+		self.exp[action] = max_exp
+		self.max_exp[action] = max_exp
 		self.level[action] = lvl-1
-		self:get_experience(action)
+		
+		self:get_experience(action, silent)
 		return true
 	else
 		return false
@@ -1135,17 +1195,54 @@ function DsMMO:set_level(action, lvl)
 end
 
 function DsMMO:calc_mssing_xp(action)
-	return get_max_exp(action, self.level[action]) - self.exp[action] +1
+	return self.max_exp[action] - self.exp[action] +1
 end
 
-function add_spaces(str, size)
-	local space = ""
-	for i = string.len(str)+1, size, 1 do
-		space = space .."_"
+function DsMMO:use_cannibalism_skill(action, heal)
+	local skill = SKILLS.self_cannibalism
+	local output = ""
+	
+	if not self:test_skill(skill) then
+		output = "I don't know how..."
+	else
+		if not self.exp[action] then
+			output = "I can't eat the skill " ..action
+		else
+			local comp = nil
+			local diff = nil
+			
+			if heal == "health" then
+				comp = self.player.components.health
+				diff = math.ceil(comp.maxhealth - comp.currenthealth)
+			elseif heal == "sanity" then
+				comp = self.player.components.sanity
+				diff = math.ceil(comp.max - comp.current)
+			elseif heal == "hunger" then
+				comp = self.player.components.hunger
+				diff = math.ceil(comp.max - comp.current)
+			else
+				output = heal .." is nothing I can gain by eating myself"
+			end
+			
+			if comp ~= nil then
+				diff = diff + math.ceil(diff * (self.level[skill.tree] * skill.rate)) --skill.rate is negative
+				
+				if self.exp[action] < diff then
+					output = "I don't have enough exp for that"
+				else
+					comp:SetPercent(1)
+					self.exp[action] = self.exp[action] - diff
+					self.level[action] = get_level(action, self.exp[action])
+					self:update_client(action)
+					output = "Lost " ..diff .." " ..action .. "-exp"
+				end
+			end
+		end
 	end
 	
-	return space
+	alert(self.player, output, 5)
 end
+
 function DsMMO:show_info()
 	local action = self.last_action
 	local output = ""
@@ -1195,45 +1292,8 @@ function DsMMO:run_command(cmd, arg1, arg2, arg3)
 			output = output ..k ..":" ..add_spaces(k, 10) ..add_spaces(tostring(v), 2) ..v .."\n"
 		end
 	elseif arg1 == "eat" and arg2 and arg3 then
-		local skill = SKILLS.self_cannibalism
-		if not self:test_skill(skill) then
-			output = "I don't know how..."
-		else
-			local attr = string.lower(arg3)
-			local action = string.upper(arg2)
-			if not self.exp[action] then
-				output = "I can't eat the skill " ..action
-			else
-				local comp = nil
-				local diff = nil
-				
-				if attr == "health" then
-					comp = self.player.components.health
-					diff = math.ceil(comp.maxhealth - comp.currenthealth)
-				elseif attr == "sanity" then
-					comp = self.player.components.sanity
-					diff = math.ceil(comp.max - comp.current)
-				elseif attr == "hunger" then
-					comp = self.player.components.hunger
-					diff = math.ceil(comp.max - comp.current)
-				else
-					output = attr .." is nothing I can gain by eating myself"
-				end
-				
-				if comp ~= nil then
-					diff = diff + math.ceil(diff * (self.level[skill.tree] * skill.rate)) --skill.rate is negative
-					
-					if self.exp[action] < diff then
-						output = "I don't have enough exp for that"
-					else
-						comp:SetPercent(1)
-						self.exp[action] = self.exp[action] - diff
-						self.level[action] = get_level(action, self.exp[action])
-						output = "Lost " ..diff .." " ..action .. "-exp"
-					end
-				end
-			end
-		end
+		self:use_cannibalism_skill(string.upper(arg2), string.lower(arg3))
+		return
 	else
 		if self._info_entity and self._info_entity.entity:IsValid() then
 			self._info_entity.Transform:SetPosition(self.player.Transform:GetWorldPosition())

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<Atlas>
+	<Texture filename="dsmmo_ui.tex" />
+	<Elements>
+		<Element name="icon.tex" u1="0.000488281" u2="0.0288086" v1="0.90332" v2="0.999023" />
+		<Element name="recipe_border.tex" u1="0.0297852" u2="0.282715" v1="0.493164" v2="0.999023" />
+		<Element name="recipe_titlebar.tex" u1="0.283691" u2="0.536621" v1="0.932617" v2="0.999023" />
+	</Elements>
+</Atlas>

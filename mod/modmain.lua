@@ -1,7 +1,3 @@
---GLOBAL.CHEATS_ENABLED = true
---GLOBAL.require( 'debugkeys' )
-
-
 function check_player(playerN)
 	for k,v in pairs(GLOBAL.AllPlayers) do
 		if v.name == playerN and v.components and v.components.DsMMO then
@@ -58,12 +54,20 @@ if GLOBAL.TheNet and GLOBAL.TheNet:GetIsServer() then
 				end)
 			end
 		end)
+		
+		if GetModConfigData("start_message", GLOBAL.KnownModIndex:GetModActualName("DsMMO")) then
+			inst:DoTaskInTime(5, function(player)
+				GLOBAL.Networking_SystemMessage("----- Running DsMMO " ..GLOBAL.KnownModIndex:GetModInfo(GLOBAL.KnownModIndex:GetModActualName("DsMMO")).version .." -----")
+				GLOBAL.Networking_SystemMessage("For more graphical features you can download the client-version:")
+				GLOBAL.Networking_SystemMessage("http://bit.ly/dsmmo_client")
+			end)
+		end
 	end)
 	
 	AddGamePostInit(function()
 		-- I dont like doing a huge loop like this. But I dont see any other way of getting a touchstone by ID
 		local t = _touchstones_index -- dont know if that actually speeds anything up in lua
-		print("(DsMMO) indexing touchstones")
+		print("[DsMMO] indexing touchstones")
 		for k,v in pairs(GLOBAL.Ents) do
 			if v.GetTouchStoneID then
 				t[v:GetTouchStoneID()] = v
@@ -100,5 +104,30 @@ if GLOBAL.TheNet and GLOBAL.TheNet:GetIsServer() then
 end
 
 
---AddPrefabPostInit("forest_network", init_server)
---AddPrefabPostInit("cave_network", init_server)
+
+function prepare_client_communication(player)
+	local self = player.components.DsMMO
+	
+	if self then
+		self:prepare_client()
+	end
+end
+function init_client_communication(player)
+	local self = player.components.DsMMO
+	
+	if self then
+		self:init_client()
+	end
+end
+
+function use_cannibalism_skill(player, action, heal)
+	local self = player.components.DsMMO
+	
+	if self then
+		self:use_cannibalism_skill(action, heal)
+	end
+end
+
+AddModRPCHandler("DsMMO", "client_enabled", prepare_client_communication)
+AddModRPCHandler("DsMMO", "client_is_setup", init_client_communication)
+AddModRPCHandler("DsMMO", "use_cannibalism_skill", use_cannibalism_skill)
