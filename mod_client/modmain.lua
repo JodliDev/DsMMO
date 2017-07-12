@@ -1,5 +1,6 @@
 --GLOBAL.CHEATS_ENABLED = true
 --GLOBAL.require( 'debugkeys' )
+
 Assets = {
 	Asset("ANIM", "anim/ATTACK_level_meter.zip"),
 	Asset("ANIM", "anim/BUILD_level_meter.zip"),

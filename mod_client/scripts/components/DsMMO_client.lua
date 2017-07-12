@@ -282,7 +282,7 @@ local function get_level(self, action, xp)
 end
 
 local function onRecipe(player)
-	local self = player.components.DsMMO_client
+	local self = player._parent.components.DsMMO_client
 	
 	local k = self.storage.recipe:value()
 	if RECIPES[k] then
@@ -290,7 +290,7 @@ local function onRecipe(player)
 	end
 end
 local function onExpCorrection(player, action)
-	local self = player.components.DsMMO_client
+	local self = player._parent.components.DsMMO_client
 	local new_xp = self.storage.net_exp[action]:value()
 	local current_xp = self.exp[action]
 	
@@ -313,7 +313,7 @@ local function onExpCorrection(player, action)
 	end
 end
 local function onMinExp(player, action)
-	local self = player.components.DsMMO_client
+	local self = player._parent.components.DsMMO_client
 	
 	self.min_exp = {}
 	for i,v in ipairs(self.storage.net_min_exp:value()) do
@@ -399,18 +399,19 @@ function DsMMO_client:create_netListeners()
 	if player.components.DsMMO then
 		self.storage = player.components.DsMMO
 	else
+		local guid = player.player_classified.GUID
 		self.storage = {}
 		
-		self.storage.net_level_up_rate = net_ushortint(player.GUID, "DsMMO.level_up_rate", "DsMMO.level_up_rate")
-		self.storage.net_min_exp = net_bytearray(player.GUID, "DsMMO.min_exp", "DsMMO.min_exp")
+		self.storage.net_level_up_rate = net_ushortint(guid, "DsMMO.level_up_rate", "DsMMO.level_up_rate")
+		self.storage.net_min_exp = net_bytearray(guid, "DsMMO.min_exp", "DsMMO.min_exp")
 		
-		player:ListenForEvent("DsMMO.level_up_rate", function(player)
+		player.player_classified:ListenForEvent("DsMMO.level_up_rate", function(player)
 			print("DsMMO.level_up_rate")
-			player.components.DsMMO_client.storage.level_up_rate = self.storage.net_level_up_rate:value()/10
+			player._parent.components.DsMMO_client.storage.level_up_rate = self.storage.net_level_up_rate:value()/10
 			self:init_communication()
 		end)
 	end
-	player:ListenForEvent("DsMMO.min_exp", onMinExp)
+	player.player_classified:ListenForEvent("DsMMO.min_exp", onMinExp)
 end
 function DsMMO_client:init_communication()
 	if self.min_exp and self.storage.level_up_rate then --check if all data has arrived yet
@@ -421,10 +422,10 @@ function DsMMO_client:init_communication()
 			self.exp = {}
 			for k,v in pairs(DSMMO_ACTIONS) do
 				self.exp[k] = 0
-				player:ListenForEvent("DsMMO.exp." ..k, function(player) onExpCorrection(player, k) end)
+				player.player_classified:ListenForEvent("DsMMO.exp." ..k, function(player) onExpCorrection(player, k) end)
 			end
 		else
-			local guid = player.GUID
+			local guid = player.player_classified.GUID
 			self.storage.recipe = net_string(guid, "DsMMO.recipe", "DsMMO.recipe")
 			
 			self.storage.net_exp = {}
@@ -442,10 +443,10 @@ function DsMMO_client:init_communication()
 				self.storage.net_exp[k] = net_uint(guid, "DsMMO.exp." ..k, "DsMMO.exp." ..k)
 				self.storage.net_exp[k]:set_local(0)
 				
-				player:ListenForEvent("DsMMO.exp." ..k, function(player) onExpCorrection(player, k) end)
+				player.player_classified:ListenForEvent("DsMMO.exp." ..k, function(player) onExpCorrection(player, k) end)
 			end
 		end
-		player:ListenForEvent("DsMMO.recipe", onRecipe)
+		player.player_classified:ListenForEvent("DsMMO.recipe", onRecipe)
 		
 		TheNet:SendModRPCToServer("DsMMO", 2)
 		self:activate()

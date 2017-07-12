@@ -712,7 +712,6 @@ local function onPerformaction(player, data)
 				local inst = SpawnPrefab("guano")
 				crop:Fertilize(inst, player)
 				if inst:IsValid() then
-					print(23423243)
 					inst:Remove()
 				end
 				spawn_to_target("collapse_small", player)
@@ -868,7 +867,7 @@ local DsMMO = Class(function(self, player)
 end)
 
 function DsMMO:prepare_client()
-	local guid = self.player.GUID
+	local guid = self.player.player_classified.GUID
 	self:log_msg("Client-mod enabled")
 	
 	self.net_level_up_rate = net_ushortint(guid, "DsMMO.level_up_rate", "DsMMO.level_up_rate")
@@ -883,7 +882,7 @@ function DsMMO:prepare_client()
 	--self.net_min_exp:set(t) 
 end
 function DsMMO:init_client()
-	local guid = self.player.GUID
+	local guid = self.player.player_classified.GUID
 	
 	self:log_msg("Client-mod is setup")
 	self.client = true
