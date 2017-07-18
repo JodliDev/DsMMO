@@ -5,7 +5,7 @@ description = "Inspired by McMMO for Minecraft. This mod adds a levelup system f
 forumthread = ""
 server_filter_tags = {"Character", "Utility"}
 
-version = "1.2.4"
+version = "1.2.5"
 
 api_version = 10
 dont_starve_compatible = false

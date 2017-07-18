@@ -1,5 +1,5 @@
 ----------settings----------
-local VERSION = 8
+local VERSION = 9
 local LEVEL_MAX = 10
 local LEVEL_UP_RATE = GetModConfigData("level_up_rate", KnownModIndex:GetModActualName("DsMMO")) or 1.5
 local PENALTY_DIVIDE = GetModConfigData("penalty_divide", KnownModIndex:GetModActualName("DsMMO")) or 2
@@ -69,7 +69,7 @@ local function alert(player, msg, len)
 end
 
 local function get_max_exp(action, lvl)
-	return lvl > 0 and DSMMO_ACTIONS[action] + math.ceil(DSMMO_ACTIONS[action] * math.pow(LEVEL_UP_RATE, lvl)) or DSMMO_ACTIONS[action]
+	return DSMMO_ACTIONS[action] + math.ceil(DSMMO_ACTIONS[action] * math.pow(LEVEL_UP_RATE, lvl))
 end
 local function get_level(action, xp)
 	if xp < DSMMO_ACTIONS[action] then
@@ -717,16 +717,18 @@ local function onPerformaction(player, data)
 				spawn_to_target("collapse_small", player)
 			end
 		elseif actionId == "HAUNT" then
-			local targetN = action.target.prefab
-			if targetN == "flower_evil" then
-				spawn_to_target("ground_chunks_breaking", player)
-				if self:test_skill(SKILLS.fireflies) then
-					spawn_to_target("collapse_small", action.target)
-					
-					local fireflies = SpawnPrefab("fireflies")
-					fireflies.Transform:SetPosition(action.target.Transform:GetWorldPosition())
-					fireflies.components.inventoryitem.ondropfn(fireflies)
-					action.target:Remove()
+			if action.target then
+				local targetN = action.target.prefab
+				if targetN == "flower_evil" then
+					spawn_to_target("ground_chunks_breaking", player)
+					if self:test_skill(SKILLS.fireflies) then
+						spawn_to_target("collapse_small", action.target)
+						
+						local fireflies = SpawnPrefab("fireflies")
+						fireflies.Transform:SetPosition(action.target.Transform:GetWorldPosition())
+						fireflies.components.inventoryitem.ondropfn(fireflies)
+						action.target:Remove()
+					end
 				end
 			end
 		elseif actionId == "ADDFUEL" then
@@ -744,7 +746,7 @@ local function onPerformaction(player, data)
 			self:get_experience(actionId)
 			
 			if actionId == "ATTACK" then
-				if action.target and self:test_skill(SKILLS.attack) then
+				if action.target and self:test_skill(SKILLS.attack) and action.target.components.combat then
 					spawn_to_target("explode_small", action.target)
 					action.target.SoundEmitter:PlaySound("dontstarve/common/blackpowder_explo")
 					action.target.components.combat:GetAttacked(player, TUNING.SPEAR_DAMAGE)
@@ -769,7 +771,7 @@ end
 local function onAttacked(player, data)
 	player.components.DsMMO:get_experience("ATTACK")
 	
-	if data and data.attacker and data.attacker.prefab ~= "bee" and data.attacker.prefab ~= "killerbee" and player.components.DsMMO:test_skill(SKILLS.attacked) then
+	if data and data.attacker and data.attacker.prefab ~= "bee" and data.attacker.prefab ~= "killerbee" and data.attacker ~= player and player.components.DsMMO:test_skill(SKILLS.attacked) then
 		local bee = SpawnPrefab("bee")
 		bee.persists = false
 		bee.Transform:SetPosition(player.Transform:GetWorldPosition())

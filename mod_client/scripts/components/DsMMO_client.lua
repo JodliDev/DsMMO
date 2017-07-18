@@ -264,7 +264,7 @@ local DEPLOY_PLANT_ACTIONS = { --deploying these will give PLANT-exp. Everything
 
 local function get_max_exp(self, action, lvl)
 	--return lvl > 0 and DSMMO_ACTIONS[action] + math.ceil(DSMMO_ACTIONS[action] * math.pow(LEVEL_UP_RATE, lvl)) or DSMMO_ACTIONS[action]
-	return lvl > 0 and self.min_exp[action] + math.ceil(self.min_exp[action] * math.pow(self.storage.level_up_rate, lvl)) or self.min_exp[action]
+	return self.min_exp[action] + math.ceil(self.min_exp[action] * math.pow(self.storage.level_up_rate, lvl))
 end
 local function get_level(self, action, xp)
 	if xp < self.min_exp[action] then

@@ -5,7 +5,7 @@ description = "This is graphical addition for DsMMO.\nIf you are playing on your
 forumthread = ""
 server_filter_tags = {"Character", "Utility", "Tweak"}
 
-version = "1.0.4"
+version = "1.0.5"
 
 api_version = 10
 dont_starve_compatible = false
